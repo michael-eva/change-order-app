@@ -10,7 +10,7 @@ export default function App() {
         <div>
             <NavBar />
             <ChangeOrderForm />
-            {/* <SignUp /> */}
+            <SignUp />
         </div>
     )
 }
