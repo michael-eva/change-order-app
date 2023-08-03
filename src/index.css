@@ -1,13 +1,246 @@
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  height: 100vh;
+  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #8D479E;
+}
+
+.nav-items {
+  list-style: none;
+  display: flex;
+  margin-right: 50px;
+  padding: 0;
+}
+
+.nav-items li {
+  padding: 10px;
+  color: whitesmoke;
+  margin: auto;
+}
+
+.avatar {
+  width: 40px;
+  margin-left: 20px;
+}
+
+.avatar:hover {
+  cursor: pointer;
+}
+
+.nav-link:hover {
+  background-color: #40274B;
+  text-decoration: underline;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Dates */
+.dates {
+  margin-top: 84px;
+  /* margin-left: 370px; */
+  /* display: flex; */
+}
+
+.payment-method {
+  margin-top: 90px;
+}
+
+.first-column {
+  margin-left: 20%;
+}
+
+.second-column {
+  margin-left: 15%;
+  display: flex;
+  flex-direction: column;
+}
+
+.submit-btn {
+  border-radius: 6px;
+  background: #9655A6;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  border: none;
+  height: 40px;
+  font-size: large;
+  color: aliceblue;
+  margin-top: 60px;
+  width: 230px;
+  margin-left: 5px;
+  cursor: pointer;
+}
+
+.submit-btn:active {
+  box-shadow: inset 5px 5px 10px -3px rgba(0, 0, 0, 0.7);
+}
+
+.second-column p {
+  margin-top: 40px;
+  /* margin-left: -100px; */
+}
+
+.second-column span {
+  color: #8D479E;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+/* Change order pahe */
+.change-order-page {
+  display: flex;
+
+}
+
+.grand-total-label {
+  margin-right: 10px;
+}
+
+.totals-label {
+  border-radius: 6px;
+  margin-bottom: 20px;
+  margin-top: 20px;
+  padding: 7px;
+}
+
+.grand-totals .totals {
+  height: 20px;
+  width: 150px;
+}
+
+.grand-totals-section {
+  display: flex;
+  margin-top: 200px;
+}
+
+/* Change Order Form */
+.change-order-form {
+  width: 300px;
+  margin-top: 70px;
+
+}
+
+.change-order-page span {
+  margin-left: 20px;
+}
+
+.change-order-page input {
+  all: unset;
+  background-color: #D2C5D6;
+  width: 170px;
+  height: 25px;
+  border-radius: 6px;
+  background: #D2C5D6;
+  text-indent: 40px;
+  color: #310157;
+  font-size: 14px;
+
+}
+
+.change-order-page input:focus {
+  background-color: aqua;
+}
+
+.change-order-page input:hover {
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.label {
+  width: 105px;
+  height: 25px;
+  border-radius: 6px;
+  background: #D9D9D9;
+  margin-right: 30px;
+  text-align: center;
+
+}
+
+.input {
+  /* background-color: #D9D9D9; */
+  display: flex;
+  margin-bottom: 10px;
+}
+
+::placeholder {
+  color: #310157;
+}
+
+.totals {
+  border-radius: 6px;
+  background: #D9D9D9;
+  margin-bottom: 20px;
+  margin-top: 20px;
+  padding: 7px;
+  /* width: 200px; */
+}
+
+
+
+/* Sign up form */
+.signup-body {
+  width: 100vw;
+  height: 100vh;
+  background-color: #8d479e3d;
+  ;
+}
+
+.form-container {
+  padding: 50px 20px 20px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.form {
+  background-color: white;
+  padding: 50px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 5px 5px 15px -1px rgba(0, 0, 0, 0.75);
+}
+
+.form--input {
+  width: 100%;
+  margin-bottom: 20px;
+  height: 40px;
+  border-radius: 5px;
+  border: 1px solid gray;
+  padding: 5px;
+  font-family: 'Inter', sans-serif;
+}
+
+.form--submit {
+  width: 50%;
+  padding: 10px;
+  border-radius: 5px;
+  color: white;
+  background-color: #8D479E;
+  border: none;
+  cursor: pointer;
+}
+
+.form--marketing {
+  display: flex;
+  margin-bottom: 20px;
+  align-items: center;
+}
+
+.form--marketing>input {
+  margin-right: 10px;
 }
