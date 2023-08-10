@@ -1,20 +1,10 @@
-import { createContext, useState } from "react"
-
-const MenuContext = createContext()
-
-const ClientPortal = ({ children }) => {
-
-    const [open, setOpen] = useState(false)
-    const toggle = () => {
-        setOpen(prevState => !prevState)
-    }
-
+import Toggle from "../Toggle/index"
+const Nav = ({ children }) => {
     return (
-        <MenuContext.Provider value={{ open, toggle }}>
-            <div className="nav-items">{children}</div>
-        </MenuContext.Provider>
+        <Toggle>
+            <ul className="nav-items">{children}</ul>
+        </Toggle>
     )
 }
 
-export default ClientPortal
-export { MenuContext }
+export default Nav

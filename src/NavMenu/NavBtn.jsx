@@ -1,13 +1,13 @@
-import { useContext } from "react"
-import { MenuContext } from "./Nav"
+import Toggle from "../Toggle/index"
 
-const ClientPortalBtn = ({ children }) => {
+const NavBtn = ({ children }) => {
 
-    const { toggle } = useContext(MenuContext)
 
     return (
-        <li className="nav-link" onClick={toggle}>{children}</li>
+        <Toggle.Button>
+            <div className="nav-link">{children}</div>
+        </Toggle.Button>
     )
 }
 
-export default ClientPortalBtn
+export default NavBtn

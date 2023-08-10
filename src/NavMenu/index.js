@@ -4,7 +4,7 @@ import NavDropdown from "./NavDropdown"
 import NavDropdownItem from "./NavDropdownItem"
 import NavItem from "./NavItem"
 
-Nav.Btn = NavBtn
+Nav.Button = NavBtn
 Nav.Dropdown = NavDropdown
 Nav.DropdownItem = NavDropdownItem
 Nav.Item = NavItem

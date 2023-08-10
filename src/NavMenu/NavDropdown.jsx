@@ -1,11 +1,12 @@
-import { useContext } from "react"
-import { MenuContext } from "./Nav"
+import Toggle from "../Toggle/index"
 
-const ClientPortalDropdown = ({ children }) => {
-    const { open } = useContext(MenuContext)
-    return open ? (
-        <div className="nav-dropdown">{children}</div>
-    ) : null
+const NavDropdown = ({ children }) => {
+
+    return (
+        <Toggle.On>
+            <div className="nav-dropdown">{children}</div>
+        </Toggle.On>
+    )
 }
 
-export default ClientPortalDropdown
+export default NavDropdown

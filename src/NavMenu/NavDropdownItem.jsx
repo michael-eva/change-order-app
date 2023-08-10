@@ -1,7 +1,7 @@
-const ClientPortalItem = ({ children }) => {
+const NavDropdownItem = ({ children }) => {
     return (
-        <div>{children}</div>
+        <div className="nav-dropdown-item">{children}</div>
     )
 }
 
-export default ClientPortalItem
+export default NavDropdownItem

@@ -14,7 +14,6 @@ code {
   justify-content: space-between;
   align-items: center;
   background-color: #8D479E;
-  padding: 10px;
 }
 
 .nav-items {
@@ -45,8 +44,9 @@ code {
 
 .nav-dropdown {
   position: absolute;
-  right: 90px;
-  top: 60px;
+  right: 50px;
+  top: 50px;
+  color: black;
 }
 
 .nav-link:hover {
