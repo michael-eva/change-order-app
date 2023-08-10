@@ -1,15 +1,23 @@
+import { Link } from "react-router-dom"
+import Nav from "../NavMenu/index"
+import Toggle from "../Toggle/index"
+
+
 export default function NavBar() {
+
     return (
-        <nav>
+        <div className="nav">
             <img src="#" alt="Logo" />
-            <ul className="nav-items">
-                <li className="nav-link">Service</li>
-                <li className="nav-link">Contact Us</li>
-                <li className="nav-link">Client Portal</li>
-                <li>
-                    <img className="avatar" src="./logo192.png" alt="avatar" />
-                </li>
-            </ul>
-        </nav>
+            <Nav>
+                <Link to="/"><Nav.Item>Home</Nav.Item></Link>
+                <Link to="/order-history"><Nav.Item>Order History</Nav.Item></Link>
+                <Nav.Btn>Client Portal</Nav.Btn>
+                {/* <Nav.Btn>Client Portal</Nav.Btn> */}
+                <Nav.Dropdown>
+                    <Nav.DropdownItem>Login</Nav.DropdownItem>
+                    <Link to="/signup"><Nav.DropdownItem>Signup</Nav.DropdownItem></Link>
+                </Nav.Dropdown>
+            </Nav>
+        </div >
     )
 }

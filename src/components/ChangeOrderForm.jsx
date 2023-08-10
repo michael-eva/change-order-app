@@ -1,31 +1,58 @@
 import { useState } from "react"
+import supabase from "../config/supabaseClient";
 
 export default function ChangeOrderForm() {
     const [grandTotal, setGrandTotal] = useState(0);
     const [coinTotal, setCoinTotal] = useState(0)
     const [noteTotal, setNoteTotal] = useState(0)
+    const [currentDate, setCurrentDate] = useState(new Date());
     const [formData, setFormData] = useState({
-        fifty: "",
-        twenty: "",
-        ten: "",
-        five: "",
-        two: "",
-        one: "",
-        fiftyCents: "",
-        twentyCents: "",
-        tenCents: "",
-        fiveCents: ""
+
+        fifty: 0,
+        twenty: 0,
+        ten: 0,
+        five: 0,
+        two: 0,
+        one: 0,
+        fiftyCents: 0,
+        twentyCents: 0,
+        tenCents: 0,
+        fiveCents: 0,
+        coinTotal: 0,
+        noteTotal: 0,
+        grandTotal: 0,
+        date: ''
     });
+
+    const handleSubmit = async (e) => {
+        e.preventDefault()
+
+        const formDataWithTotals = {
+            ...formData,
+            coinTotal: coinTotal,
+            noteTotal: noteTotal,
+            grandTotal: grandTotal
+        }
+        const { data } = await supabase
+            .from('change_order')
+            .insert([formDataWithTotals])
+    }
 
     function handleChange(event) {
         const { name, value } = event.target;
+
+        // Update the form data state
         setFormData(prevFormData => ({
             ...prevFormData,
             [name]: value
         }));
 
-        // Calculate both grand total and note total with the updated form data
+        // Calculate and update the totals based on the current form data
         setGrandTotal(calculateGrandTotal({
+            ...formData,
+            [name]: value
+        }));
+        setCoinTotal(calculateCoinTotal({
             ...formData,
             [name]: value
         }));
@@ -33,18 +60,13 @@ export default function ChangeOrderForm() {
             ...formData,
             [name]: value
         }));
-
-        setCoinTotal(calculateCoinTotal({
-            ...formData,
-            [name]: value
-        }))
     }
 
     function calculateGrandTotal(data) {
         // Function to calculate the grand total
         let sum = 0;
         const dataArray = Object.values(data);
-        for (let i = 0; i < dataArray.length; i++) {
+        for (let i = 0; i < dataArray.length - 1; i++) {
             const parsedValue = parseInt(dataArray[i]);
             if (!isNaN(parsedValue)) {
                 sum += parsedValue;
@@ -52,6 +74,7 @@ export default function ChangeOrderForm() {
         }
         return sum;
     }
+
     function calculateNoteTotal(data) {
         // Function to sum the first 4 items in the array
         let sum = 0;
@@ -77,16 +100,22 @@ export default function ChangeOrderForm() {
         }
         return sum;
     }
-    function submitHandler(event) {
-        event.preventDefault();
-        console.log(coinTotal, noteTotal, grandTotal);
-    }
+
     return (
-        <form className="change-order-page" onSubmit={submitHandler}>
+        <form className="change-order-page" onSubmit={handleSubmit}>
             <div className="first-column">
                 <div className="dates">
-                    <h3>Date:</h3>
-                    <h3>Order date:</h3>
+                    <h3>Date: {currentDate.toDateString()}</h3>
+                    <label htmlFor="date">Delivery Date:</label>
+                    <input
+                        type="date"
+                        placeholder="Enter date"
+                        name="date"
+                        value={formData.date}
+                        onChange={handleChange}
+                    />
+
+                    {/* <h3>Order date:</h3>x */}
                 </div>
                 <div className="change-order-form">
                     <div className="input ">
@@ -95,7 +124,7 @@ export default function ChangeOrderForm() {
                             type="number"
                             placeholder="$-"
                             name="fifty"
-                            value={formData.fifty}
+                            value={formData.fifty === 0 ? "" : formData.fifty}
                             onChange={handleChange}
                         />
                     </div>
@@ -107,7 +136,7 @@ export default function ChangeOrderForm() {
                             type="number"
                             placeholder="$-"
                             name="twenty"
-                            value={formData.twenty}
+                            value={formData.twenty === 0 ? "" : formData.twenty}
                             onChange={handleChange}
                         />
 
@@ -118,7 +147,7 @@ export default function ChangeOrderForm() {
                             type="number"
                             placeholder="$-"
                             name="ten"
-                            value={formData.ten}
+                            value={formData.ten === 0 ? "" : formData.ten}
                             onChange={handleChange}
                         />
 
@@ -129,7 +158,7 @@ export default function ChangeOrderForm() {
                             type="number"
                             name="five"
                             placeholder="$-"
-                            value={formData.five}
+                            value={formData.five === 0 ? "" : formData.five}
                             onChange={handleChange}
                         />
                     </div>
@@ -142,7 +171,7 @@ export default function ChangeOrderForm() {
                             type="number"
                             placeholder="$-"
                             name="two"
-                            value={formData.two}
+                            value={formData.two === 0 ? "" : formData.two}
                             onChange={handleChange}
                         />
                     </div>
@@ -152,7 +181,7 @@ export default function ChangeOrderForm() {
                             type="number"
                             placeholder="$-"
                             name="one"
-                            value={formData.one}
+                            value={formData.one === 0 ? "" : formData.one}
                             onChange={handleChange}
                         />
                     </div>
@@ -162,7 +191,7 @@ export default function ChangeOrderForm() {
                             type="number"
                             placeholder="$-"
                             name="fiftyCents"
-                            value={formData.fiftyCents}
+                            value={formData.fiftyCents === 0 ? "" : formData.fiftyCents}
                             onChange={handleChange}
                         />
                     </div>
@@ -172,7 +201,7 @@ export default function ChangeOrderForm() {
                             type="number"
                             placeholder="$-"
                             name="twentyCents"
-                            value={formData.twentyCents}
+                            value={formData.twentyCents === 0 ? "" : formData.twentyCents}
                             onChange={handleChange}
                         />
                     </div>
@@ -182,7 +211,7 @@ export default function ChangeOrderForm() {
                             type="number"
                             placeholder="$-"
                             name="tenCents"
-                            value={formData.tenCents}
+                            value={formData.tenCents === 0 ? "" : formData.tenCents}
                             onChange={handleChange}
                         />
                     </div>
@@ -192,7 +221,7 @@ export default function ChangeOrderForm() {
                             type="number"
                             placeholder="$-"
                             name="fiveCents"
-                            value={formData.fiveCents}
+                            value={formData.fiveCents === 0 ? "" : formData.fiveCents}
                             onChange={handleChange}
                         />
                     </div>
@@ -204,6 +233,7 @@ export default function ChangeOrderForm() {
 
                 <div className="payment-method">
                     <h3>Payment Method</h3>
+                    <p>EFT</p>
                 </div>
                 <div className="grand-totals-section">
 

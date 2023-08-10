@@ -9,11 +9,12 @@ code {
     monospace;
 }
 
-nav {
+.nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
   background-color: #8D479E;
+  padding: 10px;
 }
 
 .nav-items {
@@ -36,6 +37,16 @@ nav {
 
 .avatar:hover {
   cursor: pointer;
+}
+
+.nav-link {
+  position: relative;
+}
+
+.nav-dropdown {
+  position: absolute;
+  right: 90px;
+  top: 60px;
 }
 
 .nav-link:hover {
@@ -244,3 +255,19 @@ a {
 .form--marketing>input {
   margin-right: 10px;
 }
+
+/* OrderHistory */
+.order-history {}
+
+.order-history-headings {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.order-history-values {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+
+}
+
+.order-history-values p {}
