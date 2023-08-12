@@ -26,7 +26,8 @@ export default function ChangeOrderForm() {
 
     const handleSubmit = async (e) => {
         e.preventDefault()
-
+        // TODO: add function to spit an error message when no date is entered
+        // TODO: add a toaster or popup saying order has been placed and clear the screen
         const formDataWithTotals = {
             ...formData,
             coinTotal: coinTotal,
@@ -92,7 +93,7 @@ export default function ChangeOrderForm() {
         // Function to sum the first 4 items in the array
         let sum = 0;
         const dataArray = Object.values(data);
-        for (let i = 4; i < 9; i++) {
+        for (let i = 4; i < 10; i++) {
             const parsedValue = parseInt(dataArray[i]);
             if (!isNaN(parsedValue)) {
                 sum += parsedValue;

@@ -11,7 +11,7 @@ const Toggle = ({ children }) => {
 
     return (
         <ToggleContext.Provider value={{ on, toggle }}>
-            <div className="toggle">
+            <div>
                 {children}
             </div>
         </ToggleContext.Provider>
