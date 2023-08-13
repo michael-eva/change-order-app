@@ -5,6 +5,7 @@ const OrderHistory = () => {
 
     const [data, setData] = useState([])
     const [error, setError] = useState(null)
+    console.log(error);
 
     useEffect(() => {
         const fetchData = async () => {

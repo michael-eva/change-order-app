@@ -37,6 +37,7 @@ export default function ChangeOrderForm() {
         const { data } = await supabase
             .from('change_order')
             .insert([formDataWithTotals])
+        console.log(data);
     }
 
     function handleChange(event) {
