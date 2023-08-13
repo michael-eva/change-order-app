@@ -5,7 +5,7 @@ export default function ChangeOrderForm() {
     const [grandTotal, setGrandTotal] = useState(0);
     const [coinTotal, setCoinTotal] = useState(0)
     const [noteTotal, setNoteTotal] = useState(0)
-    const [currentDate, setCurrentDate] = useState(new Date());
+    const currentDate = (new Date());
     const [formData, setFormData] = useState({
 
         fifty: 0,
