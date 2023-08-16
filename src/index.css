@@ -21,11 +21,12 @@ code {
   display: flex;
   margin-right: 50px;
   padding: 0;
+  color: whitesmoke;
+  align-items: center;
 }
 
 .nav-items li {
   padding: 10px;
-  color: whitesmoke;
   margin: auto;
 }
 
@@ -42,6 +43,12 @@ code {
   position: relative;
 }
 
+.nav-link-focus {
+  background-color: #9655A6;
+  text-decoration: underline;
+  border-radius: 5px;
+  border: 1px solid grey;
+}
 
 .nav-dropdown {
   position: absolute;
@@ -130,6 +137,11 @@ a {
 .change-order-page {
   display: flex;
 
+}
+
+.date-error {
+  color: red;
+  font-size: 14px;
 }
 
 .grand-total-label {
@@ -285,4 +297,52 @@ a {
 
 }
 
-.order-history-values p {}
+/* PORTAL NAV */
+/* Host Nav */
+.portal-nav {
+  display: flex;
+}
+
+.portal-nav {
+  text-decoration: none;
+  color: #4D4D4D;
+  font-weight: 500;
+  padding: 5px 20px;
+}
+
+.portal-nav a:hover {
+  color: #161616;
+  text-decoration: underline;
+  font-weight: 600;
+}
+
+.portal-link-focus {
+  color: #161616;
+  text-decoration: underline;
+  font-weight: 600;
+  padding: 5px 20px;
+}
+
+.enter-client-details {
+  display: flex;
+  flex-direction: column;
+  width: 500px;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.error-message {
+  color: red;
+  font-size: 12px;
+}
+
+.success-message {
+  color: green;
+  font-size: 12px;
+}
+
+.nav-company-name {
+  color: rgb(206, 180, 215);
+  font-size: 14px;
+  width: 100px;
+}

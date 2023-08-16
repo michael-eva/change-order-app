@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react"
-import supabase from "../config/supabaseClient";
+import supabase from "../../config/supabaseClient";
 
 const OrderHistory = () => {
 
     const [data, setData] = useState([])
     const [error, setError] = useState(null)
-    console.log(error);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -16,7 +15,6 @@ const OrderHistory = () => {
             if (error) {
                 setError("Error fetching data")
                 setData(null)
-                console.log(error);
             }
             if (data) {
                 setData(data)

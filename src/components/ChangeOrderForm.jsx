@@ -6,6 +6,7 @@ export default function ChangeOrderForm() {
     const [coinTotal, setCoinTotal] = useState(0)
     const [noteTotal, setNoteTotal] = useState(0)
     const currentDate = (new Date());
+    const [error, setError] = useState("")
     const [formData, setFormData] = useState({
 
         fifty: 0,
@@ -28,16 +29,38 @@ export default function ChangeOrderForm() {
         e.preventDefault()
         // TODO: add function to spit an error message when no date is entered
         // TODO: add a toaster or popup saying order has been placed and clear the screen
-        const formDataWithTotals = {
-            ...formData,
-            coinTotal: coinTotal,
-            noteTotal: noteTotal,
-            grandTotal: grandTotal
+        if (formData.date) {
+            const formDataWithTotals = {
+                ...formData,
+                coinTotal: coinTotal,
+                noteTotal: noteTotal,
+                grandTotal: grandTotal
+            }
+            const { data } = await supabase
+                .from('change_order')
+                .insert([formDataWithTotals])
+            console.log(data)
+            setFormData({
+                fifty: 0,
+                twenty: 0,
+                ten: 0,
+                five: 0,
+                two: 0,
+                one: 0,
+                fiftyCents: 0,
+                twentyCents: 0,
+                tenCents: 0,
+                fiveCents: 0,
+                coinTotal: 0,
+                noteTotal: 0,
+                grandTotal: 0,
+                date: ''
+            })
+            setError(null)
+
+        } else {
+            setError("Please enter date before we can proceed")
         }
-        const { data } = await supabase
-            .from('change_order')
-            .insert([formDataWithTotals])
-        console.log(data);
     }
 
     function handleChange(event) {
@@ -116,8 +139,8 @@ export default function ChangeOrderForm() {
                         value={formData.date}
                         onChange={handleChange}
                     />
+                    {error && <div className="date-error">{error}</div>}
 
-                    {/* <h3>Order date:</h3>x */}
                 </div>
                 <div className="change-order-form">
                     <div className="input ">
