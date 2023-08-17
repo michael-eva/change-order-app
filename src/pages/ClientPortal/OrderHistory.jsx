@@ -14,6 +14,7 @@ const OrderHistory = () => {
             if (error) {
                 setError("Error fetching data")
                 setData(null)
+                console.log(error);
             }
             if (data) {
                 setData(data)
@@ -24,6 +25,7 @@ const OrderHistory = () => {
         fetchData()
     }, [])
 
+    console.log(error);
     return (
         <div className="order-history">
             <div className="order-history-headings">
