@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import Toggle from "../../Toggle/index"
 import supabase from "../../config/supabaseClient"
 import { useOutletContext } from "react-router-dom"
