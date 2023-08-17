@@ -1,5 +1,33 @@
 import { NavLink, Outlet } from "react-router-dom"
+import { useState, useEffect } from "react"
+import supabase from "../config/supabaseClient"
+
 export default function ClientPortalLayout() {
+    const [fetchClientData, setClientData] = useState("")
+    // const [fetchOrderData, setFetchOrderData] = useState('')
+    useEffect(() => {
+        const fetchClientData = async () => {
+            const { data } = await supabase
+                .from("clients")
+                .select("*")
+            setClientData(data[0])
+        }
+        fetchClientData()
+    }, [])
+
+    // useEffect(() => {
+    //     const fetchClientOrder = async () => {
+    //         const { data } = await supabase
+    //             .from("change_order")
+    //             .select("*")
+    //         setFetchOrderData(data)
+    //     }
+    //     fetchClientOrder()
+    // }, [])
+    // console.log(fetchOrderData);
+
+
+
     return (
         <>
             <nav className="portal-nav">
@@ -17,7 +45,7 @@ export default function ClientPortalLayout() {
                 </NavLink>
 
             </nav>
-            <Outlet />
+            <Outlet context={{ fetchClientData }} />
         </>
     )
 }

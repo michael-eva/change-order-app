@@ -1,9 +1,13 @@
 import { useState, useEffect } from "react"
 import Toggle from "../../Toggle/index"
 import supabase from "../../config/supabaseClient"
-import NavBar from "../../components/NavBar"
+import { useOutletContext } from "react-router-dom"
+
+
 
 export default function ClientDetails() {
+    const { fetchClientData } = useOutletContext()
+
     const [error, setError] = useState('')
     const [success, setSuccess] = useState('')
     const [clientData, setClientData] = useState({
@@ -48,28 +52,6 @@ export default function ClientDetails() {
             }
         }
     }
-    const [data, setData] = useState([])
-    const [fetchError, setFetchError] = useState(null)
-    const [companyName, setCompanyName] = useState("")
-
-    useEffect(() => {
-        const fetchData = async () => {
-            const { data, fetchError } = await supabase
-                .from('clients')
-                .select('*')
-
-            if (error) {
-                setFetchError("Error fetching data")
-                setData(null)
-            }
-            if (data) {
-                setData(data[0])
-                setFetchError(null)
-                setCompanyName(data[0].companyName)
-            }
-        }
-        fetchData()
-    }, [])
 
     return (
         <>
@@ -127,10 +109,10 @@ export default function ClientDetails() {
                 </Toggle.On>
             </Toggle>
             <br />
-            <div>{companyName}</div>
-            <div>{data.abn}</div>
-            <div>{data.contactName}</div>
-            <div>{data.address}</div>
+            <div>{fetchClientData.companyName}</div>
+            <div>{fetchClientData.abn}</div>
+            <div>{fetchClientData.contactName}</div>
+            <div>{fetchClientData.address}</div>
 
 
         </>

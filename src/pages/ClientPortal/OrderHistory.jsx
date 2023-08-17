@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react"
 import supabase from "../../config/supabaseClient";
+import { useOutletContext } from "react-router-dom";
 
 const OrderHistory = () => {
-
     const [data, setData] = useState([])
     const [error, setError] = useState(null)
 
