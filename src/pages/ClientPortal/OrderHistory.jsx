@@ -14,11 +14,11 @@ const OrderHistory = () => {
             if (error) {
                 setError("Error fetching data")
                 setData(null)
-                console.log(error);
             }
             if (data) {
                 setData(data)
                 setError(null)
+                console.log(error);
             }
         }
         fetchData()
