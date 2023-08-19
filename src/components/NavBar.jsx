@@ -1,12 +1,13 @@
 import { NavLink } from "react-router-dom"
 import Toggle from "../Toggle/index"
+import logo from "../images/west-sure-logo.png"
 
 
 
 export default function NavBar({ companyName }) {
     return (
         <div className="nav">
-            <img src="#" alt="Logo" />
+            <img src={logo} alt="Logo" />
             <Toggle>
                 <ul className="nav-items">
                     <NavLink className={({ isActive }) => isActive ? "nav-link-focus" : "nav-link"} to="/">
