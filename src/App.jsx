@@ -12,7 +12,6 @@ import Invoices from "./pages/ClientPortal/Invoices";
 import { useEffect, useState } from "react";
 import supabase from "./config/supabaseClient";
 import HostLayout from "./host/HostLayout";
-import Dashboard from "./host/dashboard";
 import Clients from "./host/Clients";
 import Settings from "./host/Settings";
 import PendingOrders from "./host/PendingOrders";
