@@ -7,7 +7,7 @@ import logo from "../images/west-sure-logo.png"
 export default function NavBar({ companyName }) {
     return (
         <div className="nav">
-            <img src={logo} alt="Logo" />
+            <NavLink to={'west-sure'}> <img src={logo} alt="Logo" /></NavLink>
             <Toggle>
                 <ul className="nav-items">
                     <NavLink className={({ isActive }) => isActive ? "nav-link-focus" : "nav-link"} to="/">
