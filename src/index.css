@@ -455,14 +455,6 @@ a {
   border-radius: 6px;
 }
 
-.day.has-order {
-  background-color: #FFC107;
-  /* Change the background color */
-  color: #fff;
-  /* Change the text color */
-  font-weight: bold;
-  /* Add emphasis */
-}
 
 .calendar-container {
   display: flex;

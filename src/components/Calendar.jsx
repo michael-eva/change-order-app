@@ -11,7 +11,6 @@ const WeekSlider = ({ formattedDate }) => {
     const [selectedDay, setSelectedDay] = useState(new Date().toDateString())
     const [searchParams, setSearchParams] = useSearchParams()
     const [data, setData] = useState([])
-    const [hasOrder, setHasOrder] = useState("")
 
     useEffect(() => {
         const fetchCompanyName = async () => {
@@ -50,10 +49,10 @@ const WeekSlider = ({ formattedDate }) => {
         const selectedYear = day.getFullYear().toString().slice(-2); // Get the last two digits of the year
 
         const formattedDateString = `${selectedDate}-${selectedMonth}-${selectedYear}`;
-        setSelectedDay(formattedDateString);
+        setSelectedDay(day.toDateString());
         setSearchParams(`?date=${formattedDateString}`)
     }
-
+    console.log(selectedDay);
     function calendarEls() {
         return (
             <>
@@ -65,9 +64,6 @@ const WeekSlider = ({ formattedDate }) => {
                             const day = new Date(currentWeekStartDate);
                             day.setDate(day.getDate() + index);
                             const isCurrentDate = day.toDateString() === new Date().toDateString();
-
-                            // const formattedDay = `${day.getDate()}-${day.getMonth() + 1}-${day.getFullYear().toString().slice(-2)}`;
-                            // const hasOrder = data.some(order => formattedDate(order.date) === formattedDay);
 
                             return (
                                 <div key={index}

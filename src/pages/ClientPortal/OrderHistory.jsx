@@ -5,7 +5,7 @@ import supabase from "../../config/supabaseClient";
 const OrderHistory = ({ filter, formattedDate }) => {
     const [data, setData] = useState([])
     const [error, setError] = useState(null)
-    console.log(filter);
+
 
     useEffect(() => {
         const fetchData = async () => {
