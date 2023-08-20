@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react"
 import supabase from "../../config/supabaseClient";
 
 
-const OrderHistory = ({ filter, formattedDate }) => {
+const OrderHistory = ({ filter }) => {
     const [data, setData] = useState([])
     const [error, setError] = useState(null)
     console.log(filter);

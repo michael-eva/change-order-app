@@ -26,7 +26,7 @@ const WeekSlider = ({ formattedDate }) => {
         const selectedYear = currentDate.getFullYear().toString().slice(-2);
         const formattedDateString = `${selectedDate}-${selectedMonth}-${selectedYear}`;
         setSearchParams(`?date=${formattedDateString}`);
-    }, [])
+    }, [setSearchParams])
 
     const dateFilter = searchParams.get("date")
     let filteredData = null
