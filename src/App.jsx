@@ -9,6 +9,8 @@ import ClientPortalLayout from "./components/CPLayout";
 import ClientDetails from "./pages/ClientPortal/ClientDetails";
 import Home from "./pages/Home";
 import Invoices from "./pages/ClientPortal/Invoices";
+import { useEffect, useState } from "react";
+import supabase from "./config/supabaseClient";
 import HostLayout from "./host/HostLayout";
 import Clients from "./host/Clients";
 import Settings from "./host/Settings";
@@ -18,8 +20,8 @@ import PendingOrders from "./host/PendingOrders";
 
 
 export default function App() {
-
-    const clients = ""
+    const [companyName, setCompanyName] = useState("")
+    const [clients, setClients] = useState("")
 
     // useEffect(() => {
     //     const fetchCompanyName = async () => {
@@ -35,7 +37,7 @@ export default function App() {
         <>
             <BrowserRouter>
                 <Routes>
-                    <Route element={<Layout />}>
+                    <Route element={<Layout companyName={companyName} />}>
                         <Route path="/" element={<Home />} />
                         <Route path="/signup" element={<SignUp />} />
                         <Route path="/client-portal" element={<ClientPortalLayout />} >
@@ -58,4 +60,3 @@ export default function App() {
 
     )
 }
-
