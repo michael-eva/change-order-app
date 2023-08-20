@@ -2,8 +2,6 @@ import { useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { useEffect } from "react";
 import supabase from "../config/supabaseClient";
-
-
 import OrderHistory from "../pages/ClientPortal/OrderHistory";
 const WeekSlider = ({ formattedDate }) => {
     // State to keep track of the currently displayed week's start date
@@ -18,14 +16,9 @@ const WeekSlider = ({ formattedDate }) => {
                 .from("change_order")
                 .select("*")
             setData(data)
-            const currentDate = new Date();
-            const selectedDate = currentDate.getDate();
-            const selectedMonth = currentDate.getMonth() + 1;
-            const selectedYear = currentDate.getFullYear().toString().slice(-2);
-            const formattedDateString = `${selectedDate}-${selectedMonth}-${selectedYear}`;
-            setSearchParams(`?date=${formattedDateString}`);
         }
         fetchData()
+        setSearchParams(`date=${new Date()}`)
     }, [])
 
     const dateFilter = searchParams.get("date")
