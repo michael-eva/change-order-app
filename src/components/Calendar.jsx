@@ -52,7 +52,7 @@ const WeekSlider = ({ formattedDate }) => {
         setSelectedDay(day.toDateString());
         setSearchParams(`?date=${formattedDateString}`)
     }
-    console.log(selectedDay);
+
     function calendarEls() {
         return (
             <>
