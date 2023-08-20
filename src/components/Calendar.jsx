@@ -13,19 +13,19 @@ const WeekSlider = ({ formattedDate }) => {
     const [data, setData] = useState([])
 
     useEffect(() => {
-        const fetchCompanyName = async () => {
+        const fetchData = async () => {
             const { data } = await supabase
                 .from("change_order")
                 .select("*")
             setData(data)
+            const currentDate = new Date();
+            const selectedDate = currentDate.getDate();
+            const selectedMonth = currentDate.getMonth() + 1;
+            const selectedYear = currentDate.getFullYear().toString().slice(-2);
+            const formattedDateString = `${selectedDate}-${selectedMonth}-${selectedYear}`;
+            setSearchParams(`?date=${formattedDateString}`);
         }
-        fetchCompanyName()
-        const currentDate = new Date();
-        const selectedDate = currentDate.getDate();
-        const selectedMonth = currentDate.getMonth() + 1;
-        const selectedYear = currentDate.getFullYear().toString().slice(-2);
-        const formattedDateString = `${selectedDate}-${selectedMonth}-${selectedYear}`;
-        setSearchParams(`?date=${formattedDateString}`);
+        fetchData()
     }, [])
 
     const dateFilter = searchParams.get("date")
