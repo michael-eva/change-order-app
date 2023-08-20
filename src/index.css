@@ -370,7 +370,9 @@ a {
   grid-column: 2 / span 3;
   /* border: 1px solid green; */
   display: flex;
-  justify-content: center;
+  /* justify-content: center; */
+  align-items: center;
+  flex-direction: column;
   /* box-shadow: -10px 0px 10px rgba(0, 0, 0, 0.5); */
 }
 
@@ -410,4 +412,64 @@ a {
   padding: 2px 0 2px 10px;
   border-radius: 6px;
   margin-right: 4px;
+}
+
+/* Calendar */
+.week-slider {
+  display: flex;
+  align-items: center;
+
+}
+
+.week-slider button {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.week {
+  display: flex;
+}
+
+.day {
+  flex: 1;
+  text-align: center;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.day:hover {
+  background-color: #ac26e555;
+  border-radius: 6px;
+}
+
+.day.selected {
+  background-color: #ac26e555;
+  border: 1px solid black;
+  border-radius: 6px;
+}
+
+.day.current {
+  background-color: #f0f0f0;
+  border-radius: 6px;
+}
+
+.day.has-order {
+  background-color: #FFC107;
+  /* Change the background color */
+  color: #fff;
+  /* Change the text color */
+  font-weight: bold;
+  /* Add emphasis */
+}
+
+.calendar-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.calendar-container header {
+  justify-content: center;
+  display: flex;
 }

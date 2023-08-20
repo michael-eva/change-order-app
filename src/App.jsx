@@ -23,16 +23,16 @@ export default function App() {
     const [companyName, setCompanyName] = useState("")
     const [clients, setClients] = useState("")
 
-    useEffect(() => {
-        const fetchCompanyName = async () => {
-            const { data } = await supabase
-                .from("clients")
-                .select("*")
-            setCompanyName(data[0].companyName)
-            setClients(data)
-        }
-        fetchCompanyName()
-    }, [])
+    // useEffect(() => {
+    //     const fetchCompanyName = async () => {
+    //         const { data } = await supabase
+    //             .from("clients")
+    //             .select("*")
+    //         setCompanyName(data[0].companyName)
+    //         setClients(data)
+    //     }
+    //     fetchCompanyName()
+    // }, [])
     return (
         <>
             <BrowserRouter>

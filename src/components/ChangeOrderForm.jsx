@@ -27,14 +27,14 @@ export default function ChangeOrderForm() {
 
     const handleSubmit = async (e) => {
         e.preventDefault()
-        // TODO: add function to spit an error message when no date is entered
-        // TODO: add a toaster or popup saying order has been placed and clear the screen
         if (formData.date) {
+            const formattedDate = formatDateForDatabase(formData.date);
             const formDataWithTotals = {
                 ...formData,
                 coinTotal: coinTotal,
                 noteTotal: noteTotal,
-                grandTotal: grandTotal
+                grandTotal: grandTotal,
+                date: formattedDate
             }
             const { data } = await supabase
                 .from('change_order')
@@ -61,6 +61,14 @@ export default function ChangeOrderForm() {
         } else {
             setError("Please enter date before we can proceed")
         }
+    }
+    function formatDateForDatabase(date) {
+        const [year, month, day] = date.split('-');
+        const formattedDay = parseInt(day, 10).toString(); // Remove leading zero if present
+        const formattedMonth = parseInt(month, 10).toString(); // Remove leading zero if present
+        const formattedYear = year.slice(-2); // Get the last two digits of the year
+
+        return `${formattedDay}-${formattedMonth}-${formattedYear}`;
     }
 
     function handleChange(event) {
