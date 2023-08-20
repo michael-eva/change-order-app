@@ -11,7 +11,6 @@ const WeekSlider = ({ formattedDate }) => {
     const [selectedDay, setSelectedDay] = useState(new Date().toDateString())
     const [searchParams, setSearchParams] = useSearchParams()
     const [data, setData] = useState([])
-    const [hasOrder, setHasOrder] = useState("")
 
     useEffect(() => {
         const fetchCompanyName = async () => {
