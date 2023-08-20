@@ -7,7 +7,7 @@ const WeekSlider = ({ formattedDate }) => {
     // State to keep track of the currently displayed week's start date
     const [currentWeekStartDate, setCurrentWeekStartDate] = useState(new Date());
     const [selectedDay, setSelectedDay] = useState(new Date().toDateString())
-    const [searchParams, setSearchParams] = useSearchParams()
+    const [searchParams, setSearchParams] = useSearchParams(`date=${new Date()}`)
     const [data, setData] = useState([])
 
     useEffect(() => {
@@ -18,7 +18,6 @@ const WeekSlider = ({ formattedDate }) => {
             setData(data)
         }
         fetchData()
-        setSearchParams(`date=${new Date()}`)
     }, [])
 
     const dateFilter = searchParams.get("date")
