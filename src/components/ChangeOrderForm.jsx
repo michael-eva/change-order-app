@@ -34,7 +34,8 @@ export default function ChangeOrderForm() {
                 coinTotal: coinTotal,
                 noteTotal: noteTotal,
                 grandTotal: grandTotal,
-                date: formattedDate
+                date: formattedDate,
+                status: "pending"
             }
             const { data } = await supabase
                 .from('change_order')

@@ -1,32 +1,8 @@
 import { useState } from "react";
-import { useSearchParams } from "react-router-dom";
-import { useEffect } from "react";
-import supabase from "../config/supabaseClient";
-import OrderHistory from "../pages/ClientPortal/OrderHistory";
-const WeekSlider = ({ formattedDate }) => {
+
+const WeekSlider = ({ clickHandle, selectedDay }) => {
     // State to keep track of the currently displayed week's start date
     const [currentWeekStartDate, setCurrentWeekStartDate] = useState(new Date());
-    const [selectedDay, setSelectedDay] = useState(new Date().toDateString())
-    const [searchParams, setSearchParams] = useSearchParams(`date=${new Date()}`)
-    const [data, setData] = useState([])
-
-    useEffect(() => {
-        const fetchData = async () => {
-            const { data } = await supabase
-                .from("change_order")
-                .select("*")
-            setData(data)
-        }
-        fetchData()
-    }, [])
-
-    const dateFilter = searchParams.get("date")
-    let filteredData = null
-    if (data) {
-        filteredData = dateFilter
-            ? data.filter(order => order.date === dateFilter)
-            : data
-    }
 
     // Logic to calculate the previous and next week's start dates
     const prevWeekStartDate = new Date(currentWeekStartDate);
@@ -34,16 +10,6 @@ const WeekSlider = ({ formattedDate }) => {
 
     const nextWeekStartDate = new Date(currentWeekStartDate);
     nextWeekStartDate.setDate(nextWeekStartDate.getDate() + 7);
-
-    function handleClick(day) {
-        const selectedDate = day.getDate();
-        const selectedMonth = day.getMonth() + 1; // Adding 1 since months are 0-indexed
-        const selectedYear = day.getFullYear().toString().slice(-2); // Get the last two digits of the year
-
-        const formattedDateString = `${selectedDate}-${selectedMonth}-${selectedYear}`;
-        setSelectedDay(day.toDateString());
-        setSearchParams(`?date=${formattedDateString}`)
-    }
 
     function calendarEls() {
         return (
@@ -60,7 +26,7 @@ const WeekSlider = ({ formattedDate }) => {
                             return (
                                 <div key={index}
                                     className={`day ${isCurrentDate ? 'current' : ''} ${selectedDay === day.toDateString() ? 'selected' : ''}`}
-                                    onClick={() => handleClick(day)}
+                                    onClick={() => clickHandle(day)}
                                 >
                                     <p>
                                         {day.getDate()}
@@ -82,7 +48,6 @@ const WeekSlider = ({ formattedDate }) => {
         <>
             <div className="calendar-container">
                 {calendarEls()}
-                {data && <OrderHistory filter={filteredData} />}
             </div>
         </>
     );

@@ -288,18 +288,57 @@ a {
   margin-right: 10px;
 }
 
-/* OrderHistory */
-.order-history {}
+/* OrderHistory Summary */
 
-.order-history-headings {
+.order-history-summary-headings {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(6, 1fr);
 }
 
-.order-history-values {
+.order-history-summary-values {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(6, 1fr);
 
+}
+
+/* Order History */
+table {
+  width: 100%;
+  table-layout: fixed;
+  border-collapse: collapse;
+}
+
+
+th {
+  text-align: start;
+}
+
+.table-striped {
+  background-color: #ac26e555;
+}
+
+.table-striped-grey {
+  background-color: #E9E9E9;
+}
+
+.checked-row {
+  color: gray;
+  /* Change this to the color you want for checked rows */
+  /* Additional styling if needed */
+}
+
+.packed {
+  color: green;
+}
+
+.pending {
+  color: orange;
+}
+
+.order-status {
+  border-radius: 6px;
+  height: 25px;
+  background-color: #E9E9E9;
 }
 
 /* PORTAL NAV */
@@ -367,7 +406,7 @@ a {
 }
 
 .host-content {
-  grid-column: 2 / span 3;
+  grid-column: 2 / span 4;
   /* border: 1px solid green; */
   display: flex;
   /* justify-content: center; */
@@ -376,9 +415,9 @@ a {
   /* box-shadow: -10px 0px 10px rgba(0, 0, 0, 0.5); */
 }
 
-.extra-content {
+/* .extra-content {
   grid-column: 5 / span 1;
-}
+} */
 
 /* HOST SIDEBAR */
 .host-sidebar {
