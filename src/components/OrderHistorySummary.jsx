@@ -16,7 +16,7 @@ const OrderHistorySummary = () => {
         : data
 
 
-    console.log(filterOrders);
+    console.log(error);
     useEffect(() => {
         const fetchData = async () => {
             try {
