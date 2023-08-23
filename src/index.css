@@ -323,8 +323,7 @@ th {
 
 .checked-row {
   color: gray;
-  /* Change this to the color you want for checked rows */
-  /* Additional styling if needed */
+
 }
 
 .packed {
@@ -336,6 +335,9 @@ th {
 }
 
 .order-status {
+  all: unset;
+  border: 1px solid black;
+  padding: 3px 5px 0 5px;
   border-radius: 6px;
   height: 25px;
   background-color: #E9E9E9;

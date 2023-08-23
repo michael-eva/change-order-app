@@ -4,13 +4,13 @@ import { useEffect, useState } from "react";
 import supabase from "../config/supabaseClient";
 import OrderHistory from "../components/OrderHistory"
 import { formattedDate } from "../utils/dateUtils";
-import { formatDateToDdMmYy } from "../utils/dateUtils";
 
 
 export default function PendingOrders() {
     const [searchParams, setSearchParams] = useSearchParams();
     const [selectedDay, setSelectedDay] = useState(formattedDate(new Date()));
     const [data, setData] = useState([]);
+    const [numOrders, setNumOrders] = useState()
 
     useEffect(() => {
         fetchData();
@@ -24,8 +24,7 @@ export default function PendingOrders() {
     const dateFilter = searchParams.get("date");
     const filteredData = dateFilter ? data.filter(order => {
         return order.date === dateFilter && order.status === "pending"
-    }) : data;
-
+    }) : data;;
 
     const updateOrderStatus = async (orderId, newStatus) => {
         try {
@@ -42,17 +41,17 @@ export default function PendingOrders() {
             console.error(`Error updating order ${orderId} status:`, error);
         }
     };
-
-
+    if (filteredData.date === selectedDay) {
+        setNumOrders(filteredData.length)
+    }
+    console.log(numOrders);
     function clickHandle(day) {
-        // const date = day.toDateString()
-        // console.log(date);
         setSelectedDay(formattedDate(day));
         setSearchParams(`?date=${formattedDate(day)}`)
     }
     return (
         <>
-            <WeekSlider clickHandle={clickHandle} selectedDay={selectedDay} />
+            <WeekSlider clickHandle={clickHandle} selectedDay={selectedDay} filteredData={filteredData} />
             <OrderHistory filteredData={filteredData} updateOrderStatus={updateOrderStatus} selectedDay={selectedDay} />
         </>
     )

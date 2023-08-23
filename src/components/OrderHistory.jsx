@@ -5,10 +5,9 @@ import React, { useState, useEffect } from "react";
 export default function OrderHistory({ filteredData, updateOrderStatus, selectedDay }) {
     const [statuses, setStatuses] = useState({});
 
-    const filteredOrders = filteredData.filter(order => {
-
-        return order.date === selectedDay && order.status === "pending"
-    });
+    const filteredOrders = filteredData.filter(order => (
+        order.date === selectedDay && order.status === "pending"
+    ));
     const handleSubmit = async () => {
         try {
             for (const orderId in statuses) {
@@ -79,8 +78,8 @@ export default function OrderHistory({ filteredData, updateOrderStatus, selected
                                             data-order-id={order.id}
                                             onChange={handleChange}
                                         >
-                                            <option value="pending">Pending</option>
-                                            <option value="packed">Packed</option>
+                                            <option className="pending" value="pending">Pending</option>
+                                            <option className="packed" value="packed">Packed</option>
                                         </select>
                                     </td>
                                 </tr>
