@@ -17,6 +17,7 @@ export default function PendingOrders() {
     }, []);
     const fetchData = async () => {
         const { data } = await supabase.from("change_order").select("*");
+
         setData(data);
     };
 

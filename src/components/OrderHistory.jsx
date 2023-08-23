@@ -7,8 +7,6 @@ export default function OrderHistory({ filteredData, updateOrderStatus, selected
 
     const filteredOrders = filteredData.filter(order => {
 
-        // console.log(order.date);
-        // console.log(selectedDay);
         return order.date === selectedDay && order.status === "pending"
     });
     const handleSubmit = async () => {

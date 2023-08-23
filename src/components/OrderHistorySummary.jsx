@@ -15,6 +15,8 @@ const OrderHistorySummary = () => {
         ? data.filter(order => order.status === pendingFilter)
         : data
 
+
+    console.log(filterOrders);
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -42,6 +44,24 @@ const OrderHistorySummary = () => {
     }, []);
 
 
+    const customDateSort = (dateA, dateB) => {
+        const [dayA, monthA, yearA] = dateA.split("-").map(Number);
+        const [dayB, monthB, yearB] = dateB.split("-").map(Number);
+
+        if (yearA !== yearB) {
+            return yearA - yearB;
+        }
+        if (monthA !== monthB) {
+            return monthA - monthB;
+        }
+        return dayA - dayB;
+    };
+
+    // Sort the orders by date using the customDateSort function
+    const sortedOrders = [...filterOrders].sort((a, b) =>
+        customDateSort(a.date, b.date)
+    );
+
 
     return (
         <div className="order-history-summary">
@@ -64,7 +84,7 @@ const OrderHistorySummary = () => {
             {isLoading ? ( // Use isLoading state to conditionally render loading message
                 <h2>Loading...</h2>
             ) : (
-                filterOrders.map(item => (
+                sortedOrders.map(item => (
                     <div className="order-history-summary-values" key={item.id}>
                         <p>Customer {item.id}</p>
                         <p>{formatDate(item.date)}</p>
