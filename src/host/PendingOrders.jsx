@@ -41,10 +41,6 @@ export default function PendingOrders() {
             console.error(`Error updating order ${orderId} status:`, error);
         }
     };
-    if (filteredData.date === selectedDay) {
-        setNumOrders(filteredData.length)
-    }
-    console.log(numOrders);
     function clickHandle(day) {
         setSelectedDay(formattedDate(day));
         setSearchParams(`?date=${formattedDate(day)}`)

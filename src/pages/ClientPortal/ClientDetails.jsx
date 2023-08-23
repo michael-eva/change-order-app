@@ -1,12 +1,12 @@
 import { useState } from "react"
 import Toggle from "../../Toggle/index"
 import supabase from "../../config/supabaseClient"
-import { useOutletContext } from "react-router-dom"
+// import { useOutletContext } from "react-router-dom"
 
 
 
 export default function ClientDetails() {
-    const { fetchClientData } = useOutletContext()
+    // const { fetchClientData } = useOutletContext()
 
     const [error, setError] = useState('')
     const [success, setSuccess] = useState('')
@@ -57,7 +57,7 @@ export default function ClientDetails() {
         <>
             <h3>Client details page</h3>
             <Toggle>
-                <Toggle.Button>Add Client Details</Toggle.Button>
+                <Toggle.Button className="secondary-button">Add Client</Toggle.Button>
                 {error && <p className="error-message">{error}</p>}
                 <Toggle.On>
                     <form className="enter-client-details" onSubmit={handleSubmit}>
@@ -109,10 +109,10 @@ export default function ClientDetails() {
                 </Toggle.On>
             </Toggle>
             <br />
-            <div>{fetchClientData.companyName}</div>
+            {/* <div>{fetchClientData.companyName}</div>
             <div>{fetchClientData.abn}</div>
             <div>{fetchClientData.contactName}</div>
-            <div>{fetchClientData.address}</div>
+            <div>{fetchClientData.address}</div> */}
 
 
         </>

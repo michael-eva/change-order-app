@@ -4,17 +4,20 @@ import { formattedDate } from "../utils/dateUtils";
 const WeekSlider = ({ clickHandle, selectedDay, filteredData }) => {
     // State to keep track of the currently displayed week's start date
     const [currentWeekStartDate, setCurrentWeekStartDate] = useState(new Date());
+    const [isOrder, setIsOrder] = useState(false)
     // Logic to calculate the previous and next week's start dates
     const prevWeekStartDate = new Date(currentWeekStartDate);
     prevWeekStartDate.setDate(prevWeekStartDate.getDate() - 7);
     const nextWeekStartDate = new Date(currentWeekStartDate);
     nextWeekStartDate.setDate(nextWeekStartDate.getDate() + 7);
 
-    // function getOrderCountForDay(day) {
+    // // function getOrderCountForDay(day) {
 
-    //     const ordersForDay = filteredData.filter(item => item.date === formattedDate(day));
-    //     return ordersForDay.length;
-    // }
+    // filteredData.map(item =>
+    //     item.date === formattedDate(day))
+    // setIsOrder(true)
+    // // }
+
 
     function calendarEls() {
         return (
@@ -36,7 +39,7 @@ const WeekSlider = ({ clickHandle, selectedDay, filteredData }) => {
                                     <p>
                                         {day.getDate()}
                                     </p>
-                                    {/* <p>{getOrderCountForDay(day)}</p> */}
+                                    <p>count</p>
                                     {day.toLocaleDateString('en-US', { weekday: 'short' })}
                                 </div>
                             );

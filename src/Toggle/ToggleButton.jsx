@@ -1,10 +1,10 @@
 import { useContext } from "react"
 import { ToggleContext } from "./Toggle"
 
-const ToggleButton = ({ children }) => {
+const ToggleButton = ({ children, className }) => {
     const { toggle } = useContext(ToggleContext)
     return (
-        <div onClick={toggle}>
+        <div className={className} onClick={toggle}>
             {children}
         </div>
     )
