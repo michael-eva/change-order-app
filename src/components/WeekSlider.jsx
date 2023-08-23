@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { formatDate, formattedDate } from "../utils/dateUtils";
+import { formattedDate } from "../utils/dateUtils";
 
 const WeekSlider = ({ clickHandle, selectedDay, filteredData }) => {
     // State to keep track of the currently displayed week's start date
@@ -10,11 +10,11 @@ const WeekSlider = ({ clickHandle, selectedDay, filteredData }) => {
     const nextWeekStartDate = new Date(currentWeekStartDate);
     nextWeekStartDate.setDate(nextWeekStartDate.getDate() + 7);
 
-    function getOrderCountForDay(day) {
+    // function getOrderCountForDay(day) {
 
-        const ordersForDay = filteredData.filter(item => item.date === formattedDate(day));
-        return ordersForDay.length;
-    }
+    //     const ordersForDay = filteredData.filter(item => item.date === formattedDate(day));
+    //     return ordersForDay.length;
+    // }
 
     function calendarEls() {
         return (
@@ -36,7 +36,7 @@ const WeekSlider = ({ clickHandle, selectedDay, filteredData }) => {
                                     <p>
                                         {day.getDate()}
                                     </p>
-                                    <p>{getOrderCountForDay(day)}</p>
+                                    {/* <p>{getOrderCountForDay(day)}</p> */}
                                     {day.toLocaleDateString('en-US', { weekday: 'short' })}
                                 </div>
                             );
