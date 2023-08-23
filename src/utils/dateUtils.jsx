@@ -10,4 +10,21 @@ function formatDate(date) {
     return formattedDate
 }
 
-export { formatDate }
+function formattedDate(date) {
+    const selectedDate = date.getDate().toString();
+    const selectedMonth = date.getMonth() + 1; // Adding 1 since months are 0-indexed
+    const selectedYear = date.getFullYear().toString().slice(-2); // Get the last two digits of the year
+
+    const formattedDateString = `${selectedDate}-${selectedMonth}-${selectedYear}`;
+    return formattedDateString
+}
+
+function formatDateToDdMmYy(date) {
+    const day = date.getDate().toString().padStart(2, '0');
+    const month = (date.getMonth() + 1).toString().padStart(2, '0');
+    const year = date.getFullYear().toString().slice(-2);
+
+    return `${day}-${month}-${year}`;
+}
+
+export { formatDate, formattedDate, formatDateToDdMmYy }

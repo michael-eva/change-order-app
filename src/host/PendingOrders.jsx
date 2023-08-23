@@ -3,45 +3,56 @@ import { useSearchParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import supabase from "../config/supabaseClient";
 import OrderHistory from "../components/OrderHistory"
+import { formattedDate } from "../utils/dateUtils";
+import { formatDateToDdMmYy } from "../utils/dateUtils";
+
 
 export default function PendingOrders() {
-    const [searchParams, setSearchParams] = useSearchParams()
-    const [selectedDay, setSelectedDay] = useState(new Date().toDateString())
-    const [data, setData] = useState()
+    const [searchParams, setSearchParams] = useSearchParams();
+    const [selectedDay, setSelectedDay] = useState(formattedDate(new Date()));
+    const [data, setData] = useState([]);
 
     useEffect(() => {
-        const fetchData = async () => {
-            const { data } = await supabase
-                .from("change_order")
-                .select("*")
-            setData(data)
-        }
-        fetchData()
-    }, [])
+        fetchData();
+    }, []);
+    const fetchData = async () => {
+        const { data } = await supabase.from("change_order").select("*");
+        setData(data);
+    };
 
-    const dateFilter = searchParams.get("date")
-    let filteredData = []
-    if (data) {
-        filteredData = dateFilter
-            ? data.filter(order => order.date === dateFilter)
-            : data
-    }
+    const dateFilter = searchParams.get("date");
+    const filteredData = dateFilter ? data.filter(order => {
+        return order.date === dateFilter && order.status === "pending"
+    }) : data;
+
+
+    const updateOrderStatus = async (orderId, newStatus) => {
+        try {
+            await supabase
+                .from('change_order')
+                .update({ status: newStatus })
+                .eq('id', orderId);
+
+            console.log(`Order ${orderId} status updated to ${newStatus}`);
+
+            // Re-fetch the data to reflect the updated status
+            await fetchData();
+        } catch (error) {
+            console.error(`Error updating order ${orderId} status:`, error);
+        }
+    };
 
 
     function clickHandle(day) {
-        const selectedDate = day.getDate();
-        const selectedMonth = day.getMonth() + 1; // Adding 1 since months are 0-indexed
-        const selectedYear = day.getFullYear().toString().slice(-2); // Get the last two digits of the year
-
-        const formattedDateString = `${selectedDate}-${selectedMonth}-${selectedYear}`;
-        setSelectedDay(day.toDateString());
-        setSearchParams(`?date=${formattedDateString}`)
+        // const date = day.toDateString()
+        // console.log(date);
+        setSelectedDay(formattedDate(day));
+        setSearchParams(`?date=${formattedDate(day)}`)
     }
-
     return (
         <>
             <WeekSlider clickHandle={clickHandle} selectedDay={selectedDay} />
-            <OrderHistory filteredData={filteredData} />
+            <OrderHistory filteredData={filteredData} updateOrderStatus={updateOrderStatus} selectedDay={selectedDay} />
         </>
     )
 }

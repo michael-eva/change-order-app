@@ -1,16 +1,15 @@
 import { useState } from "react";
+import { formatDate, formattedDate } from "../utils/dateUtils";
 
 const WeekSlider = ({ clickHandle, selectedDay }) => {
     // State to keep track of the currently displayed week's start date
     const [currentWeekStartDate, setCurrentWeekStartDate] = useState(new Date());
-
     // Logic to calculate the previous and next week's start dates
     const prevWeekStartDate = new Date(currentWeekStartDate);
     prevWeekStartDate.setDate(prevWeekStartDate.getDate() - 7);
-
+    console.log(selectedDay);
     const nextWeekStartDate = new Date(currentWeekStartDate);
     nextWeekStartDate.setDate(nextWeekStartDate.getDate() + 7);
-
     function calendarEls() {
         return (
             <>
@@ -22,10 +21,9 @@ const WeekSlider = ({ clickHandle, selectedDay }) => {
                             const day = new Date(currentWeekStartDate);
                             day.setDate(day.getDate() + index);
                             const isCurrentDate = day.toDateString() === new Date().toDateString();
-
                             return (
                                 <div key={index}
-                                    className={`day ${isCurrentDate ? 'current' : ''} ${selectedDay === day.toDateString() ? 'selected' : ''}`}
+                                    className={`day ${isCurrentDate ? 'current' : ''} ${selectedDay === formattedDate(day) ? 'selected' : ''}`}
                                     onClick={() => clickHandle(day)}
                                 >
                                     <p>
