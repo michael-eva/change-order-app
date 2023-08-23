@@ -10,7 +10,7 @@ export default function PendingOrders() {
     const [searchParams, setSearchParams] = useSearchParams();
     const [selectedDay, setSelectedDay] = useState(formattedDate(new Date()));
     const [data, setData] = useState([]);
-    const [numOrders, setNumOrders] = useState()
+
 
     useEffect(() => {
         fetchData();
