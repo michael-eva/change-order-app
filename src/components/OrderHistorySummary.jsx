@@ -16,7 +16,7 @@ const OrderHistorySummary = () => {
         : data
 
 
-    console.log(error);
+    // console.log(error);
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -54,7 +54,7 @@ const OrderHistorySummary = () => {
         if (monthA !== monthB) {
             return monthA - monthB;
         }
-        return dayA - dayB;
+        return dayB - dayA;
     };
 
     // Sort the orders by date using the customDateSort function

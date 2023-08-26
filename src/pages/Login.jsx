@@ -1,17 +1,17 @@
 import { useState } from "react"
+import supabase from "../config/supabaseClient"
+import { Link, useNavigate } from "react-router-dom"
 
-export default function SignUp() {
-
-    const [signUpData, setSignUpData] = useState({
+export default function Login({ setSession }) {
+    let navigate = useNavigate()
+    const [loginData, setLoginData] = useState({
         email: "",
         password: "",
-        confirmPassword: "",
-        saveSignIn: false
     })
 
     function handleChange(event) {
         const { type, name, value, checked } = event.target
-        setSignUpData(prevFormData => {
+        setLoginData(prevFormData => {
             return {
                 ...prevFormData,
                 [name]: type === "checkbox" ? checked : value
@@ -19,18 +19,31 @@ export default function SignUp() {
         })
     }
 
-    function submitHandler(event) {
+    async function submitHandler(event) {
         event.preventDefault()
-        console.log(signUpData)
+        try {
+            const { data, error } = await supabase.auth.signInWithPassword({
+                email: loginData.email,
+                password: loginData.password
+            })
+            if (error) throw error
+            console.log(data)
+            // setSession(data)
+            navigate('/client-portal')
+
+        } catch (error) {
+            alert(error)
+        }
     }
     return (
         <div className="signup-body">
             <div className="form-container">
                 <form className="form" onSubmit={submitHandler}>
+                    <h2>Login</h2>
                     <input
                         type="text"
                         name="email"
-                        value={signUpData.email}
+                        value={loginData.email}
                         placeholder="Email Address"
                         onChange={handleChange}
                         className="form--input"
@@ -38,20 +51,20 @@ export default function SignUp() {
                     <input
                         type="password"
                         name="password"
-                        value={signUpData.password}
+                        value={loginData.password}
                         placeholder="Password"
                         onChange={handleChange}
                         className="form--input"
                     />
-                    <input
+                    {/* <input
                         type="password"
                         name="confirmPassword"
                         value={signUpData.confirmPassword}
                         placeholder="Confirm Password"
                         onChange={handleChange}
                         className="form--input"
-                    />
-                    <div className="form--marketing">
+                    /> */}
+                    {/* <div className="form--marketing">
                         <input
                             type="checkbox"
                             defaultChecked={signUpData.saveSignIn}
@@ -59,8 +72,10 @@ export default function SignUp() {
                             id="saveSignIn"
                         />
                         <label htmlFor="saveSignIn">Remember me?</label>
-                    </div>
-                    <button className="form--submit">Sign Up</button>
+                    </div> */}
+                    <button className="form--submit">Log In</button>
+                    <div>Need an account?</div>
+                    <Link to={"/signup"}>Sign Up</Link>
                 </form>
             </div>
         </div>

@@ -1,10 +1,15 @@
-import { NavLink } from "react-router-dom"
+import { NavLink, useNavigate } from "react-router-dom"
 import Toggle from "../Toggle/index"
 import logo from "../images/west-sure-logo.png"
 
 
 
-export default function NavBar({ companyName }) {
+export default function NavBar({ companyName, session, handleLogout, navigate }) {
+    // const navigate = useNavigate()
+    // function handleLogout() {
+    //     sessionStorage.removeItem('token')
+    //     navigate('/login')
+    // }
     return (
         <div className="nav">
             <NavLink to={'west-sure'}> <img src={logo} alt="Logo" /></NavLink>
@@ -13,16 +18,15 @@ export default function NavBar({ companyName }) {
                     <NavLink className={({ isActive }) => isActive ? "nav-link-focus" : "nav-link"} to="/">
                         <li>Home</li>
                     </NavLink>
-                    <NavLink className={({ isActive }) => isActive ? "nav-link-focus" : "nav-link"} to="/client-portal">
-                        <li>Client Portal</li>
-                    </NavLink>
-                    {/* PASS FUNCTION FROM CHILD TO THIS PARENT TO GET
-                            CUSTOMER NAME FROM CLIENTDETAILS PAGE */}
-
-                    {/* OR SEND FETCH REQUEST FROM NAVBAR --- PROBABLY EASIER */}
-
-
-                    <li className="nav-company-name">{companyName}</li>
+                    {session ?
+                        <NavLink className={({ isActive }) => isActive ? "nav-link-focus" : "nav-link"} to="/client-portal">
+                            <li>Client Portal</li>
+                        </NavLink>
+                        : <NavLink className={({ isActive }) => isActive ? "nav-link-focus" : "nav-link"} to="/login">
+                            <li>Login</li>
+                        </NavLink>
+                    }
+                    {session ? <li onClick={() => { handleLogout(); navigate('/login') }}>Logout</li> : ""}
                 </ul>
             </Toggle>
         </div >

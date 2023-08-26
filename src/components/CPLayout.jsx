@@ -15,19 +15,6 @@ export default function ClientPortalLayout() {
         fetchClientData()
     }, [])
 
-    // useEffect(() => {
-    //     const fetchClientOrder = async () => {
-    //         const { data } = await supabase
-    //             .from("change_order")
-    //             .select("*")
-    //         setFetchOrderData(data)
-    //     }
-    //     fetchClientOrder()
-    // }, [])
-    // console.log(fetchOrderData);
-
-
-
     return (
         <>
             <nav className="portal-nav">
