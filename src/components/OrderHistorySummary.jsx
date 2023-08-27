@@ -40,7 +40,7 @@ const OrderHistorySummary = ({ clientData }) => {
         };
         console.log(error);
         fetchData();
-    }, []);
+    }, [error]);
 
 
     const customDateSort = (dateA, dateB) => {
