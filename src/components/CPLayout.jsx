@@ -3,18 +3,28 @@ import { useState, useEffect } from "react"
 import supabase from "../config/supabaseClient"
 
 export default function ClientPortalLayout() {
-    const [fetchClientData, setClientData] = useState("")
-    // const [fetchOrderData, setFetchOrderData] = useState('')
+    const [clientData, setClientData] = useState({})
+
     useEffect(() => {
         const fetchClientData = async () => {
-            const { data } = await supabase
-                .from("clients")
-                .select("*")
-            setClientData(data[0])
+            try {
+                const { data: userData } = await supabase.auth.getUser()
+                if (userData) {
+                    const { data: clientData } = await supabase
+                        .from("clients")
+                        .select("*")
+                        .eq('id', userData.user.id)
+                    // console.log("user id:", userData.user.id);
+                    if (clientData && clientData.length > 0) {
+                        setClientData(clientData)
+                    }
+                }
+            } catch (error) {
+                alert(error.message)
+            }
         }
         fetchClientData()
     }, [])
-
     return (
         <>
             <nav className="portal-nav">
@@ -32,7 +42,7 @@ export default function ClientPortalLayout() {
                 </NavLink>
 
             </nav>
-            <Outlet context={{ fetchClientData }} />
+            <Outlet context={{ clientData }} />
         </>
     )
 }

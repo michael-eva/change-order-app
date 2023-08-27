@@ -21,15 +21,13 @@ import SignUpForm from "./pages/SignUpForm";
 export default function App() {
     // const navigate = useNavigate();
     const [session, setSession] = useState(null)
+    if (session) {
 
-    // useEffect(() => {
-    //     const storedToken = sessionStorage.getItem('token');
-    //     if (storedToken) {
-    //         setToken(JSON.parse(storedToken));
-    //     }
-    // }, []);
+        console.log("session user ID:", session.user.id);
+    }
+
     const handleLogout = () => {
-        sessionStorage.removeItem('token');
+        sessionStorage.removeItem('session');
         setSession(null);
 
     };
@@ -43,6 +41,22 @@ export default function App() {
             setSession(session)
         })
     }, [])
+
+
+    // const getUser = async () => {
+    //     try {
+    //         const { data: { user } } = await supabase.auth.getUser()
+
+    //         if (user) {
+    //             console.log(user.id);
+    //         }
+
+    //     } catch (error) {
+    //         alert(error.message)
+    //     }
+    // }
+    // getUser()
+
     return (
         <>
             <BrowserRouter>
@@ -51,10 +65,10 @@ export default function App() {
                         <Route path="/" element={<Home />} />
                         <Route path="/signup" element={<Auth />} />
                         <Route path="/login" element={<Login setSession={setSession} />} />
-                        <Route path="/signup-form" element={<SignUpForm session={session} />} />
+                        <Route path="signup-form" element={<SignUpForm session={session} />} />
                         {session ? <Route path="/client-portal" element={<ClientPortalLayout />} >
                             <Route index element={<OrderHistorySummary />} />
-                            <Route path="client-details" element={<ClientDetails />} />
+                            <Route path="client-details" element={<ClientDetails session={session} />} />
                             <Route path="place-order" element={<ChangeOrderForm />} />
                             <Route path="invoices" element={<Invoices />} />
                         </Route> : ""}

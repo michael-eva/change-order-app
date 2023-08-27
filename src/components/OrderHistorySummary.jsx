@@ -3,14 +3,13 @@ import supabase from "../config/supabaseClient";
 import { formatDate } from "../utils/dateUtils";
 import { useSearchParams } from "react-router-dom";
 
-const OrderHistorySummary = () => {
+const OrderHistorySummary = ({ clientData }) => {
     const [data, setData] = useState([])
     const [error, setError] = useState(null)
     const [isLoading, setIsLoading] = useState(true)
     const [searchParams, setSearchParams] = useSearchParams()
 
     const pendingFilter = searchParams.get("status")
-
     const filterOrders = pendingFilter
         ? data.filter(order => order.status === pendingFilter)
         : data

@@ -1,5 +1,6 @@
 import { useState } from "react"
 import supabase from "../config/supabaseClient";
+import { useOutletContext } from "react-router-dom";
 
 export default function ChangeOrderForm() {
     const [grandTotal, setGrandTotal] = useState(0);
@@ -7,6 +8,7 @@ export default function ChangeOrderForm() {
     const [noteTotal, setNoteTotal] = useState(0)
     const currentDate = (new Date());
     const [error, setError] = useState("")
+    const { clientData } = useOutletContext()
     const [formData, setFormData] = useState({
 
         fifty: 0,
@@ -24,7 +26,7 @@ export default function ChangeOrderForm() {
         grandTotal: 0,
         date: ''
     });
-
+    console.log(clientData);
     const handleSubmit = async (e) => {
         e.preventDefault()
         if (formData.date) {

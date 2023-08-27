@@ -118,7 +118,7 @@ export default function Auth() {
                     {!passwordsMatch && <div className="password-mismatch">Passwords do not match</div>}
                     <button className="form--submit">Sign Up</button>
                     <div>Already have an account?</div>
-                    {!passwordsMatch ? <Link>Sign In</Link> : <Link to={"/login"}>Sign In</Link>}
+                    {!passwordsMatch ? <Link>Sign In</Link> : <Link to={"/signup-form"}>Sign In</Link>}
                 </form>
             </div>
         </div>

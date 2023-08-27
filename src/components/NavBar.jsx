@@ -4,7 +4,7 @@ import logo from "../images/west-sure-logo.png"
 
 
 
-export default function NavBar({ companyName, session, handleLogout, navigate }) {
+export default function NavBar({ session, handleLogout, navigate }) {
     // const navigate = useNavigate()
     // function handleLogout() {
     //     sessionStorage.removeItem('token')
@@ -22,11 +22,16 @@ export default function NavBar({ companyName, session, handleLogout, navigate })
                         <NavLink className={({ isActive }) => isActive ? "nav-link-focus" : "nav-link"} to="/client-portal">
                             <li>Client Portal</li>
                         </NavLink>
+
                         : <NavLink className={({ isActive }) => isActive ? "nav-link-focus" : "nav-link"} to="/login">
                             <li>Login</li>
                         </NavLink>
                     }
-                    {session ? <li onClick={() => { handleLogout(); navigate('/login') }}>Logout</li> : ""}
+                    {session ?
+                        <>
+                            <li onClick={() => { handleLogout(); navigate('/login') }}>Logout</li>
+                            <li>{session.user.email}</li>
+                        </> : ""}
                 </ul>
             </Toggle>
         </div >

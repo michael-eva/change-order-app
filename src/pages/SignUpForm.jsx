@@ -3,57 +3,142 @@ import supabase from "../config/supabaseClient";
 
 export default function SignUpForm({ session }) {
     const [loading, setLoading] = useState(true)
-    const [companyName, setCompanyName] = useState(null)
-    const [contactName, setContactName] = useState(null)
-    const [contactNumber, setContactNumber] = useState(null)
-    const [address, setAddress] = useState(null)
-    const [abn, setAbn] = useState(null)
+    const [companyName, setCompanyName] = useState('')
+    const [contactName, setContactName] = useState('')
+    const [contactNumber, setContactNumber] = useState('')
+    const [address, setAddress] = useState('')
+    const [abn, setAbn] = useState('')
 
-    useEffect(() => { }, [session])
+    // useEffect(() => {
+    //     getProfile()
+    // }, [session])
 
+    // const getProfile = async () => {
+    //     try {
+    //         setLoading(true)
+
+    //         const { user, error} = await supabase
+    //             .from('clients')
+    //             .select(`companyName, contactName, contactNumber, address, abn`)
+    //             .eq('id', user.id)
+    // .single()
+
+    //         if (data) {
+    //             setCompanyName(data.companyName)
+    //             setContactName(data.contactName)
+    //             setContactNumber(data.contactNumber)
+    //             setAddress(data.address)
+    //             setAbn(data.abn)
+    //         }
+
+    //     } catch (error) {
+    //         alert(error.message)
+    //     } finally {
+    //         setLoading(false)
+    //     }
+    // }
+    console.log(session);
+    useEffect(() => {
+        async function getProfile() {
+            setLoading(true)
+            const { user } = session
+
+            let { data, error } = await supabase
+                .from('clients')
+                .select(`companyName, contactName, contactNumber, address, abn`)
+                .eq('id', user.id)
+                .single()
+
+            if (error) {
+                console.warn(error)
+            } else if (data) {
+                setCompanyName(data.companyName)
+                setContactName(data.contactName)
+                setContactNumber(data.contactNumber)
+                setAddress(data.address)
+                setAbn(data.abn)
+
+            }
+
+            setLoading(false)
+        }
+        getProfile()
+    }, [session])
+
+
+    const updateProfile = async (e) => {
+        e.preventDefault()
+
+        try {
+            setLoading(true)
+
+            const { user } = session
+
+            const updates = {
+                id: user.id,
+                companyName,
+                contactName,
+                contactNumber,
+                address,
+                abn
+            }
+
+            let { error } = await supabase.from("clients")
+
+                .upsert(updates, { returning: 'minimal' })
+
+            if (error) {
+                throw error;
+            }
+        } catch (error) {
+            alert(error.message)
+        } finally {
+            setLoading(false)
+        }
+    }
     return (
         <div className="signup-body">
             <div className="form-container">
-                <form className="form" onSubmit={submitHandler}>
+                <form className="form" onSubmit={updateProfile}>
                     <h2>Sign Up</h2>
                     <input
                         type="text"
                         name="companyName"
-                        value={signUpForm.companyName}
+                        value={companyName}
                         placeholder="Company Name"
-                        onChange={handleChange}
+                        onChange={(e) => setCompanyName(e.target.value)}
                         className="form--input"
                     />
                     <input
                         type="text"
                         name="contactName"
-                        value={signUpForm.contactName}
+                        value={contactName}
                         placeholder="Contact Name"
-                        onChange={handleChange}
+                        onChange={(e) => setContactName(e.target.value)}
                         className="form--input"
                     />
                     <input
                         type="text"
                         name="contactNumber"
-                        value={signUpForm.contactNumber}
+                        value={contactNumber}
                         placeholder="Contact Number"
-                        onChange={handleChange}
+                        onChange={(e) => setContactNumber(e.target.value)}
                         className="form--input"
                     />
                     <input
                         type="text"
                         name="address"
-                        value={signUpForm.address}
+                        value={address}
                         placeholder="Company Address"
-                        onChange={handleChange}
+                        onChange={(e) => setAddress(e.target.value)}
                         className="form--input"
                     />
                     <input
                         type="text"
                         name="abn"
-                        value={signUpForm.abn}
+                        value={abn}
                         placeholder="ABN "
-                        onChange={handleChange}
+                        onChange={(e) => setAbn(e.target.value)}
                         className="form--input"
                     />
 
