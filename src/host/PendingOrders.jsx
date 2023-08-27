@@ -36,7 +36,6 @@ export default function PendingOrders() {
     const filteredData = dateFilter ? data.filter(order => {
         return order.date === dateFilter && order.status === "pending"
     }) : data;;
-
     const updateOrderStatus = async (orderId, newStatus) => {
         try {
             await supabase

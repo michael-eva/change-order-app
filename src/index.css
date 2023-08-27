@@ -304,7 +304,7 @@ a {
 /* Order History */
 table {
   width: 100%;
-  table-layout: fixed;
+  /* table-layout: fixed; */
   border-collapse: collapse;
 }
 
@@ -312,6 +312,7 @@ table {
 th {
   text-align: start;
 }
+
 
 .table-striped {
   background-color: #ac26e555;
@@ -395,7 +396,7 @@ th {
 
 /* HOST LAYOUT */
 .host-layout-page {
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(7, 1fr);
   display: grid;
 }
 
@@ -403,23 +404,14 @@ th {
   grid-column: 1 / span 1;
   box-shadow: 1px 0px 10px rgba(0, 0, 0, 0.5);
   height: 100vh;
-  width: 80%;
   min-width: 150px;
 }
 
 .host-content {
-  grid-column: 2 / span 4;
-  /* border: 1px solid green; */
-  display: flex;
-  /* justify-content: center; */
-  /* align-items: center; */
-  flex-direction: column;
-  /* box-shadow: -10px 0px 10px rgba(0, 0, 0, 0.5); */
+  grid-column: 2 / span 6;
+  padding: 20px;
 }
 
-/* .extra-content {
-  grid-column: 5 / span 1;
-} */
 
 /* HOST SIDEBAR */
 .host-sidebar {
@@ -500,6 +492,8 @@ th {
 .calendar-container {
   display: flex;
   flex-direction: column;
+  align-items: center;
+  margin: 30px 0 40px 0;
 }
 
 .calendar-container header {

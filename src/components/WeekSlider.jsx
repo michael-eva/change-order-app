@@ -10,8 +10,8 @@ const WeekSlider = ({ clickHandle, selectedDay, filteredData }) => {
     const nextWeekStartDate = new Date(currentWeekStartDate);
     nextWeekStartDate.setDate(nextWeekStartDate.getDate() + 7);
 
-
-
+    console.log("filtered data", filteredData);
+    console.log("day", selectedDay);
     function calendarEls() {
         return (
             <>
@@ -24,6 +24,7 @@ const WeekSlider = ({ clickHandle, selectedDay, filteredData }) => {
                             day.setDate(day.getDate() + index);
                             const isCurrentDate = day.toDateString() === new Date().toDateString();
 
+                            const filteredDataLength = filteredData.filter(data => data.date === formattedDate(day)).length;
                             return (
                                 <div key={index}
                                     className={`day ${isCurrentDate ? 'current' : ''} ${selectedDay === formattedDate(day) ? 'selected' : ''}`}
@@ -32,7 +33,7 @@ const WeekSlider = ({ clickHandle, selectedDay, filteredData }) => {
                                     <p>
                                         {day.getDate()}
                                     </p>
-                                    <p>count</p>
+                                    {filteredDataLength > 0 && <p>{filteredDataLength}</p>}
                                     {day.toLocaleDateString('en-US', { weekday: 'short' })}
                                 </div>
                             );

@@ -17,7 +17,7 @@ export default function Clients() {
 
     return (
         <div className="clients-list">
-            <ClientDetails />
+            {/* <ClientDetails /> */}
             {clients && clients.map(client => (
                 <header key={client.id}>
                     <div className="company-title">{client.companyName}</div>
