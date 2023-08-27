@@ -1,5 +1,5 @@
 
-import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom"
+import { BrowserRouter, Routes, Route } from "react-router-dom"
 import supabase from "./config/supabaseClient";
 import './index.css';
 import ChangeOrderForm from "./components/ChangeOrderForm";
@@ -19,7 +19,6 @@ import { useEffect, useState } from "react";
 import SignUpForm from "./pages/SignUpForm";
 
 export default function App() {
-    // const navigate = useNavigate();
     const [session, setSession] = useState(null)
     if (session) {
 

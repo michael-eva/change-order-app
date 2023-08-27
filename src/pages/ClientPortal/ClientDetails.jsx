@@ -6,8 +6,8 @@ import { useOutletContext } from "react-router-dom"
 export default function ClientDetails({ session }) {
     const { clientData } = useOutletContext()
 
-    const [error, setError] = useState('')
-    const [success, setSuccess] = useState('')
+    // const [error, setError] = useState('')
+    // const [success, setSuccess] = useState('')
     return (
         <div>
             {clientData[0] ?

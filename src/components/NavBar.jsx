@@ -1,15 +1,11 @@
-import { NavLink, useNavigate } from "react-router-dom"
+import { NavLink } from "react-router-dom"
 import Toggle from "../Toggle/index"
 import logo from "../images/west-sure-logo.png"
 
 
 
 export default function NavBar({ session, handleLogout, navigate }) {
-    // const navigate = useNavigate()
-    // function handleLogout() {
-    //     sessionStorage.removeItem('token')
-    //     navigate('/login')
-    // }
+
     return (
         <div className="nav">
             <NavLink to={'west-sure'}> <img src={logo} alt="Logo" /></NavLink>

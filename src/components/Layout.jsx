@@ -1,7 +1,7 @@
 import NavBar from "./NavBar";
 import { Outlet, useNavigate } from "react-router-dom";
 
-export default function Layout({ handleLogout, session = { session } }) {
+export default function Layout({ handleLogout, session }) {
     const navigate = useNavigate()
     return (
         <>

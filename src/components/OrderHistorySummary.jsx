@@ -38,7 +38,7 @@ const OrderHistorySummary = ({ clientData }) => {
                 console.log(error);
             }
         };
-
+        console.log(error);
         fetchData();
     }, []);
 

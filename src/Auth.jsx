@@ -38,8 +38,8 @@ export default function Auth() {
                 email: signUpData.email,
                 password: signUpData.password,
             })
-
-            console.log(signUpData)
+            console.log(data);
+            console.log(error);
         } catch (error) {
             console.log(error);
             alert(error)

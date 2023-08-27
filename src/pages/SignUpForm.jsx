@@ -96,6 +96,7 @@ export default function SignUpForm({ session }) {
             setLoading(false)
         }
     }
+    console.log(loading);
     return (
         <div className="signup-body">
             <div className="form-container">
