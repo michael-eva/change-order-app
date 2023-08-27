@@ -17,12 +17,13 @@ import Settings from "./host/Settings";
 import PendingOrders from "./host/PendingOrders";
 import { useEffect, useState } from "react";
 import SignUpForm from "./pages/SignUpForm";
+import ClientOrderHistory from "./pages/ClientPortal/ClientOrderHistory";
 
 export default function App() {
     const [session, setSession] = useState(null)
     if (session) {
 
-        console.log("session user ID:", session.user.id);
+        // console.log("session user ID:", session.user.id);
     }
 
     const handleLogout = () => {
@@ -66,15 +67,15 @@ export default function App() {
                         <Route path="/login" element={<Login setSession={setSession} />} />
                         <Route path="signup-form" element={<SignUpForm session={session} />} />
                         {session ? <Route path="/client-portal" element={<ClientPortalLayout />} >
-                            <Route index element={<OrderHistorySummary />} />
+                            <Route index element={<ClientOrderHistory session={session} />} />
                             <Route path="client-details" element={<ClientDetails session={session} />} />
-                            <Route path="place-order" element={<ChangeOrderForm />} />
+                            <Route path="place-order" element={<ChangeOrderForm session={session} />} />
                             <Route path="invoices" element={<Invoices />} />
                         </Route> : ""}
                         <Route path="/west-sure" element={<HostLayout />}>
                             <Route index element={< PendingOrders />} />
                             <Route path="clients" element={< Clients />} />
-                            <Route path="order-history" element={< OrderHistorySummary />} />
+                            <Route path="order-history" element={< OrderHistorySummary session={session} />} />
                             <Route path="settings" element={< Settings />} />
                         </Route>
                     </Route>

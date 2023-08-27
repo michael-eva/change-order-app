@@ -14,7 +14,6 @@ export default function ClientPortalLayout() {
                         .from("clients")
                         .select("*")
                         .eq('id', userData.user.id)
-                    // console.log("user id:", userData.user.id);
                     if (clientData && clientData.length > 0) {
                         setClientData(clientData)
                     }
@@ -25,6 +24,7 @@ export default function ClientPortalLayout() {
         }
         fetchClientData()
     }, [])
+    // console.log(clientData);
     return (
         <>
             <nav className="portal-nav">

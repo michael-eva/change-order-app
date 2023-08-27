@@ -2,7 +2,7 @@ import { useState } from "react"
 import supabase from "../config/supabaseClient";
 import { useOutletContext } from "react-router-dom";
 
-export default function ChangeOrderForm() {
+export default function ChangeOrderForm({ session }) {
     const [grandTotal, setGrandTotal] = useState(0);
     const [coinTotal, setCoinTotal] = useState(0)
     const [noteTotal, setNoteTotal] = useState(0)
@@ -26,9 +26,11 @@ export default function ChangeOrderForm() {
         grandTotal: 0,
         date: ''
     });
-    console.log(clientData);
+
     const handleSubmit = async (e) => {
-        e.preventDefault()
+        e.preventDefault();
+        const { user } = session;
+
         if (formData.date) {
             const formattedDate = formatDateForDatabase(formData.date);
             const formDataWithTotals = {
@@ -37,34 +39,42 @@ export default function ChangeOrderForm() {
                 noteTotal: noteTotal,
                 grandTotal: grandTotal,
                 date: formattedDate,
-                status: "pending"
-            }
-            const { data } = await supabase
-                .from('change_order')
-                .insert([formDataWithTotals])
-            console.log(data)
-            setFormData({
-                fifty: 0,
-                twenty: 0,
-                ten: 0,
-                five: 0,
-                two: 0,
-                one: 0,
-                fiftyCents: 0,
-                twentyCents: 0,
-                tenCents: 0,
-                fiveCents: 0,
-                coinTotal: 0,
-                noteTotal: 0,
-                grandTotal: 0,
-                date: ''
-            })
-            setError(null)
+                status: "pending",
+                uuid: user.id
+            };
 
+            try {
+                const { data } = await supabase
+                    .from('change_order')
+                    .insert([formDataWithTotals])
+                    .eq('uuid', user.id);
+
+                console.log(data);
+                setFormData({
+                    fifty: 0,
+                    twenty: 0,
+                    ten: 0,
+                    five: 0,
+                    two: 0,
+                    one: 0,
+                    fiftyCents: 0,
+                    twentyCents: 0,
+                    tenCents: 0,
+                    fiveCents: 0,
+                    coinTotal: 0,
+                    noteTotal: 0,
+                    grandTotal: 0,
+                    date: ''
+                });
+                setError(null);
+            } catch (error) {
+                console.error(error);
+                setError("An error occurred while submitting the form.");
+            }
         } else {
-            setError("Please enter date before we can proceed")
+            setError("Please enter a date before we can proceed.");
         }
-    }
+    };
     function formatDateForDatabase(date) {
         const [year, month, day] = date.split('-');
         const formattedDay = parseInt(day, 10).toString(); // Remove leading zero if present

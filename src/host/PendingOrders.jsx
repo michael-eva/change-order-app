@@ -9,16 +9,27 @@ import { formattedDate } from "../utils/dateUtils";
 export default function PendingOrders() {
     const [searchParams, setSearchParams] = useSearchParams();
     const [selectedDay, setSelectedDay] = useState(formattedDate(new Date()));
-    const [data, setData] = useState([]);
+    const [data, setData] = useState([])
+    const [clientData, setClientData] = useState([])
 
 
     useEffect(() => {
         fetchData();
+        fetchClientData()
     }, []);
     const fetchData = async () => {
-        const { data } = await supabase.from("change_order").select("*");
+        const { data } = await supabase
+            .from("change_order")
+            .select("*");
 
         setData(data);
+    };
+    const fetchClientData = async () => {
+        const { data } = await supabase
+            .from("clients")
+            .select("*");
+
+        setClientData(data);
     };
 
     const dateFilter = searchParams.get("date");
@@ -48,7 +59,7 @@ export default function PendingOrders() {
     return (
         <>
             <WeekSlider clickHandle={clickHandle} selectedDay={selectedDay} filteredData={filteredData} />
-            <OrderHistory filteredData={filteredData} updateOrderStatus={updateOrderStatus} selectedDay={selectedDay} />
+            <OrderHistory filteredData={filteredData} updateOrderStatus={updateOrderStatus} selectedDay={selectedDay} clientData={clientData} />
         </>
     )
 }

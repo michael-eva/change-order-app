@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 
 
-export default function OrderHistory({ filteredData, updateOrderStatus, selectedDay }) {
+export default function OrderHistory({ filteredData, updateOrderStatus, selectedDay, clientData }) {
     const [statuses, setStatuses] = useState({});
 
     const filteredOrders = filteredData.filter(order => (
@@ -19,7 +19,7 @@ export default function OrderHistory({ filteredData, updateOrderStatus, selected
             console.error('Error updating order statuses:', error);
         }
     };
-
+    console.log(clientData);
     function handleChange(event) {
         const { value, dataset } = event.target;
         const orderId = dataset.orderId;
@@ -56,7 +56,9 @@ export default function OrderHistory({ filteredData, updateOrderStatus, selected
                         {filteredOrders.map((order, index) => (
                             <tbody key={order.id}>
                                 <tr>
-                                    <td className={`${index % 2 ? "table-striped" : "table-striped-grey"}`}>Company {order.id}</td>
+                                    <td className={`${index % 2 ? "table-striped" : "table-striped-grey"}`}>{clientData.map(client => {
+                                        return client.id === order.uuid && <p key={order.id}>{client.companyName}</p>
+                                    })}</td>
                                     <td className={`${index % 2 ? "table-striped" : "table-striped-grey"}`}>{order.fifty}</td>
                                     <td className={`${index % 2 ? "table-striped" : "table-striped-grey"}`}>{order.twenty}</td>
                                     <td className={`${index % 2 ? "table-striped" : "table-striped-grey"}`}>{order.ten}</td>
