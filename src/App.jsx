@@ -19,6 +19,7 @@ import { useEffect, useState } from "react";
 import SignUpForm from "./pages/SignUpForm";
 import ClientOrderHistory from "./pages/ClientPortal/ClientOrderHistory";
 import UpdateClientDetails from "./pages/ClientPortal/UpdateClientDetails";
+import toast, { Toaster } from 'react-hot-toast'
 
 export default function App() {
     const [session, setSession] = useState(null)
@@ -32,6 +33,7 @@ export default function App() {
             await supabase.auth.signOut();
             setSession(null);
             sessionStorage.removeItem('session');
+            toast.success('Logged out successfully')
         } catch (error) {
             console.error('Error logging out:', error);
         }
@@ -64,13 +66,14 @@ export default function App() {
 
     return (
         <>
+            <Toaster />
             <BrowserRouter>
                 <Routes>
                     <Route element={<Layout session={session} handleLogout={handleLogout} />}>
                         <Route path="/" element={<Home />} />
                         <Route path="/signup" element={<Auth />} />
+                        {session && <Route path="/signup-form" element={<SignUpForm session={session} />} />}
                         <Route path="/login" element={<Login setSession={setSession} />} />
-                        <Route path="signup-form" element={<SignUpForm session={session} />} />
                         {session ? <Route path="/client-portal" element={<ClientPortalLayout />} >
                             <Route index element={<ClientOrderHistory session={session} />} />
                             <Route path="client-details" element={<ClientDetails session={session} />} />

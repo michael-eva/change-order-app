@@ -1,11 +1,11 @@
 import { useState } from "react"
-import supabase from "./config/supabaseClient";
+import supabase from "./config/supabaseClient"
 import { Link } from "react-router-dom"
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom"
 
 export default function Auth() {
     const navigate = useNavigate('')
-    const [passwordsMatch, setPasswordsMatch] = useState(true);
+    const [passwordsMatch, setPasswordsMatch] = useState(true)
     const [signUpData, setSignUpData] = useState({
         email: "",
         password: "",
@@ -17,9 +17,9 @@ export default function Auth() {
         const { name, value } = event.target;
         if (name === "password" || name === "confirmPassword") {
             if (name === "confirmPassword" && value !== signUpData.password) {
-                setPasswordsMatch(false); // Set passwordsMatch to false if they don't match
+                setPasswordsMatch(false)
             } else {
-                setPasswordsMatch(true); // Set passwordsMatch back to true if they match
+                setPasswordsMatch(true)
             }
         }
         setSignUpData(prevFormData => {
@@ -30,7 +30,7 @@ export default function Auth() {
         })
 
     }
-    console.log(signUpData);
+
     async function submitHandler(event) {
         event.preventDefault()
         try {
@@ -44,53 +44,13 @@ export default function Auth() {
             console.log(error);
             alert(error)
         }
-        navigate('/signup-form')
+        // navigate('/signup-form')
     }
     return (
         <div className="signup-body">
             <div className="form-container">
                 <form className="form" onSubmit={submitHandler}>
                     <h2>Sign Up</h2>
-                    {/* <input
-                        type="text"
-                        name="companyName"
-                        value={signUpData.companyName}
-                        placeholder="Company Name"
-                        onChange={handleChange}
-                        className="form--input"
-                    />
-                    <input
-                        type="text"
-                        name="contactName"
-                        value={signUpData.contactName}
-                        placeholder="Contact Name"
-                        onChange={handleChange}
-                        className="form--input"
-                    />
-                    <input
-                        type="text"
-                        name="contactNumber"
-                        value={signUpData.contactNumber}
-                        placeholder="Contact Number"
-                        onChange={handleChange}
-                        className="form--input"
-                    />
-                    <input
-                        type="text"
-                        name="address"
-                        value={signUpData.address}
-                        placeholder="Company Address"
-                        onChange={handleChange}
-                        className="form--input"
-                    />
-                    <input
-                        type="text"
-                        name="abn"
-                        value={signUpData.abn}
-                        placeholder="ABN "
-                        onChange={handleChange}
-                        className="form--input"
-                    /> */}
                     <input
                         type="text"
                         name="email"

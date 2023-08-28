@@ -42,7 +42,7 @@ export default function ClientPortalLayout() {
                 </NavLink>
 
             </nav>
-            <Outlet context={{ clientData }} />
+            {clientData && <Outlet context={{ clientData }} />}
         </>
     )
 }

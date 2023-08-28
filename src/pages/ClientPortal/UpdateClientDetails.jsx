@@ -1,6 +1,7 @@
 import supabase from "../../config/supabaseClient";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import toast, { Toaster } from 'react-hot-toast'
 
 export default function UpdateClientDetails({ session }) {
     const navigate = useNavigate()
@@ -32,7 +33,6 @@ export default function UpdateClientDetails({ session }) {
                     setContactNumber(data.contactNumber)
                     setAddress(data.address)
                     setAbn(data.abn)
-
                 }
                 setLoading(false)
             }
@@ -60,7 +60,10 @@ export default function UpdateClientDetails({ session }) {
         if (data) {
             // setError(null)
         }
-        navigate('../client-details')
+        toast.success('Client details updated')
+        setTimeout(() => {
+            navigate('../client-details');
+        }, 1000)
     }
 
     return (
@@ -124,6 +127,7 @@ export default function UpdateClientDetails({ session }) {
                     <button className="submit-btn">Submit</button>
                 </div>
             </form >
+            <Toaster />
         </div >
     )
 }

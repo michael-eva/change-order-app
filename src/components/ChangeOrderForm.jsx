@@ -1,6 +1,7 @@
 import { useState } from "react"
 import supabase from "../config/supabaseClient";
 import { useOutletContext } from "react-router-dom";
+import toast, { Toaster } from 'react-hot-toast'
 
 export default function ChangeOrderForm({ session }) {
     const [grandTotal, setGrandTotal] = useState(0);
@@ -26,7 +27,6 @@ export default function ChangeOrderForm({ session }) {
         grandTotal: 0,
         date: ''
     });
-
     const handleSubmit = async (e) => {
         e.preventDefault();
         const { user } = session;
@@ -50,6 +50,7 @@ export default function ChangeOrderForm({ session }) {
                     .eq('uuid', user.id);
 
                 console.log(data);
+                toast.success('Order submitted successfully')
                 setFormData({
                     fifty: 0,
                     twenty: 0,
@@ -209,7 +210,7 @@ export default function ChangeOrderForm({ session }) {
                         />
                     </div>
 
-                    <div className="totals">Notes Total: <span>${noteTotal}</span></div>
+                    <div className="totals">Notes Total: <span>${formData.noteTotal}</span></div>
 
                     <div className="input">
                         <label className="label" htmlFor="two">$2</label>
@@ -271,8 +272,8 @@ export default function ChangeOrderForm({ session }) {
                             onChange={handleChange}
                         />
                     </div>
-                    <div className="totals">Coins Total: <span>${coinTotal}</span></div>
-                    <div className="totals">Grand Total: <span>${grandTotal}</span></div>
+                    <div className="totals">Coins Total: <span>${formData.coinTotal}</span></div>
+                    <div className="totals">Grand Total: <span>${formData.grandTotal}</span></div>
                 </div>
             </div>
             <div className="second-column">
@@ -289,12 +290,13 @@ export default function ChangeOrderForm({ session }) {
                         <h4 className="totals-label">Total</h4>
                     </div>
                     <div className="grand-totals">
-                        <div className="totals">${noteTotal}</div>
-                        <div className="totals">${coinTotal}</div>
-                        <div className="totals">${grandTotal}</div>
+                        <div className="totals">${formData.noteTotal}</div>
+                        <div className="totals">${formData.coinTotal}</div>
+                        <div className="totals">${formData.grandTotal}</div>
                     </div>
                 </div>
                 <button className="submit-btn" >Submit</button>
+                <Toaster />
                 <p>Contact <span>thiswebapp@email.com</span> if you experience any issues.</p>
             </div>
         </form>
