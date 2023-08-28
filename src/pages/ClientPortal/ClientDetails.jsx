@@ -1,5 +1,7 @@
 // import { useState } from "react"
 import { useOutletContext } from "react-router-dom"
+import { Link } from "react-router-dom"
+import { BiMessageSquareEdit } from 'react-icons/bi';
 
 
 
@@ -9,16 +11,39 @@ export default function ClientDetails({ session }) {
     // const [error, setError] = useState('')
     // const [success, setSuccess] = useState('')
     return (
-        <div>
+        <div className="client-details">
             {clientData[0] ?
-                <>
-                    <p>{session.user.email}</p>
-                    <p>{clientData[0].companyName}</p>
-                    <p>{clientData[0].contactName}</p>
-                    <p>{clientData[0].contactNumber}</p>
-                    <p>{clientData[0].address}</p>
-                    <p>{clientData[0].abn}</p>
-                </>
+                <div className="client-details-container">
+                    <div className="client-details-info">
+                        <h3 >Company Name: </h3>
+                        <p>{clientData[0].companyName}</p>
+                    </div>
+                    <div className="client-details-info">
+                        <h3 >Contact Name: </h3>
+                        <p>{clientData[0].contactName}</p>
+                    </div>
+                    <div className="client-details-info">
+                        <h3 >Contact Number: </h3>
+                        <p>{clientData[0].contactNumber}</p>
+                    </div>
+                    <div className="client-details-info">
+                        <h3 >Email: </h3>
+                        <p>{session.user.email}</p>
+                    </div>
+                    <div className="client-details-info">
+                        <h3 >Address: </h3>
+                        <p>{clientData[0].address}</p>
+                    </div>
+                    <div className="client-details-info">
+                        <h3 >ABN: </h3>
+                        <p>{clientData[0].abn}</p>
+                    </div>
+                    <div className="client-details-edit">
+                        <Link to=''>
+                            <i className="material-icons">Edit details <BiMessageSquareEdit /></i>
+                        </Link>
+                    </div>
+                </div>
                 :
                 <p>Loading...</p>
             }
