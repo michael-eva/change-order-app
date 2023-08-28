@@ -23,7 +23,7 @@ export default function ClientPortalLayout() {
             }
         }
         fetchClientData()
-    }, [])
+    }, [clientData])
     // console.log(clientData);
     return (
         <>
