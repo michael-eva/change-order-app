@@ -18,6 +18,7 @@ import PendingOrders from "./host/PendingOrders";
 import { useEffect, useState } from "react";
 import SignUpForm from "./pages/SignUpForm";
 import ClientOrderHistory from "./pages/ClientPortal/ClientOrderHistory";
+import UpdateClientDetails from "./pages/ClientPortal/UpdateClientDetails";
 
 export default function App() {
     const [session, setSession] = useState(null)
@@ -73,6 +74,7 @@ export default function App() {
                         {session ? <Route path="/client-portal" element={<ClientPortalLayout />} >
                             <Route index element={<ClientOrderHistory session={session} />} />
                             <Route path="client-details" element={<ClientDetails session={session} />} />
+                            {session && <Route path="update-client-details" element={<UpdateClientDetails session={session} />} />}
                             <Route path="place-order" element={<ChangeOrderForm session={session} />} />
                             <Route path="invoices" element={<Invoices />} />
                         </Route> : ""}

@@ -39,7 +39,7 @@ export default function ClientDetails({ session }) {
                         <p>{clientData[0].abn}</p>
                     </div>
                     <div className="client-details-edit">
-                        <Link to=''>
+                        <Link to='../update-client-details'>
                             <i className="material-icons">Edit details <BiMessageSquareEdit /></i>
                         </Link>
                     </div>

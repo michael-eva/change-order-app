@@ -567,3 +567,37 @@ th {
   color: var(--primary-color);
   text-decoration: underline;
 }
+
+/* UPDATE CLIENT DETAILS */
+.update-client-container {
+  padding: 30px;
+  width: max-content;
+}
+
+.update-client-container input {
+  all: unset;
+  border: 1px solid var(--primary-color);
+  border-radius: 6px;
+  width: 100%;
+  font-size: 15px;
+  padding: 5px;
+}
+
+
+.update-client-container .container-item label {
+  width: 300px;
+  font-size: 20px;
+  display: flex;
+  color: var(--dark-text-color);
+}
+
+.update-client-container .container-item {
+  display: flex;
+  padding-bottom: 20px;
+  gap: 20px;
+}
+
+.update-client-container-btn {
+  display: flex;
+  justify-content: center;
+}
