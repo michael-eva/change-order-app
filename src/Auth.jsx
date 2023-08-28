@@ -4,7 +4,7 @@ import { Link } from "react-router-dom"
 import { useNavigate } from "react-router-dom"
 
 export default function Auth() {
-    const navigate = useNavigate('')
+    // const navigate = useNavigate('')
     const [passwordsMatch, setPasswordsMatch] = useState(true)
     const [signUpData, setSignUpData] = useState({
         email: "",

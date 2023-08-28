@@ -39,7 +39,7 @@ const ClientOrderHistory = ({ session }) => {
 
                     if (!userProfile.error) {
                         setCompanyName(userProfile.data?.companyName || '');
-                        clientData = userProfile.data;
+                        // clientData = userProfile.data;
                     } else {
                         clientsError = "Error fetching user profile";
                     }
@@ -57,7 +57,7 @@ const ClientOrderHistory = ({ session }) => {
 
         fetchData();
     }, [session]);
-
+    console.log(error);
     const customDateSort = (dateA, dateB) => {
         const [dayA, monthA, yearA] = dateA.split("-").map(Number);
         const [dayB, monthB, yearB] = dateB.split("-").map(Number);

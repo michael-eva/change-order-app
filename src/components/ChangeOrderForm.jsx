@@ -9,7 +9,7 @@ export default function ChangeOrderForm({ session }) {
     const [noteTotal, setNoteTotal] = useState(0)
     const currentDate = (new Date());
     const [error, setError] = useState("")
-    const { clientData } = useOutletContext()
+    // const { clientData } = useOutletContext()
     const [formData, setFormData] = useState({
 
         fifty: 0,

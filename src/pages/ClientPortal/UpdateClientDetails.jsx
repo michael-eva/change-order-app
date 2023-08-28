@@ -11,7 +11,7 @@ export default function UpdateClientDetails({ session }) {
     const [contactNumber, setContactNumber] = useState('')
     const [address, setAddress] = useState('')
     const [abn, setAbn] = useState('')
-    const [email, setEmail] = useState('')
+    // const [email, setEmail] = useState('')
 
     const { user } = session
     console.log(session);
@@ -38,7 +38,8 @@ export default function UpdateClientDetails({ session }) {
             }
         }
         getProfile()
-    }, [session])
+    }, [session.user.id])
+    console.log(loading);
 
     async function handleSubmit(e) {
         e.preventDefault()
