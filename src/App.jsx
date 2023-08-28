@@ -26,10 +26,14 @@ export default function App() {
         // console.log("session user ID:", session.user.id);
     }
 
-    const handleLogout = () => {
-        sessionStorage.removeItem('session');
-        setSession(null);
-
+    const handleLogout = async () => {
+        try {
+            await supabase.auth.signOut();
+            setSession(null);
+            sessionStorage.removeItem('session');
+        } catch (error) {
+            console.error('Error logging out:', error);
+        }
     };
 
     useEffect(() => {
