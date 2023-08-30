@@ -59,10 +59,11 @@ export default function PendingOrders() {
     function clickHandle(day) {
         setSelectedDay(formattedDate(day));
         setSearchParams(`?date=${formattedDate(day)}`)
+        console.log("clicked");
     }
     return (
         <>
-            <WeekSlider clickHandle={clickHandle} selectedDay={selectedDay} filteredData={filteredData} pendingOrders={pendingOrders} />
+            <WeekSlider clickHandle={clickHandle} setSelectedDay={setSelectedDay} selectedDay={selectedDay} filteredData={filteredData} pendingOrders={pendingOrders} />
             <OrderHistory filteredData={filteredData} updateOrderStatus={updateOrderStatus} selectedDay={selectedDay} clientData={clientData} />
         </>
     )

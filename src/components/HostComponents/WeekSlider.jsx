@@ -1,20 +1,28 @@
 import { useState } from "react";
 import { formattedDate } from "../../utils/dateUtils";
+import { useNavigate } from "react-router-dom";
+import PendingOrders from "../../host/PendingOrders";
 
-const WeekSlider = ({ clickHandle, selectedDay, filteredData, pendingOrders }) => {
+
+const WeekSlider = ({ clickHandle, selectedDay, setSelectedDay, pendingOrders }) => {
     // State to keep track of the currently displayed week's start date
+    const navigate = useNavigate('')
     const [currentWeekStartDate, setCurrentWeekStartDate] = useState(new Date());
     // Logic to calculate the previous and next week's start dates
     const prevWeekStartDate = new Date(currentWeekStartDate);
     prevWeekStartDate.setDate(prevWeekStartDate.getDate() - 7);
     const nextWeekStartDate = new Date(currentWeekStartDate);
     nextWeekStartDate.setDate(nextWeekStartDate.getDate() + 7);
+    function toToday() {
+        setCurrentWeekStartDate(new Date())
+        clickHandle(new Date())
+    }
 
-    console.log("pending Orders:", pendingOrders);
     function calendarEls() {
         return (
             <>
                 <header> {currentWeekStartDate.toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}</header>
+                <button onClick={() => toToday()}>Go to today</button>
                 <div className="week-slider">
                     <button onClick={() => setCurrentWeekStartDate(prevWeekStartDate)}>&lt;</button>
                     <div className="week">
@@ -25,7 +33,7 @@ const WeekSlider = ({ clickHandle, selectedDay, filteredData, pendingOrders }) =
 
                             const pendingOrdersForDay = pendingOrders.filter(order => order.date === formattedDate(day));
                             const pendingOrdersCount = pendingOrdersForDay.length;
-
+                            console.log();
                             return (
                                 <div key={index}
                                     className={`day ${isCurrentDate ? 'current' : ''} ${selectedDay === formattedDate(day) ? 'selected' : ''}`}
