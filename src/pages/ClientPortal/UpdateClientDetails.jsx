@@ -38,7 +38,7 @@ export default function UpdateClientDetails({ session }) {
             }
         }
         getProfile()
-    }, [])
+    }, [session])
     console.log(loading);
 
     async function handleSubmit(e) {

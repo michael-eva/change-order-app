@@ -27,14 +27,6 @@ const ClientOrderHistory = ({ session }) => {
 
                 let clientsError = null;
 
-                if (!changeOrderError) {
-                    const userProfile = await supabase
-                        .from('clients')
-                        .select('*')
-                        .eq('id', session.user.id)
-                        .single()
-                }
-
                 setData(changeOrderData);
                 setError(changeOrderError || clientsError);
                 setIsLoading(false);
@@ -82,27 +74,10 @@ const ClientOrderHistory = ({ session }) => {
                 <button onClick={() => setSearchParams("?status=packed")}>Packed</button>
                 <button onClick={() => setSearchParams({ status: 'pending' })}>Pending</button>
             </div>
-            {/* <div className="order-history-summary-headings">
-                <h4>Date</h4>
-                <h4>$50</h4>
-                <h4>$20</h4>
-                <h4>$10</h4>
-                <h4>$5</h4>
-                <h4>Note Total</h4>
-                <h4>$2</h4>
-                <h4>$1</h4>
-                <h4>50c</h4>
-                <h4>20c</h4>
-                <h4>10c</h4>
-                <h4>5c</h4>
-                <h4>Coin Total</h4>
-                <h4>Total</h4>
-                <h4>Status</h4>
-            </div> */}
             <table>
                 <thead>
                     <tr>
-                        <th>Name</th>
+                        <th>Date</th>
                         <th>$50</th>
                         <th>$20</th>
                         <th>$10</th>
