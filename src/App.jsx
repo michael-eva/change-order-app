@@ -23,10 +23,6 @@ import toast, { Toaster } from 'react-hot-toast'
 
 export default function App() {
     const [session, setSession] = useState(null)
-    if (session) {
-
-        // console.log("session user ID:", session.user.id);
-    }
 
     const handleLogout = async () => {
         try {

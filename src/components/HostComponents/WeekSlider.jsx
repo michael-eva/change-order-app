@@ -1,12 +1,9 @@
 import { useState } from "react";
 import { formattedDate } from "../../utils/dateUtils";
-import { useNavigate } from "react-router-dom";
-import PendingOrders from "../../host/PendingOrders";
 
 
 const WeekSlider = ({ clickHandle, selectedDay, setSelectedDay, pendingOrders }) => {
     // State to keep track of the currently displayed week's start date
-    const navigate = useNavigate('')
     const [currentWeekStartDate, setCurrentWeekStartDate] = useState(new Date());
     // Logic to calculate the previous and next week's start dates
     const prevWeekStartDate = new Date(currentWeekStartDate);
@@ -51,10 +48,8 @@ const WeekSlider = ({ clickHandle, selectedDay, setSelectedDay, pendingOrders })
                     <button onClick={() => setCurrentWeekStartDate(nextWeekStartDate)}>&gt;</button>
                 </div>
             </>
-
         )
     }
-
     // Render the week slider UI
     return (
         <>
@@ -62,7 +57,6 @@ const WeekSlider = ({ clickHandle, selectedDay, setSelectedDay, pendingOrders })
                 {calendarEls()}
             </div>
         </>
-    );
-};
-
+    )
+}
 export default WeekSlider;

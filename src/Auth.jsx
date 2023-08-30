@@ -4,6 +4,7 @@ import { Link } from "react-router-dom"
 
 export default function Auth() {
     const [passwordsMatch, setPasswordsMatch] = useState(true)
+    const [loading, setLoading] = useState(false)
     const [signUpData, setSignUpData] = useState({
         email: "",
         password: "",
@@ -29,25 +30,29 @@ export default function Auth() {
 
     }
 
-    async function submitHandler(event) {
+    const handleLogin = async (event) => {
         event.preventDefault()
 
-        const { error } = await supabase.auth.signUp({
-            email: signUpData.email,
-            password: signUpData.password,
-        })
+        setLoading(true)
+        const { error } = await supabase.auth.signUp(
+            {
+                email: signUpData.email,
+                password: signUpData.password,
+            }
+        )
+
         if (error) {
             console.log(error);
             alert(error.error_description || error.message)
         } else {
             alert('Check your email for the login link!')
         }
-
+        setLoading(false)
     }
     return (
         <div className="signup-body">
             <div className="form-container">
-                <form className="form" onSubmit={submitHandler}>
+                <form className="form" onSubmit={handleLogin}>
                     <h2>Sign Up</h2>
                     <input
                         type="text"
@@ -56,6 +61,7 @@ export default function Auth() {
                         placeholder="Email Address"
                         onChange={handleChange}
                         className="form--input"
+                        required={true}
                     />
                     <input
                         type="password"
@@ -76,7 +82,7 @@ export default function Auth() {
                     {!passwordsMatch && <div className="password-mismatch">Passwords do not match</div>}
                     <button className="form--submit">Sign Up</button>
                     <div>Already have an account?</div>
-                    {!passwordsMatch ? <Link>Sign In</Link> : <Link to={"/signup-form"}>Sign In</Link>}
+                    <Link to='/login'>Sign In</Link>
                 </form>
             </div>
         </div>
