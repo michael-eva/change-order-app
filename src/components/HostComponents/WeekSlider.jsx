@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { formattedDate } from "../../utils/dateUtils";
 
-const WeekSlider = ({ clickHandle, selectedDay, filteredData }) => {
+const WeekSlider = ({ clickHandle, selectedDay, filteredData, pendingOrders }) => {
     // State to keep track of the currently displayed week's start date
     const [currentWeekStartDate, setCurrentWeekStartDate] = useState(new Date());
     // Logic to calculate the previous and next week's start dates
@@ -10,8 +10,7 @@ const WeekSlider = ({ clickHandle, selectedDay, filteredData }) => {
     const nextWeekStartDate = new Date(currentWeekStartDate);
     nextWeekStartDate.setDate(nextWeekStartDate.getDate() + 7);
 
-    console.log("filtered data", filteredData);
-    console.log("day", selectedDay);
+    console.log("pending Orders:", pendingOrders);
     function calendarEls() {
         return (
             <>
@@ -22,18 +21,20 @@ const WeekSlider = ({ clickHandle, selectedDay, filteredData }) => {
                         {Array.from({ length: 7 }, (_, index) => {
                             const day = new Date(currentWeekStartDate);
                             day.setDate(day.getDate() + index);
-                            const isCurrentDate = day.toDateString() === new Date().toDateString();
+                            const isCurrentDate = day.toDateString() === new Date().toDateString()
 
-                            const filteredDataLength = filteredData.filter(data => data.date === formattedDate(day)).length;
+                            const pendingOrdersForDay = pendingOrders.filter(order => order.date === formattedDate(day));
+                            const pendingOrdersCount = pendingOrdersForDay.length;
+
                             return (
                                 <div key={index}
                                     className={`day ${isCurrentDate ? 'current' : ''} ${selectedDay === formattedDate(day) ? 'selected' : ''}`}
-                                    onClick={() => clickHandle(day)}
-                                >
+                                    onClick={() => clickHandle(day)}>
                                     <p>
                                         {day.getDate()}
                                     </p>
-                                    {filteredDataLength > 0 && <p>{filteredDataLength}</p>}
+                                    <p>{pendingOrdersCount}</p>
+
                                     {day.toLocaleDateString('en-US', { weekday: 'short' })}
                                 </div>
                             );

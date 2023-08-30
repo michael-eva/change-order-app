@@ -2,7 +2,7 @@ import WeekSlider from "../components/HostComponents/WeekSlider"
 import { useSearchParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import supabase from "../config/supabaseClient";
-import OrderHistory from "../components/OrderHistory"
+import OrderHistory from "../components/HostComponents/OrderHistory"
 import { formattedDate } from "../utils/dateUtils";
 
 
@@ -36,6 +36,11 @@ export default function PendingOrders() {
     const filteredData = dateFilter ? data.filter(order => {
         return order.date === dateFilter && order.status === "pending"
     }) : data;;
+
+    const pendingOrders = data.filter(order => {
+        return order.status === "pending"
+    })
+    console.log("pending orders", pendingOrders);
     const updateOrderStatus = async (orderId, newStatus) => {
         try {
             await supabase
@@ -57,7 +62,7 @@ export default function PendingOrders() {
     }
     return (
         <>
-            <WeekSlider clickHandle={clickHandle} selectedDay={selectedDay} filteredData={filteredData} />
+            <WeekSlider clickHandle={clickHandle} selectedDay={selectedDay} filteredData={filteredData} pendingOrders={pendingOrders} />
             <OrderHistory filteredData={filteredData} updateOrderStatus={updateOrderStatus} selectedDay={selectedDay} clientData={clientData} />
         </>
     )

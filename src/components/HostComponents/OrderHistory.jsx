@@ -26,6 +26,8 @@ export default function OrderHistory({ filteredData, updateOrderStatus, selected
             [orderId]: value,
         }));
     }
+    // console.log("Order history filtered data", filteredData);
+    // console.log("Order history filtered orders", filteredOrders);
     return (
         <div className="order-history">
             {filteredOrders ? (
