@@ -10,8 +10,6 @@ const ClientOrderHistory = ({ session }) => {
     const [isLoading, setIsLoading] = useState(true)
     const [searchParams, setSearchParams] = useSearchParams()
     const pendingFilter = searchParams.get("status")
-
-    const [companyName, setCompanyName] = useState()
     const filterOrders = pendingFilter
         ? data.filter(order => order.status === pendingFilter)
         : data
@@ -27,7 +25,6 @@ const ClientOrderHistory = ({ session }) => {
                     .select('*')
                     .eq('uuid', session.user.id)
 
-                let clientData = null;
                 let clientsError = null;
 
                 if (!changeOrderError) {
@@ -35,14 +32,7 @@ const ClientOrderHistory = ({ session }) => {
                         .from('clients')
                         .select('*')
                         .eq('id', session.user.id)
-                        .single();
-
-                    if (!userProfile.error) {
-                        setCompanyName(userProfile.data?.companyName || '');
-                        // clientData = userProfile.data;
-                    } else {
-                        clientsError = "Error fetching user profile";
-                    }
+                        .single()
                 }
 
                 setData(changeOrderData);

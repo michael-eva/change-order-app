@@ -4,7 +4,7 @@ import { Link } from "react-router-dom"
 
 export default function Auth() {
     const [passwordsMatch, setPasswordsMatch] = useState(true)
-    const [loading, setLoading] = useState(false)
+
     const [signUpData, setSignUpData] = useState({
         email: "",
         password: "",
@@ -33,7 +33,7 @@ export default function Auth() {
     const handleLogin = async (event) => {
         event.preventDefault()
 
-        setLoading(true)
+
         const { error } = await supabase.auth.signUp(
             {
                 email: signUpData.email,
@@ -47,7 +47,6 @@ export default function Auth() {
         } else {
             alert('Check your email for the login link!')
         }
-        setLoading(false)
     }
     return (
         <div className="signup-body">
