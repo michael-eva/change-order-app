@@ -68,8 +68,8 @@ export default function App() {
                     <Route element={<Layout session={session} handleLogout={handleLogout} />}>
                         <Route path="/" element={<Home />} />
                         <Route path="/signup" element={<Auth />} />
-                        {session && <Route path="/signup-form" element={<SignUpForm session={session} />} />}
                         <Route path="/login" element={<Login setSession={setSession} />} />
+                        <Route path="/signup-form" element={<SignUpForm session={session} />} />
                         {session ? <Route path="/client-portal" element={<ClientPortalLayout />} >
                             <Route index element={<ClientOrderHistory session={session} />} />
                             <Route path="client-details" element={<ClientDetails session={session} />} />
