@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { formattedDate } from "../utils/dateUtils";
+import { formattedDate } from "../../utils/dateUtils";
 
 const WeekSlider = ({ clickHandle, selectedDay, filteredData }) => {
     // State to keep track of the currently displayed week's start date

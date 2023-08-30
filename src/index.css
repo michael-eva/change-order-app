@@ -290,27 +290,22 @@ a {
   cursor: pointer;
 }
 
-.form--marketing {
-  display: flex;
-  margin-bottom: 20px;
-  align-items: center;
-}
-
-.form--marketing>input {
-  margin-right: 10px;
-}
-
 /* OrderHistory Summary */
-
-.order-history-summary-headings {
-  display: grid;
-  grid-template-columns: repeat(6, 1fr);
+.order-history-summary td {
+  padding: 10px 0 10px 10px;
 }
 
-.order-history-summary-values {
-  display: grid;
-  grid-template-columns: repeat(6, 1fr);
+.order-history-summary th {
+  padding-bottom: 15px;
+  padding-left: 10px;
+}
 
+.filter-orders {
+  margin-bottom: 30px;
+}
+
+.filter-orders button {
+  margin-right: 5px;
 }
 
 /* Order History */
@@ -319,7 +314,6 @@ table {
   /* table-layout: fixed; */
   border-collapse: collapse;
 }
-
 
 th {
   text-align: start;
@@ -332,11 +326,6 @@ th {
 
 .table-striped-grey {
   background-color: #E9E9E9;
-}
-
-.checked-row {
-  color: gray;
-
 }
 
 .packed {
@@ -600,4 +589,37 @@ th {
 .update-client-container-btn {
   display: flex;
   justify-content: center;
+}
+
+/* CLIENTS PAGE */
+
+.client-search-bar-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 80px;
+  border-bottom: 2px solid grey;
+
+}
+
+.search-bar-container {
+  display: flex;
+  gap: 5px;
+  height: 40px;
+  align-items: center;
+}
+
+.search-bar-container button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 7px;
+  padding: 10px 12px 10px 12px;
+  font-size: 16px;
+  color: white;
+  background-color: rgb(4, 168, 58);
+  border-color: rgb(4, 168, 58);
+  ;
+  border-radius: 4px;
+  cursor: pointer;
 }

@@ -1,4 +1,4 @@
-import WeekSlider from "../components/WeekSlider"
+import WeekSlider from "../components/HostComponents/WeekSlider"
 import { useSearchParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import supabase from "../config/supabaseClient";

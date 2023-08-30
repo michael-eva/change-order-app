@@ -1,10 +1,9 @@
-
 import React, { useEffect, useState } from "react";
 import supabase from "../../config/supabaseClient";
 import { formatDate } from "../../utils/dateUtils";
 import { useSearchParams } from "react-router-dom";
 
-const ClientOrderHistory = ({ session }) => {
+const OrderHistorySummary = ({ session }) => {
     const [data, setData] = useState([])
     const [error, setError] = useState(null)
     const [isLoading, setIsLoading] = useState(true)
@@ -16,48 +15,61 @@ const ClientOrderHistory = ({ session }) => {
         ? data.filter(order => order.status === pendingFilter)
         : data
 
-
-    console.log("session:", session);
-
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const { data: changeOrderData, error: changeOrderError } = await supabase
+                const { data, error } = await supabase
                     .from('change_order')
-                    .select('*')
-                    .eq('uuid', session.user.id)
+                    .select('*');
 
-                let clientData = null;
-                let clientsError = null;
-
-                if (!changeOrderError) {
-                    const userProfile = await supabase
-                        .from('clients')
-                        .select('*')
-                        .eq('id', session.user.id)
-                        .single();
-
-                    if (!userProfile.error) {
-                        setCompanyName(userProfile.data?.companyName || '');
-                        // clientData = userProfile.data;
-                    } else {
-                        clientsError = "Error fetching user profile";
-                    }
+                if (error) {
+                    setError("Error fetching data");
+                    setData([]);
+                    console.log(error);
+                } else {
+                    setData(data);
+                    setError(null);
+                    setIsLoading(false);
                 }
-
-                setData(changeOrderData);
-                setError(changeOrderError || clientsError);
-                setIsLoading(false);
             } catch (error) {
                 setError("Error fetching data");
                 setData([]);
                 console.log(error);
             }
         };
-
+        // console.log(error);
         fetchData();
-    }, [session]);
-    console.log(error);
+    }, [error]);
+
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const { data: companyName, cerror } = await supabase
+                    .from('clients')
+                    .select('*');
+
+                if (cerror) {
+                    setError("Error fetching data");
+                    setCompanyName([]);
+                    console.log(error);
+                } else {
+                    setCompanyName(companyName);
+                    setError(null);
+                    setIsLoading(false);
+                }
+            } catch (cerror) {
+                setError("Error fetching data");
+                setCompanyName([]);
+                console.log(cerror);
+            }
+        };
+        console.log(error);
+        fetchData();
+    }, [error]);
+
+    console.log("company Name:", companyName);
+
     const customDateSort = (dateA, dateB) => {
         const [dayA, monthA, yearA] = dateA.split("-").map(Number);
         const [dayB, monthB, yearB] = dateB.split("-").map(Number);
@@ -92,27 +104,11 @@ const ClientOrderHistory = ({ session }) => {
                 <button onClick={() => setSearchParams("?status=packed")}>Packed</button>
                 <button onClick={() => setSearchParams({ status: 'pending' })}>Pending</button>
             </div>
-            {/* <div className="order-history-summary-headings">
-                <h4>Date</h4>
-                <h4>$50</h4>
-                <h4>$20</h4>
-                <h4>$10</h4>
-                <h4>$5</h4>
-                <h4>Note Total</h4>
-                <h4>$2</h4>
-                <h4>$1</h4>
-                <h4>50c</h4>
-                <h4>20c</h4>
-                <h4>10c</h4>
-                <h4>5c</h4>
-                <h4>Coin Total</h4>
-                <h4>Total</h4>
-                <h4>Status</h4>
-            </div> */}
             <table>
                 <thead>
                     <tr>
-                        <th>Name</th>
+                        <th>Company Name</th>
+                        <th>Date</th>
                         <th>$50</th>
                         <th>$20</th>
                         <th>$10</th>
@@ -129,15 +125,25 @@ const ClientOrderHistory = ({ session }) => {
                         <th>Status </th>
                     </tr>
                 </thead>
-
                 {isLoading ? (
                     <h2>Loading...</h2>
                 ) : sortedOrders.length === 0 ? (
                     <h2>No orders to display yet</h2>
                 ) : (
                     sortedOrders.map((item, index) => (
-                        <tbody key={item.id}>
+                        <tbody>
+
                             <tr>
+                                {companyName?.map(prev => {
+                                    if (item.uuid === prev.id) {
+                                        return (
+                                            <td key={prev.id} className={`${getCommonClassName(index)} special`}>
+                                                {prev.companyName}
+                                            </td>)
+                                    }
+                                    return null;
+                                })}
+
                                 <td className={getCommonClassName(index)}>{formatDate(item.date)}</td>
                                 <td className={getCommonClassName(index)}>${item.fifty}</td>
                                 <td className={getCommonClassName(index)}>${item.twenty}</td>
@@ -157,13 +163,13 @@ const ClientOrderHistory = ({ session }) => {
                                 </td>
                             </tr>
                         </tbody>
-                    ))
-                )}
+
+                    )))}
             </table>
         </div>
-
     );
-};
 
-export default ClientOrderHistory;
+}
 
+
+export default OrderHistorySummary;

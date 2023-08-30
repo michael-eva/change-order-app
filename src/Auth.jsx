@@ -1,10 +1,8 @@
 import { useState } from "react"
 import supabase from "./config/supabaseClient"
 import { Link } from "react-router-dom"
-import { useNavigate } from "react-router-dom"
 
 export default function Auth() {
-    // const navigate = useNavigate('')
     const [passwordsMatch, setPasswordsMatch] = useState(true)
     const [signUpData, setSignUpData] = useState({
         email: "",
@@ -33,18 +31,18 @@ export default function Auth() {
 
     async function submitHandler(event) {
         event.preventDefault()
-        try {
-            const { data, error } = await supabase.auth.signUp({
-                email: signUpData.email,
-                password: signUpData.password,
-            })
-            console.log(data);
+
+        const { error } = await supabase.auth.signUp({
+            email: signUpData.email,
+            password: signUpData.password,
+        })
+        if (error) {
             console.log(error);
-        } catch (error) {
-            console.log(error);
-            alert(error)
+            alert(error.error_description || error.message)
+        } else {
+            alert('Check your email for the login link!')
         }
-        // navigate('/signup-form')
+
     }
     return (
         <div className="signup-body">

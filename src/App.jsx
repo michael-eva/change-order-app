@@ -2,10 +2,10 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom"
 import supabase from "./config/supabaseClient";
 import './index.css';
-import ChangeOrderForm from "./components/ChangeOrderForm";
+import ChangeOrderForm from "./pages/ChangeOrderForm";
 import Auth from "./Auth";
 import Login from "./pages/Login";
-import OrderHistorySummary from "./components/OrderHistorySummary";
+import OrderHistorySummary from "./components/HostComponents/OrderHistorySummary";
 import Layout from "./components/Layout";
 import ClientPortalLayout from "./components/CPLayout";
 import ClientDetails from "./pages/ClientPortal/ClientDetails";
