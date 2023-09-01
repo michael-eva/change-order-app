@@ -15,7 +15,7 @@ const ClientOrderHistory = ({ session }) => {
         : data
 
 
-    console.log("session:", session);
+
 
     useEffect(() => {
         const fetchData = async () => {
@@ -74,35 +74,30 @@ const ClientOrderHistory = ({ session }) => {
                 <button onClick={() => setSearchParams("?status=packed")}>Packed</button>
                 <button onClick={() => setSearchParams({ status: 'pending' })}>Pending</button>
             </div>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Date</th>
-                        <th>$50</th>
-                        <th>$20</th>
-                        <th>$10</th>
-                        <th>$5</th>
-                        <th>Note Total</th>
-                        <th>$2</th>
-                        <th>$1</th>
-                        <th>50c</th>
-                        <th>20c</th>
-                        <th>10c</th>
-                        <th>5c</th>
-                        <th>Coin Total</th>
-                        <th>Grand Total</th>
-                        <th>Status </th>
-                    </tr>
-                </thead>
-
-                {isLoading ? (
-                    <h2>Loading...</h2>
-                ) : sortedOrders.length === 0 ? (
-                    <h2>No orders to display yet</h2>
-                ) : (
-                    sortedOrders.map((item, index) => (
-                        <tbody key={item.id}>
-                            <tr>
+            {sortedOrders.length > 0 ? (
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>$50</th>
+                            <th>$20</th>
+                            <th>$10</th>
+                            <th>$5</th>
+                            <th>Note Total</th>
+                            <th>$2</th>
+                            <th>$1</th>
+                            <th>50c</th>
+                            <th>20c</th>
+                            <th>10c</th>
+                            <th>5c</th>
+                            <th>Coin Total</th>
+                            <th>Grand Total</th>
+                            <th>Status </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {sortedOrders.map((item, index) => (
+                            <tr key={item.id}>
                                 <td className={getCommonClassName(index)}>{formatDate(item.date)}</td>
                                 <td className={getCommonClassName(index)}>${item.fifty}</td>
                                 <td className={getCommonClassName(index)}>${item.twenty}</td>
@@ -121,14 +116,17 @@ const ClientOrderHistory = ({ session }) => {
                                     {item.status === "packed" ? "Packed" : "Pending"}
                                 </td>
                             </tr>
-                        </tbody>
-                    ))
-                )}
-            </table>
+                        ))}
+                    </tbody>
+                </table>
+            ) : (
+                <h2>No orders to display yet</h2>
+            )}
         </div>
-
     );
 };
 
 export default ClientOrderHistory;
+
+
 

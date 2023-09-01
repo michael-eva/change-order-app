@@ -1,90 +1,74 @@
 import { useEffect, useState } from "react"
 import supabase from "../config/supabaseClient";
 import { useNavigate } from "react-router-dom";
+import toast, { Toaster } from 'react-hot-toast'
 
 export default function SignUpForm({ session }) {
-    const [loading, setLoading] = useState(true)
-    const [companyName, setCompanyName] = useState('')
     const [contactName, setContactName] = useState('')
     const [contactNumber, setContactNumber] = useState('')
     const [address, setAddress] = useState('')
     const [abn, setAbn] = useState('')
+    const [paymentMethod, setPaymentMethod] = useState('')
     const navigate = useNavigate('')
-
+    const { user } = session
+    console.log(user.id);
     useEffect(() => {
         async function getProfile() {
-            setLoading(true)
-            const { user } = session
+            // setLoading(true)
+            if (session) {
+                let { data, error } = await supabase
+                    .from('clients')
+                    .select(`contactName, contactNumber, address, abn, paymentMethod`)
+                    .eq('id', user.id)
+                    .single()
 
-            let { data, error } = await supabase
-                .from('clients')
-                .select(`companyName, contactName, contactNumber, address, abn`)
-                .eq('id', user.id)
-                .single()
-
-            if (error) {
-                console.warn(error)
-            } else if (data) {
-                setCompanyName(data.companyName)
-                setContactName(data.contactName)
-                setContactNumber(data.contactNumber)
-                setAddress(data.address)
-                setAbn(data.abn)
-
+                if (error) {
+                    console.warn(error)
+                } else if (data) {
+                    setContactName(data.contactName)
+                    setContactNumber(data.contactNumber)
+                    setAddress(data.address)
+                    setPaymentMethod(data.paymentMethod)
+                    setAbn(data.abn)
+                }
+                // setLoading(false)
             }
-
-            setLoading(false)
         }
         getProfile()
-    }, [session])
+    }, [session, user.id])
 
 
-    const updateProfile = async (e) => {
+    async function handleSubmit(e) {
         e.preventDefault()
-
-        try {
-            setLoading(true)
-
-            const { user } = session
-
-            const updates = {
+        const { data, error } = await supabase
+            .from('clients')
+            .insert({
                 id: user.id,
-                companyName,
                 contactName,
                 contactNumber,
                 address,
+                paymentMethod,
                 abn
-            }
+            })
+            .eq('id', user.id)
 
-            let { error } = await supabase.from("clients")
-
-                .upsert(updates, { returning: 'minimal' })
-            navigate('/client-portal')
-            if (error) {
-                throw error;
-            }
-        } catch (error) {
-            alert(error.message)
-        } finally {
-            setLoading(false)
+        if (error) {
+            // setError('Please fill in all the fields correctly.')
+            alert(error)
+            return
         }
-
+        toast.success('Details updated, thank you.')
+        setTimeout(() => {
+            navigate('/client-portal');
+        }, 1000)
     }
-    console.log(loading);
     return (
         <div className="signup-body">
             <div className="form-container">
-                <form className="form" onSubmit={updateProfile}>
-                    <h2>Enter Company Details</h2>
-                    <input
-                        type="text"
-                        name="companyName"
-                        value={companyName}
-                        placeholder="Company Name"
-                        onChange={(e) => setCompanyName(e.target.value)}
-                        className="form--input"
-                        required='true'
-                    />
+                <form className="form" onSubmit={handleSubmit}>
+                    <h2>Please enter additional company details
+                        for {session.user.user_metadata.companyName}
+                    </h2>
                     <input
                         type="text"
                         name="contactName"
@@ -92,7 +76,7 @@ export default function SignUpForm({ session }) {
                         placeholder="Contact Name"
                         onChange={(e) => setContactName(e.target.value)}
                         className="form--input"
-                        required='true'
+                        required={true}
                     />
                     <input
                         type="text"
@@ -101,7 +85,7 @@ export default function SignUpForm({ session }) {
                         placeholder="Contact Number"
                         onChange={(e) => setContactNumber(e.target.value)}
                         className="form--input"
-                        required='true'
+                        required={true}
                     />
                     <input
                         type="text"
@@ -110,7 +94,7 @@ export default function SignUpForm({ session }) {
                         placeholder="Company Address"
                         onChange={(e) => setAddress(e.target.value)}
                         className="form--input"
-                        required='true'
+                        required={true}
                     />
                     <input
                         type="text"
@@ -119,8 +103,29 @@ export default function SignUpForm({ session }) {
                         placeholder="ABN "
                         onChange={(e) => setAbn(e.target.value)}
                         className="form--input"
-                        required='true'
+                        required={true}
                     />
+                    <fieldset>
+                        <legend>Change Payment Method</legend>
+                        <label htmlFor="EFT">EFT:</label>
+                        <input
+                            type="radio"
+                            name="paymentMethod"
+                            id="EFT"
+                            value={"EFT"}
+                            checked={paymentMethod === "EFT"}
+                            onChange={(e) => setPaymentMethod(e.target.value)}
+                        />
+                        <label htmlFor="Cash">Cash:</label>
+                        <input
+                            type="radio"
+                            name="paymentMethod"
+                            id="Cash"
+                            value={"Cash"}
+                            checked={paymentMethod === "Cash"}
+                            onChange={(e) => setPaymentMethod(e.target.value)}
+                        />
+                    </fieldset>
 
                     <button className="form--submit">Submit</button>
                 </form>

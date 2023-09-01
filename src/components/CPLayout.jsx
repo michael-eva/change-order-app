@@ -24,7 +24,7 @@ export default function ClientPortalLayout() {
         }
         fetchClientData()
     }, [clientData])
-    // console.log(clientData);
+
     return (
         <>
             <nav className="portal-nav">
@@ -37,8 +37,8 @@ export default function ClientPortalLayout() {
                 <NavLink className={({ isActive }) => isActive ? "portal-link-focus" : "portal-nav"} to="place-order">
                     Place Order
                 </NavLink>
-                <NavLink className={({ isActive }) => isActive ? "portal-link-focus" : "portal-nav"} to="invoices">
-                    Invoices
+                <NavLink className={({ isActive }) => isActive ? "portal-link-focus" : "portal-nav"} to="settings">
+                    Settings
                 </NavLink>
 
             </nav>

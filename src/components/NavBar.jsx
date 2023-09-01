@@ -5,7 +5,6 @@ import logo from "../images/west-sure-logo.png"
 
 
 export default function NavBar({ session, handleLogout, navigate }) {
-
     return (
         <div className="nav">
             <NavLink to={'west-sure'}> <img src={logo} alt="Logo" /></NavLink>
@@ -26,7 +25,7 @@ export default function NavBar({ session, handleLogout, navigate }) {
                     {session ?
                         <>
                             <li onClick={() => { handleLogout(); navigate('/login') }}>Logout</li>
-                            <li>{session.user.email}</li>
+                            <li>{session.user.user_metadata.companyName}</li>
                         </> : ""}
                 </ul>
             </Toggle>

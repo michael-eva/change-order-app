@@ -1,7 +1,7 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import supabase from "../config/supabaseClient";
-
 import toast, { Toaster } from 'react-hot-toast'
+import Toggle from "../Toggle";
 
 export default function ChangeOrderForm({ session }) {
     const [grandTotal, setGrandTotal] = useState(0);
@@ -27,6 +27,29 @@ export default function ChangeOrderForm({ session }) {
         grandTotal: 0,
         date: ''
     });
+    const [clientData, setClientData] = useState({})
+
+    useEffect(() => {
+        const fetchClientData = async () => {
+            try {
+                const { data: userData } = await supabase.auth.getUser()
+                if (userData) {
+                    const { data: clientData } = await supabase
+                        .from("clients")
+                        .select("*")
+                        .eq('id', userData.user.id)
+                    if (clientData && clientData.length > 0) {
+                        setClientData(clientData)
+                    }
+                }
+            } catch (error) {
+                alert(error.message)
+            }
+        }
+        fetchClientData()
+    }, [])
+    console.log(clientData);
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         const { user } = session;
@@ -67,6 +90,9 @@ export default function ChangeOrderForm({ session }) {
                     grandTotal: 0,
                     date: ''
                 });
+                setGrandTotal(0)
+                setCoinTotal(0)
+                setNoteTotal(0)
                 setError(null);
             } catch (error) {
                 console.error(error);
@@ -76,6 +102,8 @@ export default function ChangeOrderForm({ session }) {
             setError("Please enter a date before we can proceed.");
         }
     };
+
+
     function formatDateForDatabase(date) {
         const [year, month, day] = date.split('-');
         const formattedDay = parseInt(day, 10).toString(); // Remove leading zero if present
@@ -147,6 +175,7 @@ export default function ChangeOrderForm({ session }) {
         }
         return sum;
     }
+    console.log(clientData[0]?.companyName);
 
     return (
         <form className="change-order-page" onSubmit={handleSubmit}>
@@ -272,15 +301,22 @@ export default function ChangeOrderForm({ session }) {
                             onChange={handleChange}
                         />
                     </div>
-                    <div className="totals">Coins Total: <span>${formData.coinTotal}</span></div>
-                    <div className="totals">Grand Total: <span>${formData.grandTotal}</span></div>
+                    <div className="totals">Coins Total: <span>${coinTotal}</span></div>
+                    <div className="totals">Grand Total: <span>${grandTotal}</span></div>
                 </div>
             </div>
             <div className="second-column">
 
                 <div className="payment-method">
-                    <h3>Payment Method</h3>
-                    <p>EFT</p>
+                    <h3>Payment Method:</h3>
+                    <span>
+                        <Toggle>
+                            <Toggle.Button>
+                                {clientData[0]?.paymentMethod}*
+                            </Toggle.Button>
+                            <Toggle.On><small>Payment method can be updated in client details</small></Toggle.On>
+                        </Toggle>
+                    </span>
                 </div>
                 <div className="grand-totals-section">
 
@@ -290,9 +326,9 @@ export default function ChangeOrderForm({ session }) {
                         <h4 className="totals-label">Total</h4>
                     </div>
                     <div className="grand-totals">
-                        <div className="totals">${formData.noteTotal}</div>
-                        <div className="totals">${formData.coinTotal}</div>
-                        <div className="totals">${formData.grandTotal}</div>
+                        <div className="totals">${noteTotal}</div>
+                        <div className="totals">${coinTotal}</div>
+                        <div className="totals">${grandTotal}</div>
                     </div>
                 </div>
                 <button className="submit-btn" >Submit</button>

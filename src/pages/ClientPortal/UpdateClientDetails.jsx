@@ -12,9 +12,10 @@ export default function UpdateClientDetails({ session }) {
     const [address, setAddress] = useState('')
     const [abn, setAbn] = useState('')
     const [email, setEmail] = useState('')
-    console.log(email);
+    const [paymentMethod, setPaymentMethod] = useState('')
+
     const { user } = session
-    console.log(session);
+
     useEffect(() => {
         async function getProfile() {
             setLoading(true)
@@ -39,7 +40,7 @@ export default function UpdateClientDetails({ session }) {
         }
         getProfile()
     }, [session, user.id])
-    console.log(loading);
+
 
     async function handleSubmit(e) {
         e.preventDefault()
@@ -67,6 +68,7 @@ export default function UpdateClientDetails({ session }) {
         }, 1000)
     }
 
+
     return (
         <div className="update-client-container">
             <form onSubmit={handleSubmit}>
@@ -75,7 +77,7 @@ export default function UpdateClientDetails({ session }) {
                     <input
                         type="text"
                         name="companyName"
-                        value={companyName}
+                        value={user.user_metadata.companyName}
                         onChange={(e) => setCompanyName(e.target.value)}
                     />
                 </div>

@@ -1,16 +1,18 @@
 import { useState } from "react"
 import supabase from "./config/supabaseClient"
 import { Link } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 
 export default function Auth() {
     const [passwordsMatch, setPasswordsMatch] = useState(true)
-
     const [signUpData, setSignUpData] = useState({
         email: "",
         password: "",
-        confirmPassword: ""
+        confirmPassword: "",
+        companyName: ""
 
     })
+    const navigate = useNavigate('')
 
     function handleChange(event) {
         const { name, value } = event.target;
@@ -38,6 +40,11 @@ export default function Auth() {
             {
                 email: signUpData.email,
                 password: signUpData.password,
+                options: {
+                    data: {
+                        companyName: signUpData.companyName
+                    }
+                }
             }
         )
 
@@ -46,6 +53,7 @@ export default function Auth() {
             alert(error.error_description || error.message)
         } else {
             alert('Check your email for the login link!')
+            navigate('/signup-form')
         }
     }
     return (
@@ -55,9 +63,18 @@ export default function Auth() {
                     <h2>Sign Up</h2>
                     <input
                         type="text"
+                        name="companyName"
+                        value={signUpData.companyName}
+                        placeholder="Company Name"
+                        onChange={handleChange}
+                        className="form--input"
+                        required={true}
+                    />
+                    <input
+                        type="text"
                         name="email"
                         value={signUpData.email}
-                        placeholder="Email Address"
+                        placeholder="Email"
                         onChange={handleChange}
                         className="form--input"
                         required={true}

@@ -10,7 +10,7 @@ import Layout from "./components/Layout";
 import ClientPortalLayout from "./components/CPLayout";
 import ClientDetails from "./pages/ClientPortal/ClientDetails";
 import Home from "./pages/Home";
-import Invoices from "./pages/ClientPortal/Invoices";
+import ClientSettings from "./pages/ClientPortal/ClientSettings";
 import HostLayout from "./host/HostLayout";
 import Clients from "./host/Clients";
 import Settings from "./host/Settings";
@@ -69,13 +69,13 @@ export default function App() {
                         <Route path="/" element={<Home />} />
                         <Route path="/signup" element={<Auth />} />
                         <Route path="/login" element={<Login setSession={setSession} />} />
-                        <Route path="/signup-form" element={<SignUpForm session={session} />} />
+                        {session ? <Route path="/signup-form" element={<SignUpForm session={session} />} /> : ""}
                         {session ? <Route path="/client-portal" element={<ClientPortalLayout />} >
                             <Route index element={<ClientOrderHistory session={session} />} />
                             <Route path="client-details" element={<ClientDetails session={session} />} />
                             {session && <Route path="update-client-details" element={<UpdateClientDetails session={session} />} />}
                             <Route path="place-order" element={<ChangeOrderForm session={session} />} />
-                            <Route path="invoices" element={<Invoices />} />
+                            <Route path="settings" element={<ClientSettings session={session} />} />
                         </Route> : ""}
                         <Route path="/west-sure" element={<HostLayout />}>
                             <Route index element={< PendingOrders />} />
