@@ -115,6 +115,7 @@ export default function SignUpForm({ session }) {
                             value={"EFT"}
                             checked={paymentMethod === "EFT"}
                             onChange={(e) => setPaymentMethod(e.target.value)}
+                            required={true}
                         />
                         <label htmlFor="Cash">Cash:</label>
                         <input
@@ -124,6 +125,7 @@ export default function SignUpForm({ session }) {
                             value={"Cash"}
                             checked={paymentMethod === "Cash"}
                             onChange={(e) => setPaymentMethod(e.target.value)}
+                            required={true}
                         />
                     </fieldset>
 

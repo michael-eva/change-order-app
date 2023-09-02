@@ -2,8 +2,8 @@ import { NavLink, Outlet } from "react-router-dom"
 import { useState, useEffect } from "react"
 import supabase from "../config/supabaseClient"
 
-export default function ClientPortalLayout() {
-    const [clientData, setClientData] = useState({})
+export default function ClientPortalLayout({ session }) {
+    const [clientData, setClientData] = useState()
 
     useEffect(() => {
         const fetchClientData = async () => {
@@ -26,23 +26,25 @@ export default function ClientPortalLayout() {
     }, [clientData])
 
     return (
-        <>
+        <div className="portal-layout-page">
             <nav className="portal-nav">
-                <NavLink className={({ isActive }) => isActive ? "portal-link-focus" : "portal-nav"} to="client-details">
-                    Client Details
+                <h4>{session.user.user_metadata.companyName}</h4>
+                <NavLink className={({ isActive }) => isActive ? "portal-link-focus" : "portal-nav-item"} to="client-details">
+                    <p>Client Details</p>
                 </NavLink>
-                <NavLink end className={({ isActive }) => isActive ? "portal-link-focus" : "portal-nav"} to="/client-portal">
-                    Order History
+                <NavLink end className={({ isActive }) => isActive ? "portal-link-focus" : "portal-nav-item"} to="/client-portal">
+                    <p>Order History</p>
                 </NavLink>
-                <NavLink className={({ isActive }) => isActive ? "portal-link-focus" : "portal-nav"} to="place-order">
-                    Place Order
+                <NavLink className={({ isActive }) => isActive ? "portal-link-focus" : "portal-nav-item"} to="place-order">
+                    <p>Place Order</p>
                 </NavLink>
-                <NavLink className={({ isActive }) => isActive ? "portal-link-focus" : "portal-nav"} to="settings">
-                    Settings
+                <NavLink className={({ isActive }) => isActive ? "portal-link-focus" : "portal-nav-item"} to="settings">
+                    <p>Settings</p>
                 </NavLink>
-
             </nav>
-            {clientData && <Outlet context={{ clientData }} />}
-        </>
+            <div className="portal-content">
+                {clientData && <Outlet context={{ clientData }} />}
+            </div>
+        </div>
     )
 }

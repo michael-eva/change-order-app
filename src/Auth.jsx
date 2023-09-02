@@ -2,6 +2,7 @@ import { useState } from "react"
 import supabase from "./config/supabaseClient"
 import { Link } from "react-router-dom"
 import { useNavigate } from "react-router-dom"
+import { toast } from "react-hot-toast"
 
 export default function Auth() {
     const [passwordsMatch, setPasswordsMatch] = useState(true)
@@ -52,7 +53,7 @@ export default function Auth() {
             console.log(error);
             alert(error.error_description || error.message)
         } else {
-            alert('Check your email for the login link!')
+            toast.success('Success')
             navigate('/signup-form')
         }
     }

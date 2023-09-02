@@ -2,6 +2,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom"
 import supabase from "./config/supabaseClient";
 import './index.css';
+import "react-datepicker/dist/react-datepicker.css"
 import ChangeOrderForm from "./pages/ChangeOrderForm";
 import Auth from "./Auth";
 import Login from "./pages/Login";
@@ -70,7 +71,7 @@ export default function App() {
                         <Route path="/signup" element={<Auth />} />
                         <Route path="/login" element={<Login setSession={setSession} />} />
                         {session ? <Route path="/signup-form" element={<SignUpForm session={session} />} /> : ""}
-                        {session ? <Route path="/client-portal" element={<ClientPortalLayout />} >
+                        {session ? <Route path="/client-portal" element={<ClientPortalLayout session={session} />} >
                             <Route index element={<ClientOrderHistory session={session} />} />
                             <Route path="client-details" element={<ClientDetails session={session} />} />
                             {session && <Route path="update-client-details" element={<UpdateClientDetails session={session} />} />}

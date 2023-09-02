@@ -25,7 +25,6 @@ export default function NavBar({ session, handleLogout, navigate }) {
                     {session ?
                         <>
                             <li onClick={() => { handleLogout(); navigate('/login') }}>Logout</li>
-                            <li>{session.user.user_metadata.companyName}</li>
                         </> : ""}
                 </ul>
             </Toggle>

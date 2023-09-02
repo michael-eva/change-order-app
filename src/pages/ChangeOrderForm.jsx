@@ -2,6 +2,7 @@ import { useState, useEffect } from "react"
 import supabase from "../config/supabaseClient";
 import toast, { Toaster } from 'react-hot-toast'
 import Toggle from "../Toggle";
+import DatePicker from 'react-datepicker'
 
 export default function ChangeOrderForm({ session }) {
     const [grandTotal, setGrandTotal] = useState(0);
@@ -9,7 +10,7 @@ export default function ChangeOrderForm({ session }) {
     const [noteTotal, setNoteTotal] = useState(0)
     const currentDate = (new Date());
     const [error, setError] = useState("")
-    // const { clientData } = useOutletContext()
+    // const [date, setDate] = useState(new Date())
     const [formData, setFormData] = useState({
 
         fifty: 0,
@@ -177,6 +178,7 @@ export default function ChangeOrderForm({ session }) {
     }
     console.log(clientData[0]?.companyName);
 
+
     return (
         <form className="change-order-page" onSubmit={handleSubmit}>
             <div className="first-column">
@@ -190,9 +192,13 @@ export default function ChangeOrderForm({ session }) {
                         value={formData.date}
                         onChange={handleChange}
                     />
+                    {/* <div>
+                        <DatePicker selected={date} onChange={(date) => setDate(date)} />
+                    </div> */}
                     {error && <div className="date-error">{error}</div>}
 
                 </div>
+
                 <div className="change-order-form">
                     <div className="input ">
                         <label className="label fifty" htmlFor="fifty">$50</label>

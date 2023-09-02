@@ -4,6 +4,7 @@ import { toast } from "react-hot-toast"
 import { useNavigate } from "react-router-dom"
 
 export default function ClientSettings({ session }) {
+    const navigate = useNavigate('')
     const [paymentMethod, setPaymentMethod] = useState('')
     const [initialPaymentMethod, setInitialPaymentMethod] = useState('')
     const { user } = session
@@ -41,7 +42,7 @@ export default function ClientSettings({ session }) {
             alert(error)
         }
         toast.success("Settings updated")
-        // navigate()
+        navigate('/client-portal')
     }
 
     const buttonClassName =
@@ -51,7 +52,7 @@ export default function ClientSettings({ session }) {
         <>
             <h3>Settings page</h3>
             <form onSubmit={handleSubmit}>
-                <fieldset>
+                <fieldset className="payment-method--settings">
                     <legend>Change Payment Method</legend>
                     <label htmlFor="EFT">EFT:</label>
                     <input

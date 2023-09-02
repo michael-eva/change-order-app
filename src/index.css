@@ -271,6 +271,9 @@ a {
 
 
 
+
+
+
 /* Sign up form */
 .signup-body {
   width: 100vw;
@@ -372,53 +375,46 @@ th {
 }
 
 /* PORTAL NAV */
-/* Host Nav */
-.portal-nav {
-  display: flex;
+.portal-layout-page {
+  grid-template-columns: repeat(7, 1fr);
+  display: grid;
+
 }
 
 .portal-nav {
-  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  grid-column: 1/ span 1;
+  box-shadow: 1px 0px 10px rgba(0, 0, 0, 0.5);
+  height: 100vh;
+  min-width: 150px;
+  gap: 20px;
+}
+
+.portal-nav-item {
   color: #4D4D4D;
   font-weight: 500;
-  padding: 5px 20px;
+  color: black;
 }
 
 .portal-nav a:hover {
-  color: #161616;
-  text-decoration: underline;
-  font-weight: 600;
+  background-color: #ac26e555;
+  padding: 2px 0 2px 10px;
+  border-radius: 6px;
+  margin-right: 4px;
 }
 
 .portal-link-focus {
-  color: #161616;
-  text-decoration: underline;
-  font-weight: 600;
-  padding: 5px 20px;
-}
-
-.enter-client-details {
+  background-color: #ac26e555;
+  padding: 2px 0 2px 10px;
+  border-radius: 6px;
+  border: 1px solid black;
   display: flex;
-  flex-direction: column;
-  width: 500px;
-  gap: 10px;
-  margin-top: 10px;
+  gap: 5px;
 }
 
-.error-message {
-  color: red;
-  font-size: 12px;
-}
-
-.success-message {
-  color: green;
-  font-size: 12px;
-}
-
-.nav-company-name {
-  color: rgb(206, 180, 215);
-  font-size: 14px;
-  width: 100px;
+.portal-content {
+  grid-column: 2 / span 6;
 }
 
 /* HOST LAYOUT */
@@ -675,4 +671,13 @@ th {
   ;
   border-radius: 4px;
   cursor: pointer;
+}
+
+/* CLIENT SETTINGS */
+.payment-method--settings {
+  width: 15%;
+}
+
+.payment-method--settings input {
+  margin-right: 30px;
 }
