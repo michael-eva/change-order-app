@@ -125,25 +125,16 @@ const OrderHistorySummary = ({ session }) => {
                         <th>Status </th>
                     </tr>
                 </thead>
-                {isLoading ? (
-                    <h2>Loading...</h2>
-                ) : sortedOrders.length === 0 ? (
-                    <h2>No orders to display yet</h2>
-                ) : (
-                    sortedOrders.map((item, index) => (
-                        <tbody>
+                <tbody>
+                    {isLoading ? (
+                        <h2>Loading...</h2>
+                    ) : sortedOrders.length === 0 ? (
+                        <h2>No orders to display yet</h2>
+                    ) : (
+                        sortedOrders.map((item, index) => (
 
                             <tr>
-                                {companyName?.map(prev => {
-                                    if (item.uuid === prev.id) {
-                                        return (
-                                            <td key={prev.id} className={`${getCommonClassName(index)} special`}>
-                                                {prev.companyName}
-                                            </td>)
-                                    }
-                                    return null;
-                                })}
-
+                                <td className={getCommonClassName(index)}>{session.user.user_metadata.companyName}</td>
                                 <td className={getCommonClassName(index)}>{formatDate(item.date)}</td>
                                 <td className={getCommonClassName(index)}>${item.fifty}</td>
                                 <td className={getCommonClassName(index)}>${item.twenty}</td>
@@ -162,11 +153,32 @@ const OrderHistorySummary = ({ session }) => {
                                     {item.status === "packed" ? "Packed" : "Pending"}
                                 </td>
                             </tr>
-                        </tbody>
+                        )))}
+                    <br />
+                    <br />
+                    <tr>
+                        <td>Running Total</td>
+                        <td></td>
+                        <td>$50</td>
+                        <td>$20</td>
+                        <td>$10</td>
+                        <td>$5</td>
+                        <td>Note Total</td>
+                        <td>$2</td>
+                        <td>$1</td>
+                        <td>50c</td>
+                        <td>20c</td>
+                        <td>10c</td>
+                        <td>5c</td>
+                        <td>Coin Total</td>
+                        <td>Grand Total Total</td>
+                        <td><button>Place Order</button></td>
+                    </tr>
 
-                    )))}
+                </tbody>
             </table>
-        </div>
+
+        </div >
     );
 
 }

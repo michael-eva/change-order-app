@@ -2,7 +2,7 @@ import { useState, useEffect } from "react"
 import supabase from "../config/supabaseClient";
 import toast, { Toaster } from 'react-hot-toast'
 import Toggle from "../Toggle";
-import DatePicker from 'react-datepicker'
+import { formatDateForDatabase } from "../utils/dateUtils";
 
 export default function ChangeOrderForm({ session }) {
     const [grandTotal, setGrandTotal] = useState(0);
@@ -104,16 +104,6 @@ export default function ChangeOrderForm({ session }) {
         }
     };
 
-
-    function formatDateForDatabase(date) {
-        const [year, month, day] = date.split('-');
-        const formattedDay = parseInt(day, 10).toString(); // Remove leading zero if present
-        const formattedMonth = parseInt(month, 10).toString(); // Remove leading zero if present
-        const formattedYear = year.slice(-2); // Get the last two digits of the year
-
-        return `${formattedDay}-${formattedMonth}-${formattedYear}`;
-    }
-
     function handleChange(event) {
         const { name, value } = event.target;
 
@@ -176,7 +166,6 @@ export default function ChangeOrderForm({ session }) {
         }
         return sum;
     }
-    console.log(clientData[0]?.companyName);
 
 
     return (
@@ -192,9 +181,6 @@ export default function ChangeOrderForm({ session }) {
                         value={formData.date}
                         onChange={handleChange}
                     />
-                    {/* <div>
-                        <DatePicker selected={date} onChange={(date) => setDate(date)} />
-                    </div> */}
                     {error && <div className="date-error">{error}</div>}
 
                 </div>

@@ -21,6 +21,7 @@ import SignUpForm from "./pages/SignUpForm";
 import ClientOrderHistory from "./pages/ClientPortal/ClientOrderHistory";
 import UpdateClientDetails from "./pages/ClientPortal/UpdateClientDetails";
 import toast, { Toaster } from 'react-hot-toast'
+import FloatOrder from "./host/FloatOrder";
 
 export default function App() {
     const [session, setSession] = useState(null)
@@ -79,10 +80,11 @@ export default function App() {
                             <Route path="settings" element={<ClientSettings session={session} />} />
                         </Route> : ""}
                         <Route path="/west-sure" element={<HostLayout />}>
-                            <Route index element={< PendingOrders />} />
+                            <Route index element={< PendingOrders session={session} />} />
                             <Route path="clients" element={< Clients />} />
                             <Route path="order-history" element={< OrderHistorySummary session={session} />} />
                             <Route path="settings" element={< Settings />} />
+                            <Route path="float-order" element={< FloatOrder />} />
                         </Route>
                     </Route>
                 </Routes>

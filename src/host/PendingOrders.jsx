@@ -4,9 +4,12 @@ import { useEffect, useState } from "react";
 import supabase from "../config/supabaseClient";
 import OrderHistory from "../components/HostComponents/OrderHistory"
 import { formattedDate } from "../utils/dateUtils";
+import Toggle from "../Toggle";
+import FloatOrder from "./FloatOrder";
+import ChangeOrderForm from "../pages/ChangeOrderForm";
 
 
-export default function PendingOrders() {
+export default function PendingOrders({ session }) {
     const [searchParams, setSearchParams] = useSearchParams();
     const [selectedDay, setSelectedDay] = useState(formattedDate(new Date()));
     const [data, setData] = useState([])
@@ -63,8 +66,15 @@ export default function PendingOrders() {
     }
     return (
         <>
+            {/* <button>Manually Add Change Order</button> */}
+            <Toggle>
+                <Toggle.Button><button>Add Float Order</button></Toggle.Button>
+                <Toggle.On>
+                    <FloatOrder session={session} />
+                </Toggle.On>
+            </Toggle>
             <WeekSlider clickHandle={clickHandle} setSelectedDay={setSelectedDay} selectedDay={selectedDay} filteredData={filteredData} pendingOrders={pendingOrders} />
-            <OrderHistory filteredData={filteredData} updateOrderStatus={updateOrderStatus} selectedDay={selectedDay} clientData={clientData} />
+            <OrderHistory filteredData={filteredData} updateOrderStatus={updateOrderStatus} selectedDay={selectedDay} clientData={clientData} session={session} />
         </>
     )
 }

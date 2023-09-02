@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 
 
-export default function OrderHistory({ filteredData, updateOrderStatus, selectedDay, clientData }) {
+export default function OrderHistory({ filteredData, updateOrderStatus, selectedDay, clientData, session }) {
     const [statuses, setStatuses] = useState({});
     const filteredOrders = filteredData.filter(order => (
         order.date === selectedDay && order.status === "pending"
@@ -58,9 +58,7 @@ export default function OrderHistory({ filteredData, updateOrderStatus, selected
                                 {filteredOrders.map((order, index) => (
                                     <tbody key={order.id}>
                                         <tr>
-                                            <td className={`${index % 2 ? "table-striped" : "table-striped-grey"}`}>{clientData.map(client => {
-                                                return client.id === order.uuid && <p key={order.id}>{client.companyName}</p>
-                                            })}</td>
+                                            <td className={`${index % 2 ? "table-striped" : "table-striped-grey"}`}>{session.user.user_metadata.companyName}</td>
                                             <td className={`client-name ${index % 2 ? "table-striped" : "table-striped-grey"}`}>{order.fifty}</td>
                                             <td className={`${index % 2 ? "table-striped" : "table-striped-grey"}`}>{order.twenty}</td>
                                             <td className={`${index % 2 ? "table-striped" : "table-striped-grey"}`}>{order.ten}</td>

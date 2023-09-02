@@ -58,7 +58,7 @@ export default function Clients() {
                 {clients && clients.map(client => (
                     <tbody>
                         <tr>
-                            <td>{currentUser.user_metadata.companyName}</td>
+                            <td>{currentUser && currentUser.user_metadata.companyName}</td>
                             <td>{client.address}</td>
                             <td>{client.contactName}</td>
                             <td>{client.contactNumber}</td>
