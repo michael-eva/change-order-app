@@ -36,7 +36,7 @@ export default function SignUpForm({ session }) {
             }
         }
         getProfile()
-    }, [session, user.id])
+    }, [session, user.id, user.user_metadata.companyName])
 
 
     async function handleSubmit(e) {

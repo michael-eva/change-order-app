@@ -5,36 +5,36 @@ import { AiOutlinePlusCircle } from 'react-icons/ai';
 
 export default function Clients() {
     const [clients, setClients] = useState()
-    const [currentUser, setCurrentUser] = useState('')
 
     useEffect(() => {
-        const fetchData = async () => {
-            const { data } = await supabase
-                .from("clients")
-                .select("*")
-            setClients(data)
-        }
         fetchData()
     }, [])
-    useEffect(() => {
+
+    const fetchData = async () => {
+        const { data } = await supabase
+            .from("clients")
+            .select("*")
+        setClients(data)
+    }
+    // useEffect(() => {
 
 
-        const getUser = async () => {
-            try {
-                const { data: { user } } = await supabase.auth.getUser()
+    //     const getUser = async () => {
+    //         try {
+    //             const { data: { user } } = await supabase.auth.getUser()
 
-                if (user) {
-                    setCurrentUser(user)
-                }
+    //             if (user) {
+    //                 setCurrentUser(user)
+    //             }
 
-            } catch (error) {
-                alert(error.message)
-            }
-        }
-        getUser()
-    }, [])
+    //         } catch (error) {
+    //             alert(error.message)
+    //         }
+    //     }
+    //     getUser()
+    // }, [])
 
-    console.log(currentUser);
+
     return (
         <div className="clients-container">
             <div className="client-search-bar-nav">
@@ -58,11 +58,11 @@ export default function Clients() {
                 {clients && clients.map(client => (
                     <tbody>
                         <tr>
-                            <td>{currentUser && currentUser.user_metadata.companyName}</td>
+                            <td>{client.companyName}</td>
                             <td>{client.address}</td>
                             <td>{client.contactName}</td>
                             <td>{client.contactNumber}</td>
-                            <td>{currentUser.email}</td>
+                            {/* <td>{.email}</td> */}
                         </tr>
                     </tbody>
                 ))}
