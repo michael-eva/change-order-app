@@ -14,15 +14,12 @@ const OrderHistorySummary = ({ session }) => {
     const [floatOrder, setFloatOrder] = useState([])
     const [clientData, setClientData] = useState('')
 
-    const filterOrders = pendingFilter
-        ? order.filter(order => order.status === pendingFilter)
-        : order
 
     useEffect(() => {
         fetchFloatOrderData()
         fetchChangeOrderData()
         fetchClientData()
-    }, [error]);
+    }, []);
 
     const fetchChangeOrderData = async () => {
         try {
@@ -45,24 +42,26 @@ const OrderHistorySummary = ({ session }) => {
             console.log(error);
         }
     };
+    console.log(error);
 
     const fetchClientData = async () => {
         try {
             const { data, error } = await supabase
                 .from('clients')
                 .select('*')
+            console.log(error);
 
             setClientData(data)
         } catch (error) {
             console.log(error);
         }
     }
-
     const fetchFloatOrderData = async () => {
         try {
             const { data, error } = await supabase
                 .from('float_order')
                 .select('*')
+            console.log(error);
 
             setFloatOrder(data)
         } catch (error) {
@@ -83,10 +82,13 @@ const OrderHistorySummary = ({ session }) => {
         return dayB - dayA;
     };
 
-    // Sort the orders by date using the customDateSort function
     const sortedOrders = [...order].sort((a, b) =>
         customDateSort(a.date, b.date)
     );
+    const filterOrders = pendingFilter
+        ? sortedOrders.filter(order => order.status === pendingFilter)
+        : sortedOrders
+    // Sort the orders by date using the customDateSort function
     const sortedFloatOrders = [...floatOrder].sort((a, b) =>
         customDateSort(a.date, b.date)
     )

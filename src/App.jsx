@@ -2,7 +2,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom"
 import supabase from "./config/supabaseClient";
 import './index.css';
-import "react-datepicker/dist/react-datepicker.css"
 import ChangeOrderForm from "./pages/ChangeOrderForm";
 import Auth from "./Auth";
 import Login from "./pages/Login";
