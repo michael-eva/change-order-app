@@ -13,9 +13,8 @@ export default function SignUpForm({ session }) {
     const navigate = useNavigate('')
     const { user } = session
     useEffect(() => {
-        setCompanyName(user.user_metadata.companyName)
         async function getProfile() {
-
+            // setLoading(true)
             if (session) {
                 let { data, error } = await supabase
                     .from('clients')
@@ -23,12 +22,17 @@ export default function SignUpForm({ session }) {
                     .eq('id', user.id)
                     .single()
 
-                setContactName(data.contactName)
-                setContactNumber(data.contactNumber)
-                setAddress(data.address)
-                setPaymentMethod(data.paymentMethod)
-                setAbn(data.abn)
-
+                if (error) {
+                    console.warn(error)
+                } else if (data) {
+                    setContactName(data.contactName)
+                    setContactNumber(data.contactNumber)
+                    setAddress(data.address)
+                    setPaymentMethod(data.paymentMethod)
+                    setAbn(data.abn)
+                    setCompanyName(user.user_metadata.companyName)
+                }
+                // setLoading(false)
             }
         }
         getProfile()
@@ -37,7 +41,7 @@ export default function SignUpForm({ session }) {
 
     async function handleSubmit(e) {
         e.preventDefault()
-        const { data, error } = await supabase
+        const { error } = await supabase
             .from('clients')
             .insert({
                 id: user.id,
