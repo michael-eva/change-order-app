@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import toast, { Toaster } from 'react-hot-toast'
 
 export default function SignUpForm({ session }) {
+    const [companyName, setCompanyName] = useState('')
     const [contactName, setContactName] = useState('')
     const [contactNumber, setContactNumber] = useState('')
     const [address, setAddress] = useState('')
@@ -11,14 +12,14 @@ export default function SignUpForm({ session }) {
     const [paymentMethod, setPaymentMethod] = useState('')
     const navigate = useNavigate('')
     const { user } = session
-    console.log(user.id);
     useEffect(() => {
+        setCompanyName(user.user_metadata.companyName)
         async function getProfile() {
             // setLoading(true)
             if (session) {
                 let { data, error } = await supabase
                     .from('clients')
-                    .select(`contactName, contactNumber, address, abn, paymentMethod`)
+                    .select(`contactName, contactNumber, address, abn, paymentMethod, companyName`)
                     .eq('id', user.id)
                     .single()
 
@@ -47,6 +48,7 @@ export default function SignUpForm({ session }) {
                 contactName,
                 contactNumber,
                 address,
+                companyName,
                 paymentMethod,
                 abn
             })

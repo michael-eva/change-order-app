@@ -681,3 +681,21 @@ th {
 .payment-method--settings input {
   margin-right: 30px;
 }
+
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  margin: 2px;
+  /* Adjust the margin as needed */
+}
+
+.order-dot {
+  background-color: red;
+  /* Change to your desired color for pending orders */
+}
+
+.float-dot {
+  background-color: blue;
+  /* Change to your desired color for pending float orders */
+}

@@ -2,73 +2,73 @@ import React, { useEffect, useState } from "react";
 import supabase from "../../config/supabaseClient";
 import { formatDate } from "../../utils/dateUtils";
 import { useSearchParams } from "react-router-dom";
+import RunningTotal from "./RunningTotal";
+import { tableFormat, changeStatus } from "../../utils/hostUtils";
 
 const OrderHistorySummary = ({ session }) => {
-    const [data, setData] = useState([])
+    const [order, setData] = useState([])
     const [error, setError] = useState(null)
     const [isLoading, setIsLoading] = useState(true)
     const [searchParams, setSearchParams] = useSearchParams()
     const pendingFilter = searchParams.get("status")
+    const [floatOrder, setFloatOrder] = useState([])
+    const [clientData, setClientData] = useState('')
 
-    const [companyName, setCompanyName] = useState()
     const filterOrders = pendingFilter
-        ? data.filter(order => order.status === pendingFilter)
-        : data
+        ? order.filter(order => order.status === pendingFilter)
+        : order
 
     useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const { data, error } = await supabase
-                    .from('change_order')
-                    .select('*');
+        fetchFloatOrderData()
+        fetchChangeOrderData()
+        fetchClientData()
+    }, [error]);
 
-                if (error) {
-                    setError("Error fetching data");
-                    setData([]);
-                    console.log(error);
-                } else {
-                    setData(data);
-                    setError(null);
-                    setIsLoading(false);
-                }
-            } catch (error) {
+    const fetchChangeOrderData = async () => {
+        try {
+            const { data: order, error } = await supabase
+                .from('change_order')
+                .select('*')
+
+            if (error) {
                 setError("Error fetching data");
                 setData([]);
                 console.log(error);
+            } else {
+                setData(order);
+                setError(null);
+                setIsLoading(false);
             }
-        };
-        // console.log(error);
-        fetchData();
-    }, [error]);
+        } catch (error) {
+            setError("Error fetching data");
+            setData([]);
+            console.log(error);
+        }
+    };
 
+    const fetchClientData = async () => {
+        try {
+            const { data, error } = await supabase
+                .from('clients')
+                .select('*')
 
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const { data: companyName, cerror } = await supabase
-                    .from('clients')
-                    .select('*');
+            setClientData(data)
+        } catch (error) {
+            console.log(error);
+        }
+    }
 
-                if (cerror) {
-                    setError("Error fetching data");
-                    setCompanyName([]);
-                    console.log(error);
-                } else {
-                    setCompanyName(companyName);
-                    setError(null);
-                    setIsLoading(false);
-                }
-            } catch (cerror) {
-                setError("Error fetching data");
-                setCompanyName([]);
-                console.log(cerror);
-            }
-        };
-        console.log(error);
-        fetchData();
-    }, [error]);
+    const fetchFloatOrderData = async () => {
+        try {
+            const { data, error } = await supabase
+                .from('float_order')
+                .select('*')
 
-    console.log("company Name:", companyName);
+            setFloatOrder(data)
+        } catch (error) {
+            console.log(error);
+        }
+    }
 
     const customDateSort = (dateA, dateB) => {
         const [dayA, monthA, yearA] = dateA.split("-").map(Number);
@@ -84,15 +84,13 @@ const OrderHistorySummary = ({ session }) => {
     };
 
     // Sort the orders by date using the customDateSort function
-    const sortedOrders = [...filterOrders].sort((a, b) =>
+    const sortedOrders = [...order].sort((a, b) =>
         customDateSort(a.date, b.date)
     );
-    const getCommonClassName = (index) => {
-        return index % 2 === 0 ? "table-striped" : "table-striped-grey";
-    };
-    const getStatusClassName = (item) => {
-        return item.status === "pending" ? "pending" : "packed"
-    }
+    const sortedFloatOrders = [...floatOrder].sort((a, b) =>
+        customDateSort(a.date, b.date)
+    )
+
 
     return (
         <div className="order-history-summary">
@@ -128,54 +126,64 @@ const OrderHistorySummary = ({ session }) => {
                 <tbody>
                     {isLoading ? (
                         <h2>Loading...</h2>
-                    ) : sortedOrders.length === 0 ? (
+                    ) : filterOrders.length === 0 ? (
                         <h2>No orders to display yet</h2>
                     ) : (
-                        sortedOrders.map((item, index) => (
+                        filterOrders?.map((item, index) => (
 
                             <tr>
-                                <td className={getCommonClassName(index)}>{session.user.user_metadata.companyName}</td>
-                                <td className={getCommonClassName(index)}>{formatDate(item.date)}</td>
-                                <td className={getCommonClassName(index)}>${item.fifty}</td>
-                                <td className={getCommonClassName(index)}>${item.twenty}</td>
-                                <td className={getCommonClassName(index)}>${item.ten}</td>
-                                <td className={getCommonClassName(index)}>${item.five}</td>
-                                <td className={getCommonClassName(index)}>${item.noteTotal}</td>
-                                <td className={getCommonClassName(index)}>${item.two}</td>
-                                <td className={getCommonClassName(index)}>${item.one}</td>
-                                <td className={getCommonClassName(index)}>${item.fiftyCents}</td>
-                                <td className={getCommonClassName(index)}>${item.twentyCents}</td>
-                                <td className={getCommonClassName(index)}>${item.tenCents}</td>
-                                <td className={getCommonClassName(index)}>${item.fiveCents}</td>
-                                <td className={getCommonClassName(index)}>${item.coinTotal}</td>
-                                <td className={getCommonClassName(index)}>${item.grandTotal}</td>
-                                <td className={`${getCommonClassName(index)} ${getStatusClassName(item)}`}>
+                                <td className={tableFormat(index)}>
+                                    {clientData?.map(user => {
+                                        return user.id === item.uuid ? user.companyName : ""
+                                    })}
+                                </td>
+                                <td className={tableFormat(index)}>{formatDate(item.date)}</td>
+                                <td className={tableFormat(index)}>${item.fifty}</td>
+                                <td className={tableFormat(index)}>${item.twenty}</td>
+                                <td className={tableFormat(index)}>${item.ten}</td>
+                                <td className={tableFormat(index)}>${item.five}</td>
+                                <td className={tableFormat(index)}>${item.noteTotal}</td>
+                                <td className={tableFormat(index)}>${item.two}</td>
+                                <td className={tableFormat(index)}>${item.one}</td>
+                                <td className={tableFormat(index)}>${item.fiftyCents}</td>
+                                <td className={tableFormat(index)}>${item.twentyCents}</td>
+                                <td className={tableFormat(index)}>${item.tenCents}</td>
+                                <td className={tableFormat(index)}>${item.fiveCents}</td>
+                                <td className={tableFormat(index)}>${item.coinTotal}</td>
+                                <td className={tableFormat(index)}>${item.grandTotal}</td>
+                                <td className={`${tableFormat(index)} ${changeStatus(item)}`}>
                                     {item.status === "packed" ? "Packed" : "Pending"}
                                 </td>
                             </tr>
                         )))}
-                    <br />
-                    <br />
-                    <tr>
-                        <td>Running Total</td>
-                        <td></td>
-                        <td>$50</td>
-                        <td>$20</td>
-                        <td>$10</td>
-                        <td>$5</td>
-                        <td>Note Total</td>
-                        <td>$2</td>
-                        <td>$1</td>
-                        <td>50c</td>
-                        <td>20c</td>
-                        <td>10c</td>
-                        <td>5c</td>
-                        <td>Coin Total</td>
-                        <td>Grand Total Total</td>
-                        <td><button>Place Order</button></td>
-                    </tr>
-
                 </tbody>
+            </table>
+            <br />
+            <RunningTotal />
+            <br />
+            <table>
+                {sortedFloatOrders.map((item, index) => (
+                    <tr>
+                        <td className={tableFormat(index)}>Float Order</td>
+                        <td className={tableFormat(index)}>{formatDate(item.date)}</td>
+                        <td className={tableFormat(index)}>${item.fifty}</td>
+                        <td className={tableFormat(index)}>${item.twenty}</td>
+                        <td className={tableFormat(index)}>${item.ten}</td>
+                        <td className={tableFormat(index)}>${item.five}</td>
+                        <td className={tableFormat(index)}>${item.noteTotal}</td>
+                        <td className={tableFormat(index)}>${item.two}</td>
+                        <td className={tableFormat(index)}>${item.one}</td>
+                        <td className={tableFormat(index)}>${item.fiftyCents}</td>
+                        <td className={tableFormat(index)}>${item.twentyCents}</td>
+                        <td className={tableFormat(index)}>${item.tenCents}</td>
+                        <td className={tableFormat(index)}>${item.fiveCents}</td>
+                        <td className={tableFormat(index)}>${item.coinTotal}</td>
+                        <td className={tableFormat(index)}>${item.grandTotal}</td>
+                        <td className={`${tableFormat(index)} ${changeStatus(item)}`}>
+                            {item.status === "packed" ? "Packed" : "Pending"}
+                        </td>
+                    </tr>
+                ))}
             </table>
 
         </div >

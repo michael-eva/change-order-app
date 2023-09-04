@@ -1,12 +1,15 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import supabase from "../../config/supabaseClient";
 
 
 
-export default function OrderHistory({ filteredData, updateOrderStatus, selectedDay, clientData, session }) {
+export default function OrderHistory({ data, updateOrderStatus, selectedDay }) {
     const [statuses, setStatuses] = useState({});
-    const filteredOrders = filteredData.filter(order => (
-        order.date === selectedDay && order.status === "pending"
+    const [userData, setUserData] = useState(null)
+    const filteredOrders = data.filter(order => (
+        order.date === selectedDay
     ));
+
     const handleSubmit = async () => {
         try {
             for (const orderId in statuses) {
@@ -26,8 +29,35 @@ export default function OrderHistory({ filteredData, updateOrderStatus, selected
             [orderId]: value,
         }));
     }
-    // console.log("Order history filtered data", filteredData);
-    // console.log("Order history filtered orders", filteredOrders);
+    // console.log("filtered orders:", filteredOrders);
+    useEffect(() => {
+        fetchClients();
+    }, []);
+
+    const fetchClients = async () => {
+        try {
+
+            const { data, error } = await supabase
+                .from('clients')
+                .select('*')
+            // .eq('id', filteredOrders.map((order) => (order.uuid)));
+
+            if (error) {
+                console.error('Error fetching client data:', error);
+            } else {
+                // Add client data to the clientData object using the order's id as the key
+                // clientData[order.id] = data[0];
+            }
+
+            setUserData(data);
+            // setLoading(false);
+        } catch (error) {
+            console.error('Error fetching client data:', error);
+            // setLoading(false);
+        }
+    };
+    // console.log("user Data:", userData);
+
     return (
         <div className="order-history">
             {filteredOrders ? (
@@ -56,9 +86,13 @@ export default function OrderHistory({ filteredData, updateOrderStatus, selected
                                     </tr>
                                 </thead>
                                 {filteredOrders.map((order, index) => (
-                                    <tbody key={order.id}>
+                                    <tbody key={index}>
                                         <tr>
-                                            <td className={`${index % 2 ? "table-striped" : "table-striped-grey"}`}>{session.user.user_metadata.companyName}</td>
+                                            <td className={`${index % 2 ? "table-striped" : "table-striped-grey"}`}>
+                                                {userData?.map(user => {
+                                                    return user.id === order.uuid ? user.companyName : ""
+                                                })}
+                                            </td>
                                             <td className={`client-name ${index % 2 ? "table-striped" : "table-striped-grey"}`}>{order.fifty}</td>
                                             <td className={`${index % 2 ? "table-striped" : "table-striped-grey"}`}>{order.twenty}</td>
                                             <td className={`${index % 2 ? "table-striped" : "table-striped-grey"}`}>{order.ten}</td>
@@ -97,8 +131,4 @@ export default function OrderHistory({ filteredData, updateOrderStatus, selected
             ) : <h2>Loading...</h2>}
         </div>
     )
-}
-
-
-
-
+} 
