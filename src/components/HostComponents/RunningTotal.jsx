@@ -30,10 +30,10 @@ export default function RunningTotal() {
                 console.log(error);
             }
         };
-        console.log(isLoading);
         fetchData();
-    }, [error]);
+    }, []);
 
+    console.log(isLoading);
 
     // fetch float order data
     useEffect(() => {

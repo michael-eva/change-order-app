@@ -33,13 +33,13 @@ const ClientOrderHistory = ({ session }) => {
             } catch (error) {
                 setError("Error fetching data");
                 setData([]);
-                console.log(error);
-                console.log(isLoading);
             }
         };
 
         fetchData();
     }, [session]);
+    console.log(error);
+    console.log(isLoading);
     console.log(error);
     const customDateSort = (dateA, dateB) => {
         const [dayA, monthA, yearA] = dateA.split("-").map(Number);

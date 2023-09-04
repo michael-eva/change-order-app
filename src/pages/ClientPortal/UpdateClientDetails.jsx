@@ -35,12 +35,12 @@ export default function UpdateClientDetails({ session }) {
                     setAbn(data.abn)
                 }
                 setLoading(false)
-                console.log(loading);
             }
         }
         getProfile()
     }, [session, user.id])
 
+    console.log(loading);
     console.log(email);
     async function handleSubmit(e) {
         e.preventDefault()

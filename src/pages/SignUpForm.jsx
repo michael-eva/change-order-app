@@ -15,7 +15,7 @@ export default function SignUpForm({ session }) {
     useEffect(() => {
         setCompanyName(user.user_metadata.companyName)
         async function getProfile() {
-            // setLoading(true)
+
             if (session) {
                 let { data, error } = await supabase
                     .from('clients')
@@ -23,16 +23,12 @@ export default function SignUpForm({ session }) {
                     .eq('id', user.id)
                     .single()
 
-                if (error) {
-                    console.warn(error)
-                } else if (data) {
-                    setContactName(data.contactName)
-                    setContactNumber(data.contactNumber)
-                    setAddress(data.address)
-                    setPaymentMethod(data.paymentMethod)
-                    setAbn(data.abn)
-                }
-                // setLoading(false)
+                setContactName(data.contactName)
+                setContactNumber(data.contactNumber)
+                setAddress(data.address)
+                setPaymentMethod(data.paymentMethod)
+                setAbn(data.abn)
+
             }
         }
         getProfile()
