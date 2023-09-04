@@ -30,7 +30,7 @@ export default function RunningTotal() {
                 console.log(error);
             }
         };
-        // console.log(error);
+        console.log(isLoading);
         fetchData();
     }, [error]);
 

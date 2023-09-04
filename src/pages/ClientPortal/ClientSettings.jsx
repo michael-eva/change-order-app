@@ -32,7 +32,7 @@ export default function ClientSettings({ session }) {
 
     async function handleSubmit(e) {
         e.preventDefault()
-        const { data, error } = await supabase
+        const { error } = await supabase
             .from('clients')
             .update({
                 paymentMethod

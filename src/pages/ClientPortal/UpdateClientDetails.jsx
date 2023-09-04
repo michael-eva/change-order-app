@@ -12,7 +12,6 @@ export default function UpdateClientDetails({ session }) {
     const [address, setAddress] = useState('')
     const [abn, setAbn] = useState('')
     const [email, setEmail] = useState('')
-    const [paymentMethod, setPaymentMethod] = useState('')
 
     const { user } = session
 
@@ -36,12 +35,13 @@ export default function UpdateClientDetails({ session }) {
                     setAbn(data.abn)
                 }
                 setLoading(false)
+                console.log(loading);
             }
         }
         getProfile()
     }, [session, user.id])
 
-
+    console.log(email);
     async function handleSubmit(e) {
         e.preventDefault()
         const { data, error } = await supabase

@@ -34,6 +34,7 @@ const ClientOrderHistory = ({ session }) => {
                 setError("Error fetching data");
                 setData([]);
                 console.log(error);
+                console.log(isLoading);
             }
         };
 

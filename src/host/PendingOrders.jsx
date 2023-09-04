@@ -43,7 +43,7 @@ export default function PendingOrders({ session }) {
                 .from('float_order')
                 .select('*')
                 .eq('status', 'pending')
-
+            console.log(error);
             setFloatOrder(data)
         } catch (error) {
             console.log(error);
