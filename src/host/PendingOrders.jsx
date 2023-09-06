@@ -15,7 +15,7 @@ export default function PendingOrders({ session }) {
     const [data, setData] = useState([])
     const [floatOrder, setFloatOrder] = useState([])
     const [clientData, setClientData] = useState([])
-    const childRef = useRef(null);
+
 
     useEffect(() => {
         fetchData();
@@ -71,7 +71,9 @@ export default function PendingOrders({ session }) {
         setSelectedDay(formattedDate(day));
         setSearchParams(`?date=${formattedDate(day)}`)
     }
+    function buttonClick() {
 
+    }
 
     return (
         <>
@@ -83,8 +85,9 @@ export default function PendingOrders({ session }) {
                 </Toggle.On>
             </Toggle>
             <WeekSlider clickHandle={clickHandle} selectedDay={selectedDay} data={data} floatOrder={floatOrder} />
-            <OrderHistory data={data} updateOrderStatus={updateOrderStatus} selectedDay={selectedDay} clientData={clientData} session={session} ref={childRef} />
+            <OrderHistory data={data} updateOrderStatus={updateOrderStatus} selectedDay={selectedDay} clientData={clientData} session={session} />
             <FloatOrderHistory dateFilter={dateFilter} selectedDay={selectedDay} floatOrder={floatOrder} />
+            <button onClick={buttonClick}>Button</button>
         </>
     )
 }

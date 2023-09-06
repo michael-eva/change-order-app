@@ -9,10 +9,13 @@ export default function SignUpForm({ session }) {
     const [contactNumber, setContactNumber] = useState('')
     const [address, setAddress] = useState('')
     const [abn, setAbn] = useState('')
+    const [email, setEmail] = useState("")
     const [paymentMethod, setPaymentMethod] = useState('')
     const navigate = useNavigate('')
     const { user } = session
     useEffect(() => {
+        setCompanyName(user.user_metadata.companyName)
+        setEmail(user.email)
         async function getProfile() {
             // setLoading(true)
             if (session) {
@@ -30,13 +33,12 @@ export default function SignUpForm({ session }) {
                     setAddress(data.address)
                     setPaymentMethod(data.paymentMethod)
                     setAbn(data.abn)
-                    setCompanyName(user.user_metadata.companyName)
                 }
                 // setLoading(false)
             }
         }
         getProfile()
-    }, [session, user.id, user.user_metadata.companyName])
+    }, [session, user.id, user.user_metadata.companyName, user.email])
 
 
     async function handleSubmit(e) {
@@ -49,6 +51,7 @@ export default function SignUpForm({ session }) {
                 contactNumber,
                 address,
                 companyName,
+                email,
                 paymentMethod,
                 abn
             })

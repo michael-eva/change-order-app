@@ -56,7 +56,6 @@ export default function OrderHistory({ data, updateOrderStatus, selectedDay }) {
             // setLoading(false);
         }
     };
-    // console.log("user Data:", userData);
 
     return (
         <div className="order-history">

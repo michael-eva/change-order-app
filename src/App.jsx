@@ -21,6 +21,7 @@ import ClientOrderHistory from "./pages/ClientPortal/ClientOrderHistory";
 import UpdateClientDetails from "./pages/ClientPortal/UpdateClientDetails";
 import toast, { Toaster } from 'react-hot-toast'
 import FloatOrder from "./host/FloatOrder";
+import NotFound from "./pages/NotFound";
 
 export default function App() {
     const [session, setSession] = useState(null)
@@ -85,6 +86,7 @@ export default function App() {
                             <Route path="settings" element={< Settings />} />
                             <Route path="float-order" element={< FloatOrder />} />
                         </Route>
+                        <Route path="*" element={<NotFound />} />
                     </Route>
                 </Routes>
             </BrowserRouter>
