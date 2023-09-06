@@ -6,8 +6,7 @@ export default function RunningTotal() {
     const [floatOrder, setFloatOrder] = useState()
     const [error, setError] = useState(null)
     const [isLoading, setIsLoading] = useState(true)
-    // const [searchParams, setSearchParams] = useSearchParams()
-    // const pendingFilter = searchParams.get("status")
+
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -31,7 +30,7 @@ export default function RunningTotal() {
             }
         };
         fetchData();
-    }, []);
+    }, [order]);
 
     console.log(isLoading);
 
@@ -60,7 +59,7 @@ export default function RunningTotal() {
         };
         console.log(error);
         fetchData();
-    }, [error]);
+    }, [floatOrder]);
 
     const sumChangeOrders = (columnName) => {
         return order?.reduce((total, item) => {
@@ -73,9 +72,11 @@ export default function RunningTotal() {
     };
     const sumFloatOrders = (columnName) => {
         return floatOrder?.reduce((total, item) => {
-            const columnValue = parseFloat(item[columnName]) || 0
-            return total + columnValue
-
+            if (item.status === "received") {
+                const columnValue = parseFloat(item[columnName]) || 0
+                return total + columnValue
+            }
+            return total
         }, 0)
     }
 
@@ -91,7 +92,8 @@ export default function RunningTotal() {
     const runningFiveCents = sumFloatOrders('fiveCents') - sumChangeOrders('fiveCents')
 
     return (
-        <table>
+
+        <>
 
 
             <tr>
@@ -109,7 +111,7 @@ export default function RunningTotal() {
                 <td>10c</td>
                 <td>5c</td>
                 <td>Coin Total</td>
-                <td>Grand Total Total</td>
+                <td>Grand Total</td>
 
             </tr>
             <tr>
@@ -129,6 +131,8 @@ export default function RunningTotal() {
                 <td>{runningTwo + runningOne + runningFiftyCents + runningTwentyCents + runningTenCents + runningFiveCents}</td>
                 <td>{runningFifty + runningTwenty + runningTen + runningFive + runningTwo + runningOne + runningFiftyCents + runningTwentyCents + runningTenCents + runningFiveCents}</td>
             </tr>
-        </table>
+
+        </>
+
     )
 }

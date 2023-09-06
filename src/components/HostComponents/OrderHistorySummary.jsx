@@ -146,41 +146,42 @@ const OrderHistorySummary = () => {
                                 </td>
                             </tr>
                         )))}
+                    <br />
+                    {/* <RunningTotal /> */}
+                    <br />
+                    {isLoadingFloat ? (
+                        <tr>
+                            <td colSpan='15'>Loading...</td>
+                        </tr>
+                    ) : sortedFloatOrders.length === 0 ? (
+                        <tr>
+                            <td colSpan='15'>No orders to display yet</td>
+                        </tr>
+                    ) : (
+                        sortedFloatOrders.map((item, index) => (
+                            <tr key={index}>
+                                <td className={tableFormat(index)}>Float Order</td>
+                                <td className={tableFormat(index)}>{formatDate(item.date)}</td>
+                                <td className={tableFormat(index)}>${item.fifty}</td>
+                                <td className={tableFormat(index)}>${item.twenty}</td>
+                                <td className={tableFormat(index)}>${item.ten}</td>
+                                <td className={tableFormat(index)}>${item.five}</td>
+                                <td className={tableFormat(index)}>${item.noteTotal}</td>
+                                <td className={tableFormat(index)}>${item.two}</td>
+                                <td className={tableFormat(index)}>${item.one}</td>
+                                <td className={tableFormat(index)}>${item.fiftyCents}</td>
+                                <td className={tableFormat(index)}>${item.twentyCents}</td>
+                                <td className={tableFormat(index)}>${item.tenCents}</td>
+                                <td className={tableFormat(index)}>${item.fiveCents}</td>
+                                <td className={tableFormat(index)}>${item.coinTotal}</td>
+                                <td className={tableFormat(index)}>${item.grandTotal}</td>
+                                <td className={`${tableFormat(index)} ${changeStatus(item)}`}>
+                                    {item.status === "received" ? "Received" : "Pending"}
+                                </td>
+                            </tr>
+                        )))}
                 </tbody>
             </table>
-            <br />
-            <RunningTotal />
-            <br />
-            <table>
-                {isLoadingFloat ? (
-                    <h2>Loading...</h2>
-                ) : sortedFloatOrders.length === 0 ? (
-                    <h2>No orders to display yet</h2>
-                ) : (
-                    sortedFloatOrders.map((item, index) => (
-                        <tr>
-                            <td className={tableFormat(index)}>Float Order</td>
-                            <td className={tableFormat(index)}>{formatDate(item.date)}</td>
-                            <td className={tableFormat(index)}>${item.fifty}</td>
-                            <td className={tableFormat(index)}>${item.twenty}</td>
-                            <td className={tableFormat(index)}>${item.ten}</td>
-                            <td className={tableFormat(index)}>${item.five}</td>
-                            <td className={tableFormat(index)}>${item.noteTotal}</td>
-                            <td className={tableFormat(index)}>${item.two}</td>
-                            <td className={tableFormat(index)}>${item.one}</td>
-                            <td className={tableFormat(index)}>${item.fiftyCents}</td>
-                            <td className={tableFormat(index)}>${item.twentyCents}</td>
-                            <td className={tableFormat(index)}>${item.tenCents}</td>
-                            <td className={tableFormat(index)}>${item.fiveCents}</td>
-                            <td className={tableFormat(index)}>${item.coinTotal}</td>
-                            <td className={tableFormat(index)}>${item.grandTotal}</td>
-                            <td className={`${tableFormat(index)} ${changeStatus(item)}`}>
-                                {item.status === "received" ? "Received" : "Pending"}
-                            </td>
-                        </tr>
-                    )))}
-            </table>
-
         </div >
     );
 

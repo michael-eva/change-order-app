@@ -8,6 +8,7 @@ import Toggle from "../Toggle";
 import FloatOrder from "./FloatOrder";
 import FloatOrderHistory from "./FloatOrderHistory";
 import { fetchPendingOrderData, fetchClientData, fetchPendingFloatOrderData } from "../pages/FetchData";
+import RunningTotal from "../components/HostComponents/RunningTotal";
 
 
 export default function PendingOrders({ session }) {
@@ -21,6 +22,8 @@ export default function PendingOrders({ session }) {
     const [clientError, setClientError] = useState("")
     const [floatOrderStatus, setFloatOrderStatus] = useState('')
     const [orderStatus, setOrderStatus] = useState('')
+    const [initOrderStatus, setInitOrderStatus] = useState('pending')
+    const [initFloatStatus, setInitFloatStatus] = useState(floatOrderStatus)
 
     const dateFilter = searchParams.get("date");
 
@@ -114,6 +117,10 @@ export default function PendingOrders({ session }) {
         }
     }
 
+    if (orderStatus !== 'pending') {
+        console.log("changed");
+    }
+
     return (
         <>
             <button>Manually Add Change Order</button>
@@ -124,9 +131,36 @@ export default function PendingOrders({ session }) {
                 </Toggle.On>
             </Toggle>
             <WeekSlider clickHandle={clickHandle} selectedDay={selectedDay} pendingOrders={pendingOrders} floatOrder={floatOrder} />
-            <OrderHistory pendingOrders={pendingOrders} selectedDay={selectedDay} clientData={clientData} session={session} handleOrderStatusChange={handleOrderStatusChange} />
-            <FloatOrderHistory dateFilter={dateFilter} selectedDay={selectedDay} floatOrder={floatOrder} handleFloatStatusChange={handleFloatStatusChange} />
-            <button onClick={handleSubmit}>Button</button>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Date</th>
+                        <th>$50</th>
+                        <th>$20</th>
+                        <th>$10</th>
+                        <th>$5</th>
+                        <th>Note Total</th>
+                        <th>$2</th>
+                        <th>$1</th>
+                        <th>50c</th>
+                        <th>20c</th>
+                        <th>10c</th>
+                        <th>5c</th>
+                        <th>Coin Total</th>
+                        <th>Grand Total</th>
+                        <th>Status </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <OrderHistory pendingOrders={pendingOrders} selectedDay={selectedDay} clientData={clientData} session={session} handleOrderStatusChange={handleOrderStatusChange} />
+                    <br />
+                    <FloatOrderHistory dateFilter={dateFilter} selectedDay={selectedDay} floatOrder={floatOrder} handleFloatStatusChange={handleFloatStatusChange} />
+                    <br />
+                    <RunningTotal />
+                </tbody>
+            </table>
+            <button className='submit-btn' onClick={handleSubmit}>Change Status</button>
         </>
     )
 }

@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from "react";
 import supabase from "../../config/supabaseClient";
+import { tableFormat } from "../../utils/hostUtils";
+import { closestIndexTo } from "date-fns/fp";
 
 
 
-export default function OrderHistory({ pendingOrders, updateOrderStatus, selectedDay, handleOrderStatusChange }) {
+export default function OrderHistory({ pendingOrders, selectedDay, handleOrderStatusChange }) {
     const [statuses, setStatuses] = useState({});
     const [userData, setUserData] = useState(null)
+    console.log(userData);
     const filteredOrders = pendingOrders.filter(order => (
         order.date === selectedDay
     ));
@@ -37,8 +40,6 @@ export default function OrderHistory({ pendingOrders, updateOrderStatus, selecte
             if (error) {
                 console.error('Error fetching client data:', error);
             } else {
-                // Add client data to the clientData object using the order's id as the key
-                // clientData[order.id] = data[0];
             }
 
             setUserData(data);
@@ -50,75 +51,42 @@ export default function OrderHistory({ pendingOrders, updateOrderStatus, selecte
     };
 
     return (
-        <div className="order-history">
-            {filteredOrders ? (
-                <>
-                    {filteredOrders.length > 0 ? (
-
-                        <>
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th>Name</th>
-                                        <th>$50</th>
-                                        <th>$20</th>
-                                        <th>$10</th>
-                                        <th>$5</th>
-                                        <th>Note Total</th>
-                                        <th>$2</th>
-                                        <th>$1</th>
-                                        <th>50c</th>
-                                        <th>20c</th>
-                                        <th>10c</th>
-                                        <th>5c</th>
-                                        <th>Coin Total</th>
-                                        <th>Grand Total</th>
-                                        <th>Status </th>
-                                    </tr>
-                                </thead>
-                                {filteredOrders.map((order, index) => (
-                                    <tbody key={index}>
-                                        <tr>
-                                            <td className={`${index % 2 ? "table-striped" : "table-striped-grey"}`}>
-                                                {userData?.map(user => {
-                                                    return user.id === order.uuid ? user.companyName : ""
-                                                })}
-                                            </td>
-                                            <td className={`client-name ${index % 2 ? "table-striped" : "table-striped-grey"}`}>{order.fifty}</td>
-                                            <td className={`${index % 2 ? "table-striped" : "table-striped-grey"}`}>{order.twenty}</td>
-                                            <td className={`${index % 2 ? "table-striped" : "table-striped-grey"}`}>{order.ten}</td>
-                                            <td className={`${index % 2 ? "table-striped" : "table-striped-grey"}`}>{order.five}</td>
-                                            <td className={`${index % 2 ? "table-striped" : "table-striped-grey"}`}>{order.noteTotal}</td>
-                                            <td className={`${index % 2 ? "table-striped" : "table-striped-grey"}`}>{order.two}</td>
-                                            <td className={`${index % 2 ? "table-striped" : "table-striped-grey"}`}>{order.one}</td>
-                                            <td className={`${index % 2 ? "table-striped" : "table-striped-grey"}`}>{order.fiftyCents}</td>
-                                            <td className={`${index % 2 ? "table-striped" : "table-striped-grey"}`}>{order.twentyCents}</td>
-                                            <td className={`${index % 2 ? "table-striped" : "table-striped-grey"}`}>{order.tenCents}</td>
-                                            <td className={`${index % 2 ? "table-striped" : "table-striped-grey"}`}>{order.fiveCents}</td>
-                                            <td className={`${index % 2 ? "table-striped" : "table-striped-grey"}`}>{order.coinTotal}</td>
-                                            <td className={`${index % 2 ? "table-striped" : "table-striped-grey"}`}>{order.grandTotal}</td>
-                                            <td className={`${index % 2 ? "table-striped" : "table-striped-grey"}`}>
-                                                <select
-                                                    name="status"
-                                                    id="status"
-                                                    className="order-status"
-                                                    data-order-id={order.id}
-                                                    onChange={handleChange}
-                                                >
-                                                    <option className="pending" value="pending">Pending</option>
-                                                    <option className="packed" value="packed">Packed</option>
-                                                </select>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                ))
-                                }
-                            </table >
-                        </>
-                    ) : <h2>No orders to display</h2>}
-
-                </>
-            ) : <h2>Loading...</h2>}
-        </div>
+        <>
+            {filteredOrders.map((order, index) => (
+                <tr key={index}>
+                    <td className={tableFormat(index)}>
+                        {userData?.map(user => {
+                            return user.id === order.uuid ? user.companyName : ""
+                        })}
+                    </td>
+                    <td className={tableFormat(index)}>{order.date}</td>
+                    <td className={tableFormat(index)}>{order.fifty}</td>
+                    <td className={tableFormat(index)}>{order.twenty}</td>
+                    <td className={tableFormat(index)}>{order.ten}</td>
+                    <td className={tableFormat(index)}>{order.five}</td>
+                    <td className={tableFormat(index)}>{order.noteTotal}</td>
+                    <td className={tableFormat(index)}>{order.two}</td>
+                    <td className={tableFormat(index)}>{order.one}</td>
+                    <td className={tableFormat(index)}>{order.fiftyCents}</td>
+                    <td className={tableFormat(index)}>{order.twentyCents}</td>
+                    <td className={tableFormat(index)}>{order.tenCents}</td>
+                    <td className={tableFormat(index)}>{order.fiveCents}</td>
+                    <td className={tableFormat(index)}>{order.coinTotal}</td>
+                    <td className={tableFormat(index)}>{order.grandTotal}</td>
+                    <td className={tableFormat(index)}>
+                        <select
+                            name="status"
+                            id="status"
+                            className="order-status"
+                            data-order-id={order.id}
+                            onChange={handleChange}
+                        >
+                            <option className="pending" value="pending">Pending</option>
+                            <option className="packed" value="packed">Packed</option>
+                        </select>
+                    </td>
+                </tr>
+            ))}
+        </>
     )
 } 
