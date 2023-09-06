@@ -1,9 +1,10 @@
 import { useState } from "react"
 import supabase from "../config/supabaseClient"
-import { Link, useNavigate } from "react-router-dom"
+import { Link, useNavigate, useLocation } from "react-router-dom"
 
-export default function Login({ setSession }) {
+export default function Login() {
     let navigate = useNavigate()
+    const location = useLocation('')
     const [loginData, setLoginData] = useState({
         email: "",
         password: "",
@@ -28,7 +29,6 @@ export default function Login({ setSession }) {
             })
             if (error) throw error
             console.log(data)
-            // setSession(data)
             navigate('/client-portal')
 
         } catch (error) {
@@ -39,6 +39,8 @@ export default function Login({ setSession }) {
         <div className="signup-body">
             <div className="form-container">
                 <form className="form" onSubmit={submitHandler}>
+                    {location.state?.message &&
+                        <h3>Please log in first</h3>}
                     <h2>Login</h2>
                     <input
                         type="text"
@@ -56,23 +58,6 @@ export default function Login({ setSession }) {
                         onChange={handleChange}
                         className="form--input"
                     />
-                    {/* <input
-                        type="password"
-                        name="confirmPassword"
-                        value={signUpData.confirmPassword}
-                        placeholder="Confirm Password"
-                        onChange={handleChange}
-                        className="form--input"
-                    /> */}
-                    {/* <div className="form--marketing">
-                        <input
-                            type="checkbox"
-                            defaultChecked={signUpData.saveSignIn}
-                            name="saveSignIn"
-                            id="saveSignIn"
-                        />
-                        <label htmlFor="saveSignIn">Remember me?</label>
-                    </div> */}
                     <button className="form--submit">Log In</button>
                     <div>Need an account?</div>
                     <Link to={"/signup"}>Sign Up</Link>

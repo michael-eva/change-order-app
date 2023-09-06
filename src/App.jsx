@@ -56,7 +56,7 @@ export default function App() {
                     <Route element={<Layout session={session} handleLogout={handleLogout} />}>
                         <Route path="/" element={<Home />} />
                         <Route path="/signup" element={<Auth />} />
-                        <Route path="/login" element={<Login setSession={setSession} />} />
+                        <Route path="/login" element={<Login />} />
                         <Route element={<AuthRequired session={session} />}>
                             <Route path="/signup-form" element={<SignUpForm session={session} />} />
                             <Route path="/client-portal" element={<ClientPortalLayout session={session} />} >
