@@ -1,5 +1,5 @@
 import { useState } from "react"
-import supabase from "./config/supabaseClient"
+import supabase from "../config/supabaseClient"
 import { Link } from "react-router-dom"
 import { useNavigate } from "react-router-dom"
 import { toast } from "react-hot-toast"

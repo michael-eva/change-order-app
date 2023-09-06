@@ -3,7 +3,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom"
 import supabase from "./config/supabaseClient";
 import './index.css';
 import ChangeOrderForm from "./pages/ChangeOrderForm";
-import Auth from "./Auth";
+import Auth from "./pages/Auth";
 import Login from "./pages/Login";
 import OrderHistorySummary from "./components/HostComponents/OrderHistorySummary";
 import Layout from "./components/Layout";
@@ -82,7 +82,7 @@ export default function App() {
                         <Route path="/west-sure" element={<HostLayout />}>
                             <Route index element={< PendingOrders session={session} />} />
                             <Route path="clients" element={< Clients />} />
-                            <Route path="order-history" element={< OrderHistorySummary session={session} />} />
+                            <Route path="order-history" element={< OrderHistorySummary />} />
                             <Route path="settings" element={< Settings />} />
                             <Route path="float-order" element={< FloatOrder />} />
                         </Route>
