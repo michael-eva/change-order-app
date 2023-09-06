@@ -40,7 +40,7 @@ export default function Login() {
             <div className="form-container">
                 <form className="form" onSubmit={submitHandler}>
                     {location.state?.message &&
-                        <h3>Please log in first</h3>}
+                        <h3 className="login-first">Please log in first</h3>}
                     <h2>Login</h2>
                     <input
                         type="text"

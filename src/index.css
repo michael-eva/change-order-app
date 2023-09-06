@@ -699,3 +699,8 @@ th {
   background-color: blue;
   /* Change to your desired color for pending float orders */
 }
+
+/* LOGIN */
+.login-first {
+  color: red;
+}

@@ -3,10 +3,10 @@ import supabase from "../../config/supabaseClient";
 
 
 
-export default function OrderHistory({ data, updateOrderStatus, selectedDay }) {
+export default function OrderHistory({ pendingOrders, updateOrderStatus, selectedDay }) {
     const [statuses, setStatuses] = useState({});
     const [userData, setUserData] = useState(null)
-    const filteredOrders = data.filter(order => (
+    const filteredOrders = pendingOrders.filter(order => (
         order.date === selectedDay
     ));
 
@@ -29,7 +29,6 @@ export default function OrderHistory({ data, updateOrderStatus, selectedDay }) {
             [orderId]: value,
         }));
     }
-    // console.log("filtered orders:", filteredOrders);
     useEffect(() => {
         fetchClients();
     }, []);

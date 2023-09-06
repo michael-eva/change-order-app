@@ -1,8 +1,31 @@
+import { useEffect, useState } from "react";
 import { formatDate } from "../utils/dateUtils";
 import { tableFormat } from "../utils/hostUtils";
-import { changeStatus } from "../utils/hostUtils";
 
-export default function FloatOrderHistory({ dateFilter, selectedDay, floatOrder }) {
+export default function FloatOrderHistory({ dateFilter, selectedDay, floatOrder, handleFloatStatusChange }) {
+    const [selectedStatus, setSelectedStatus] = useState('')
+
+    function handleStatusChange(event) {
+        const { value, dataset } = event.target;
+        const orderId = dataset.orderId;
+        setSelectedStatus(prevStatuses => ({
+            ...prevStatuses,
+            [orderId]: value,
+        }))
+    }
+
+    // function handleChange(event) {
+    //     const { value, dataset } = event.target;
+    //     const orderId = dataset.orderId;
+    //     setStatuses(prevStatuses => ({
+    //         ...prevStatuses,
+    //         [orderId]: value,
+    //     }));
+    // }
+
+    useEffect(() => {
+        handleFloatStatusChange(selectedStatus)
+    }, [selectedStatus])
 
     const filteredData = dateFilter ? floatOrder?.filter(order => {
         return order.date === dateFilter
@@ -11,6 +34,9 @@ export default function FloatOrderHistory({ dateFilter, selectedDay, floatOrder 
     const filteredOrders = filteredData ? filteredData.filter(order => {
         return order.date === selectedDay
     }) : floatOrder;
+
+    // handleChange function that handles the status change of the select items
+    // onClick function in PendingOrders triggers the state change to be updated to the db
 
     return (
         <table>
@@ -31,8 +57,17 @@ export default function FloatOrderHistory({ dateFilter, selectedDay, floatOrder 
                     <td className={tableFormat(index)}>${item.fiveCents}</td>
                     <td className={tableFormat(index)}>${item.coinTotal}</td>
                     <td className={tableFormat(index)}>${item.grandTotal}</td>
-                    <td className={`${tableFormat(index)} ${changeStatus(item)}`}>
-                        {item.status === "packed" ? "Packed" : "Pending"}
+                    <td className={tableFormat(index)}>
+                        <select
+                            name="status"
+                            id="status"
+                            className="order-status"
+                            data-order-id={item.id}
+                            onChange={handleStatusChange}
+                        >
+                            <option value="pending">Pending</option>
+                            <option value="received">Received</option>
+                        </select>
                     </td>
                 </tr>
             ))}
