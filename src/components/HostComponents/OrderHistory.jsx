@@ -3,24 +3,18 @@ import supabase from "../../config/supabaseClient";
 
 
 
-export default function OrderHistory({ pendingOrders, updateOrderStatus, selectedDay }) {
+export default function OrderHistory({ pendingOrders, updateOrderStatus, selectedDay, handleOrderStatusChange }) {
     const [statuses, setStatuses] = useState({});
     const [userData, setUserData] = useState(null)
     const filteredOrders = pendingOrders.filter(order => (
         order.date === selectedDay
     ));
 
-    const handleSubmit = async () => {
-        try {
-            for (const orderId in statuses) {
-                const newStatus = statuses[orderId];
-                await updateOrderStatus(orderId, newStatus);
-            }
-            console.log('Order statuses updated in the database.');
-        } catch (error) {
-            console.error('Error updating order statuses:', error);
-        }
-    };
+    useEffect(() => {
+        handleOrderStatusChange(statuses)
+    }, [statuses])
+
+
     function handleChange(event) {
         const { value, dataset } = event.target;
         const orderId = dataset.orderId;
@@ -32,7 +26,6 @@ export default function OrderHistory({ pendingOrders, updateOrderStatus, selecte
     useEffect(() => {
         fetchClients();
     }, []);
-
     const fetchClients = async () => {
         try {
 
@@ -121,7 +114,6 @@ export default function OrderHistory({ pendingOrders, updateOrderStatus, selecte
                                 ))
                                 }
                             </table >
-                            <button onClick={handleSubmit} className="submit-btn">Submit</button>
                         </>
                     ) : <h2>No orders to display</h2>}
 

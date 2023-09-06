@@ -14,14 +14,6 @@ export default function FloatOrderHistory({ dateFilter, selectedDay, floatOrder,
         }))
     }
 
-    // function handleChange(event) {
-    //     const { value, dataset } = event.target;
-    //     const orderId = dataset.orderId;
-    //     setStatuses(prevStatuses => ({
-    //         ...prevStatuses,
-    //         [orderId]: value,
-    //     }));
-    // }
 
     useEffect(() => {
         handleFloatStatusChange(selectedStatus)
@@ -34,9 +26,6 @@ export default function FloatOrderHistory({ dateFilter, selectedDay, floatOrder,
     const filteredOrders = filteredData ? filteredData.filter(order => {
         return order.date === selectedDay
     }) : floatOrder;
-
-    // handleChange function that handles the status change of the select items
-    // onClick function in PendingOrders triggers the state change to be updated to the db
 
     return (
         <table>

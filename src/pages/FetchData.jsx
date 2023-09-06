@@ -60,5 +60,21 @@ const fetchFloatOrderData = async () => {
         throw error
     }
 }
+const fetchPendingFloatOrderData = async () => {
+    try {
+        const { data, error } = await supabase
+            .from('float_order')
+            .select('*')
+            .eq('status', 'pending')
+        if (error) {
+            throw error
+        }
+        return data
 
-export { fetchChangeOrderData, fetchClientData, fetchFloatOrderData, fetchPendingOrderData }
+    } catch (error) {
+        console.error('Error fetching data:', error)
+        throw error
+    }
+}
+
+export { fetchChangeOrderData, fetchClientData, fetchFloatOrderData, fetchPendingOrderData, fetchPendingFloatOrderData }

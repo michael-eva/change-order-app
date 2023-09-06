@@ -7,7 +7,7 @@ import { formattedDate } from "../utils/dateUtils";
 import Toggle from "../Toggle";
 import FloatOrder from "./FloatOrder";
 import FloatOrderHistory from "./FloatOrderHistory";
-import { fetchPendingOrderData, fetchClientData, fetchFloatOrderData } from "../pages/FetchData";
+import { fetchPendingOrderData, fetchClientData, fetchPendingFloatOrderData } from "../pages/FetchData";
 
 
 export default function PendingOrders({ session }) {
@@ -20,13 +20,14 @@ export default function PendingOrders({ session }) {
     const [floatError, setFloatError] = useState('')
     const [clientError, setClientError] = useState("")
     const [floatOrderStatus, setFloatOrderStatus] = useState('')
+    const [orderStatus, setOrderStatus] = useState('')
 
     const dateFilter = searchParams.get("date");
 
     useEffect(() => {
         loadPendingOrders();
         loadClientData()
-        loadFloatOrders()
+        loadPendingFloatOrders()
     }, []);
     async function loadPendingOrders() {
         try {
@@ -44,9 +45,9 @@ export default function PendingOrders({ session }) {
             setClientError(error)
         }
     }
-    async function loadFloatOrders() {
+    async function loadPendingFloatOrders() {
         try {
-            const data = await fetchFloatOrderData()
+            const data = await fetchPendingFloatOrderData()
             setFloatOrder(data)
         } catch (error) {
             setFloatError(error)
@@ -54,6 +55,13 @@ export default function PendingOrders({ session }) {
     }
 
     // ORDER HISTORY
+    function handleOrderStatusChange(newStatus) {
+        setOrderStatus(newStatus)
+    }
+    function handleFloatStatusChange(newStatus) {
+        setFloatOrderStatus(newStatus)
+    }
+
     const updateOrderStatus = async (orderId, newStatus) => {
         try {
             await supabase
@@ -69,6 +77,18 @@ export default function PendingOrders({ session }) {
             console.error(`Error updating order ${orderId} status:`, error);
         }
     };
+    async function updateFloatOrderStatus(orderId, newFloatStatus) {
+        try {
+            await supabase
+                .from('float_order')
+                .update({ status: newFloatStatus })
+                .eq('id', orderId)
+
+            await loadPendingFloatOrders()
+        } catch (error) {
+            console.log(error);
+        }
+    }
 
     // WEEK SLIDER
     function clickHandle(day) {
@@ -77,36 +97,23 @@ export default function PendingOrders({ session }) {
     }
 
 
-    // FLOAT ORDER HISTORY
-    function handleFloatStatusChange(newStatus) {
-        setFloatOrderStatus(newStatus)
-    }
-
-    async function updateFloatOrderStatus(orderId, newFloatStatus) {
+    const handleSubmit = async () => {
         try {
-            await supabase
-                .from('float_order')
-                .update({ status: newFloatStatus })
-                .eq('id', orderId)
-        } catch (error) {
-            console.log(error);
-        }
-    }
-
-    // HANDLE SUBMIT
-
-    async function handleSubmit() {
-        try {
+            for (const orderId in orderStatus) {
+                const newStatus = orderStatus[orderId];
+                await updateOrderStatus(orderId, newStatus);
+            }
             for (const orderId in floatOrderStatus) {
                 const newFloatStatus = floatOrderStatus[orderId];
                 await updateFloatOrderStatus(orderId, newFloatStatus)
             }
-            // console.log(newFloatStatus);
-            console.log("updating status");
+
+            console.log('Order statuses updated in the database.');
         } catch (error) {
-            console.log("error:", error);
+            console.error('Error updating order statuses:', error);
         }
     }
+
     return (
         <>
             <button>Manually Add Change Order</button>
@@ -117,7 +124,7 @@ export default function PendingOrders({ session }) {
                 </Toggle.On>
             </Toggle>
             <WeekSlider clickHandle={clickHandle} selectedDay={selectedDay} pendingOrders={pendingOrders} floatOrder={floatOrder} />
-            <OrderHistory pendingOrders={pendingOrders} updateOrderStatus={updateOrderStatus} selectedDay={selectedDay} clientData={clientData} session={session} />
+            <OrderHistory pendingOrders={pendingOrders} selectedDay={selectedDay} clientData={clientData} session={session} handleOrderStatusChange={handleOrderStatusChange} />
             <FloatOrderHistory dateFilter={dateFilter} selectedDay={selectedDay} floatOrder={floatOrder} handleFloatStatusChange={handleFloatStatusChange} />
             <button onClick={handleSubmit}>Button</button>
         </>

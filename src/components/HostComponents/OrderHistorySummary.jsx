@@ -175,7 +175,7 @@ const OrderHistorySummary = () => {
                             <td className={tableFormat(index)}>${item.coinTotal}</td>
                             <td className={tableFormat(index)}>${item.grandTotal}</td>
                             <td className={`${tableFormat(index)} ${changeStatus(item)}`}>
-                                {item.status === "packed" ? "Packed" : "Pending"}
+                                {item.status === "received" ? "Received" : "Pending"}
                             </td>
                         </tr>
                     )))}
