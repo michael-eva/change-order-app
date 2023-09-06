@@ -22,6 +22,7 @@ import UpdateClientDetails from "./pages/ClientPortal/UpdateClientDetails";
 import toast, { Toaster } from 'react-hot-toast'
 import FloatOrder from "./host/FloatOrder";
 import NotFound from "./pages/NotFound";
+import AuthRequired from "./components/HostComponents/AuthRequired";
 
 export default function App() {
     const [session, setSession] = useState(null)
@@ -47,21 +48,6 @@ export default function App() {
         })
     }, [])
 
-
-    // const getUser = async () => {
-    //     try {
-    //         const { data: { user } } = await supabase.auth.getUser()
-
-    //         if (user) {
-    //             console.log(user.id);
-    //         }
-
-    //     } catch (error) {
-    //         alert(error.message)
-    //     }
-    // }
-    // getUser()
-
     return (
         <>
             <Toaster />
@@ -71,14 +57,16 @@ export default function App() {
                         <Route path="/" element={<Home />} />
                         <Route path="/signup" element={<Auth />} />
                         <Route path="/login" element={<Login setSession={setSession} />} />
-                        {session ? <Route path="/signup-form" element={<SignUpForm session={session} />} /> : ""}
-                        {session ? <Route path="/client-portal" element={<ClientPortalLayout session={session} />} >
-                            <Route index element={<ClientOrderHistory session={session} />} />
-                            <Route path="client-details" element={<ClientDetails session={session} />} />
-                            {session && <Route path="update-client-details" element={<UpdateClientDetails session={session} />} />}
-                            <Route path="place-order" element={<ChangeOrderForm session={session} />} />
-                            <Route path="settings" element={<ClientSettings session={session} />} />
-                        </Route> : ""}
+                        <Route element={<AuthRequired session={session} />}>
+                            <Route path="/signup-form" element={<SignUpForm session={session} />} />
+                            <Route path="/client-portal" element={<ClientPortalLayout session={session} />} >
+                                <Route index element={<ClientOrderHistory session={session} />} />
+                                <Route path="client-details" element={<ClientDetails session={session} />} />
+                                {session && <Route path="update-client-details" element={<UpdateClientDetails session={session} />} />}
+                                <Route path="place-order" element={<ChangeOrderForm session={session} />} />
+                                <Route path="settings" element={<ClientSettings session={session} />} />
+                            </Route>
+                        </Route>
                         <Route path="/west-sure" element={<HostLayout />}>
                             <Route index element={< PendingOrders session={session} />} />
                             <Route path="clients" element={< Clients />} />
