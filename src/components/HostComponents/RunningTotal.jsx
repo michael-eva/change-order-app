@@ -32,7 +32,7 @@ export default function RunningTotal() {
         fetchData();
     }, [order]);
 
-    console.log(isLoading);
+    // console.log(isLoading);
 
     // fetch float order data
     useEffect(() => {
@@ -57,7 +57,7 @@ export default function RunningTotal() {
                 console.log(cerror);
             }
         };
-        console.log(error);
+        // console.log(error);
         fetchData();
     }, [floatOrder]);
 

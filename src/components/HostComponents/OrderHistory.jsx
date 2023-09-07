@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from "react";
 import supabase from "../../config/supabaseClient";
 import { tableFormat } from "../../utils/hostUtils";
-import { closestIndexTo } from "date-fns/fp";
 
 
 
 export default function OrderHistory({ pendingOrders, selectedDay, handleOrderStatusChange }) {
     const [statuses, setStatuses] = useState({});
     const [userData, setUserData] = useState(null)
-    console.log(userData);
+
     const filteredOrders = pendingOrders.filter(order => (
         order.date === selectedDay
     ));

@@ -10,7 +10,7 @@ export default function Auth() {
         email: "",
         password: "",
         confirmPassword: "",
-        companyName: ""
+        // companyName: ""
 
     })
     const navigate = useNavigate('')
@@ -41,11 +41,11 @@ export default function Auth() {
             {
                 email: signUpData.email,
                 password: signUpData.password,
-                options: {
-                    data: {
-                        companyName: signUpData.companyName
-                    }
-                }
+                // options: {
+                //     data: {
+                //         companyName: signUpData.companyName
+                //     }
+                // }
             }
         )
 
@@ -62,7 +62,7 @@ export default function Auth() {
             <div className="form-container">
                 <form className="form" onSubmit={handleLogin}>
                     <h2>Sign Up</h2>
-                    <input
+                    {/* <input
                         type="text"
                         name="companyName"
                         value={signUpData.companyName}
@@ -70,7 +70,7 @@ export default function Auth() {
                         onChange={handleChange}
                         className="form--input"
                         required={true}
-                    />
+                    /> */}
                     <input
                         type="text"
                         name="email"

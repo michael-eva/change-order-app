@@ -33,6 +33,7 @@ export default function SignUpForm({ session }) {
                     setAddress(data.address)
                     setPaymentMethod(data.paymentMethod)
                     setAbn(data.abn)
+                    setCompanyName(data.companyName)
                 }
                 // setLoading(false)
             }
@@ -71,9 +72,18 @@ export default function SignUpForm({ session }) {
         <div className="signup-body">
             <div className="form-container">
                 <form className="form" onSubmit={handleSubmit}>
-                    <h2>Please enter additional company details
-                        for {session.user.user_metadata.companyName}
+                    <h2>
+                        Please enter additional company details before we can proceed
                     </h2>
+                    <input
+                        type="text"
+                        name="companyName"
+                        value={companyName}
+                        placeholder="Company Name"
+                        onChange={(e) => setCompanyName(e.target.value)}
+                        className="form--input"
+                        required={true}
+                    />
                     <input
                         type="text"
                         name="contactName"

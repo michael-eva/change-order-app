@@ -21,7 +21,7 @@ export default function UpdateClientDetails({ session }) {
             if (session) {
                 let { data, error } = await supabase
                     .from('clients')
-                    .select(`companyName, contactName, contactNumber, address, abn`)
+                    .select(`companyName, contactName, contactNumber, address, abn, email`)
                     .eq('id', user.id)
                     .single()
 
@@ -33,6 +33,8 @@ export default function UpdateClientDetails({ session }) {
                     setContactNumber(data.contactNumber)
                     setAddress(data.address)
                     setAbn(data.abn)
+                    setEmail(data.email)
+
                 }
                 setLoading(false)
             }
@@ -40,8 +42,6 @@ export default function UpdateClientDetails({ session }) {
         getProfile()
     }, [session, user.id])
 
-    console.log(loading);
-    console.log(email);
     async function handleSubmit(e) {
         e.preventDefault()
         const { data, error } = await supabase
@@ -51,6 +51,7 @@ export default function UpdateClientDetails({ session }) {
                 contactName,
                 contactNumber,
                 address,
+                email,
                 abn
             })
             .eq('id', user.id)
@@ -77,7 +78,7 @@ export default function UpdateClientDetails({ session }) {
                     <input
                         type="text"
                         name="companyName"
-                        value={user.user_metadata.companyName}
+                        value={companyName}
                         onChange={(e) => setCompanyName(e.target.value)}
                     />
                 </div>
@@ -104,7 +105,7 @@ export default function UpdateClientDetails({ session }) {
                     <input
                         type="text"
                         name="email"
-                        value={session.user.email}
+                        value={email}
                         onChange={(e) => setEmail(e.target.value)}
                     />
                 </div>

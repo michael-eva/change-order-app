@@ -7,7 +7,7 @@ import { BiMessageSquareEdit } from 'react-icons/bi';
 
 
 
-export default function ClientDetails({ session }) {
+export default function ClientDetails() {
     const [clientData, setClientData] = useState('')
     useEffect(() => {
         const fetchClientData = async () => {
@@ -18,6 +18,7 @@ export default function ClientDetails({ session }) {
                         .from("clients")
                         .select("*")
                         .eq('id', userData.user.id)
+
                     if (clientData && clientData.length > 0) {
                         setClientData(clientData)
                     }
@@ -36,7 +37,7 @@ export default function ClientDetails({ session }) {
                 <div className="client-details-container">
                     <div className="client-details-info">
                         <h3 >Company Name: </h3>
-                        <p>{session.user.user_metadata.companyName}</p>
+                        <p>{clientData[0].companyName}</p>
                     </div>
                     <div className="client-details-info">
                         <h3 >Contact Name: </h3>
@@ -48,7 +49,7 @@ export default function ClientDetails({ session }) {
                     </div>
                     <div className="client-details-info">
                         <h3 >Email: </h3>
-                        <p>{session.user.email}</p>
+                        <p>{clientData[0].email}</p>
                     </div>
                     <div className="client-details-info">
                         <h3 >Address: </h3>

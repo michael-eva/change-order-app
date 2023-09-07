@@ -2,7 +2,7 @@ import { NavLink, Outlet } from "react-router-dom"
 import { useState, useEffect } from "react"
 import supabase from "../config/supabaseClient"
 
-export default function ClientPortalLayout({ session }) {
+export default function ClientPortalLayout() {
     const [clientData, setClientData] = useState()
 
     useEffect(() => {
@@ -28,7 +28,7 @@ export default function ClientPortalLayout({ session }) {
     return (
         <div className="portal-layout-page">
             <nav className="portal-nav">
-                <h4>{session.user.user_metadata.companyName}</h4>
+                <h4>{clientData && clientData[0].companyName}</h4>
                 <NavLink className={({ isActive }) => isActive ? "portal-link-focus" : "portal-nav-item"} to="client-details">
                     <p>Client Details</p>
                 </NavLink>

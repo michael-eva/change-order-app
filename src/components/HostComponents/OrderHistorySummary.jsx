@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { formatDate } from "../../utils/dateUtils";
 import { useSearchParams } from "react-router-dom";
-import RunningTotal from "./RunningTotal";
 import { tableFormat, changeStatus } from "../../utils/hostUtils";
 import { fetchChangeOrderData, fetchClientData, fetchFloatOrderData } from "../../pages/FetchData";
+import OrderHistory from "./OrderHistory";
 
 const OrderHistorySummary = () => {
     const [order, setOrder] = useState([])
@@ -145,7 +145,10 @@ const OrderHistorySummary = () => {
                                     {item.status === "packed" ? "Packed" : "Pending"}
                                 </td>
                             </tr>
-                        )))}
+                        ))
+                    )
+                    }
+                    {/* <OrderHistory /> */}
                     <br />
                     {/* <RunningTotal /> */}
                     <br />
