@@ -704,3 +704,7 @@ th {
 .login-first {
   color: red;
 }
+
+.warning-limit {
+  background-color: red;
+}

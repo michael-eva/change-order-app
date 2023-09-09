@@ -117,19 +117,19 @@ export default function RunningTotal() {
             <tr>
                 <td>Running Total</td>
                 <td></td>
-                <td>{runningFifty}</td>
-                <td>{runningTwenty}</td>
-                <td>{runningTen}</td>
-                <td>{runningFive}</td>
-                <td>{runningFifty + runningTwenty + runningTen + runningFive}</td>
-                <td>{runningTwo}</td>
-                <td>{runningOne}</td>
-                <td>{runningFiftyCents}</td>
-                <td>{runningTwentyCents}</td>
-                <td>{runningTenCents}</td>
-                <td>{runningFiveCents}</td>
-                <td>{runningTwo + runningOne + runningFiftyCents + runningTwentyCents + runningTenCents + runningFiveCents}</td>
-                <td>{runningFifty + runningTwenty + runningTen + runningFive + runningTwo + runningOne + runningFiftyCents + runningTwentyCents + runningTenCents + runningFiveCents}</td>
+                <td className="warning-limit">{runningFifty || 0}</td>
+                <td>{runningTwenty || 0}</td>
+                <td>{runningTen || 0}</td>
+                <td>{runningFive || 0}</td>
+                <td>{(runningFifty + runningTwenty + runningTen + runningFive) || 0}</td>
+                <td>{runningTwo || 0}</td>
+                <td>{runningOne || 0}</td>
+                <td>{runningFiftyCents || 0}</td>
+                <td>{runningTwentyCents || 0}</td>
+                <td>{runningTenCents || 0}</td>
+                <td>{runningFiveCents || 0}</td>
+                <td>{(runningTwo + runningOne + runningFiftyCents + runningTwentyCents + runningTenCents + runningFiveCents) || 0}</td>
+                <td>{(runningFifty + runningTwenty + runningTen + runningFive + runningTwo + runningOne + runningFiftyCents + runningTwentyCents + runningTenCents + runningFiveCents) || 0}</td>
             </tr>
 
         </>

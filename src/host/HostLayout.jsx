@@ -11,9 +11,6 @@ export default function HostLayout() {
                 <div className="host-content">
                     <Outlet />
                 </div>
-                {/* <div className="extra-content">
-                    <h1>Extra content</h1>
-                </div> */}
             </div>
         </>
     )

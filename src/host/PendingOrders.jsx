@@ -117,10 +117,6 @@ export default function PendingOrders({ session }) {
         }
     }
 
-    if (orderStatus !== 'pending') {
-        console.log("changed");
-    }
-
     return (
         <>
             <button>Manually Add Change Order</button>
@@ -152,7 +148,7 @@ export default function PendingOrders({ session }) {
                         <th>Status </th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody className="pending-orders-body">
                     <OrderHistory pendingOrders={pendingOrders} selectedDay={selectedDay} clientData={clientData} session={session} handleOrderStatusChange={handleOrderStatusChange} />
                     <br />
                     <FloatOrderHistory dateFilter={dateFilter} selectedDay={selectedDay} floatOrder={floatOrder} handleFloatStatusChange={handleFloatStatusChange} />

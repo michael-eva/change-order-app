@@ -42,7 +42,7 @@ export default function App() {
         supabase.auth.getSession().then(({ data: { session } }) => {
             setSession(session)
         })
-
+        //store variable userIsLoggedIn = true and store in local storage 
         supabase.auth.onAuthStateChange((_event, session) => {
             setSession(session)
         })
