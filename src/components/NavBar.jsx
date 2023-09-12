@@ -10,9 +10,9 @@ export default function NavBar({ session, handleLogout, navigate }) {
             <NavLink to={'west-sure'}> <img src={logo} alt="Logo" /></NavLink>
             <Toggle>
                 <ul className="nav-items">
-                    <NavLink className={({ isActive }) => isActive ? "nav-link-focus" : "nav-link"} to="/">
+                    {/* <NavLink className={({ isActive }) => isActive ? "nav-link-focus" : "nav-link"} to="/">
                         <li>Home</li>
-                    </NavLink>
+                    </NavLink> */}
                     {session ?
                         <NavLink className={({ isActive }) => isActive ? "nav-link-focus" : "nav-link"} to="/client-portal">
                             <li>Client Portal</li>

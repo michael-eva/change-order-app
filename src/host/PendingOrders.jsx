@@ -5,10 +5,11 @@ import supabase from "../config/supabaseClient";
 import OrderHistory from "../components/HostComponents/OrderHistory"
 import { formattedDate } from "../utils/dateUtils";
 import Toggle from "../Toggle";
-import FloatOrder from "./FloatOrder";
+import FloatOrderInput from "../components/HostComponents/FloatOrderInput";
 import FloatOrderHistory from "./FloatOrderHistory";
 import { fetchPendingOrderData, fetchClientData, fetchPendingFloatOrderData } from "../pages/FetchData";
 import RunningTotal from "../components/HostComponents/RunningTotal";
+import useStore from "../store/lowerLimitStore";
 
 
 export default function PendingOrders({ session }) {
@@ -28,9 +29,9 @@ export default function PendingOrders({ session }) {
     const dateFilter = searchParams.get("date");
 
     useEffect(() => {
-        loadPendingOrders();
         loadClientData()
         loadPendingFloatOrders()
+        loadPendingOrders();
     }, []);
     async function loadPendingOrders() {
         try {
@@ -57,7 +58,6 @@ export default function PendingOrders({ session }) {
         }
     }
 
-    // ORDER HISTORY
     function handleOrderStatusChange(newStatus) {
         setOrderStatus(newStatus)
     }
@@ -93,12 +93,10 @@ export default function PendingOrders({ session }) {
         }
     }
 
-    // WEEK SLIDER
     function clickHandle(day) {
         setSelectedDay(formattedDate(day));
         setSearchParams(`?date=${formattedDate(day)}`)
     }
-
 
     const handleSubmit = async () => {
         try {
@@ -117,13 +115,18 @@ export default function PendingOrders({ session }) {
         }
     }
 
+    const minimumLimitWarnings = useStore((state) => state.minimumLimitWarnings)
+    minimumLimitWarnings.map(item => {
+        console.log(item.denomination, item.value);
+    })
+
     return (
         <>
             <button>Manually Add Change Order</button>
             <Toggle>
                 <Toggle.Button><button>Add Float Order</button></Toggle.Button>
                 <Toggle.On>
-                    <FloatOrder session={session} />
+                    <FloatOrderInput session={session} />
                 </Toggle.On>
             </Toggle>
             <WeekSlider clickHandle={clickHandle} selectedDay={selectedDay} pendingOrders={pendingOrders} floatOrder={floatOrder} />

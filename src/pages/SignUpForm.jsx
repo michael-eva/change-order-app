@@ -11,10 +11,10 @@ export default function SignUpForm({ session }) {
     const [abn, setAbn] = useState('')
     const [email, setEmail] = useState("")
     const [paymentMethod, setPaymentMethod] = useState('')
+    const [required, setRequired] = useState('')
     const navigate = useNavigate('')
     const { user } = session
     useEffect(() => {
-        setCompanyName(user.user_metadata.companyName)
         setEmail(user.email)
         async function getProfile() {
             // setLoading(true)
@@ -44,6 +44,9 @@ export default function SignUpForm({ session }) {
 
     async function handleSubmit(e) {
         e.preventDefault()
+        if (!companyName || !contactName || !contactNumber || !address || !paymentMethod) {
+            setRequired('Please complete all fields')
+        }
         const { error } = await supabase
             .from('clients')
             .insert({
@@ -57,6 +60,7 @@ export default function SignUpForm({ session }) {
                 abn
             })
             .eq('id', user.id)
+
 
         if (error) {
             // setError('Please fill in all the fields correctly.')
@@ -72,6 +76,9 @@ export default function SignUpForm({ session }) {
         <div className="signup-body">
             <div className="form-container">
                 <form className="form" onSubmit={handleSubmit}>
+                    {required ?
+                        <h3>Please complete all fields</h3>
+                        : ""}
                     <h2>
                         Please enter additional company details before we can proceed
                     </h2>
@@ -120,8 +127,8 @@ export default function SignUpForm({ session }) {
                         className="form--input"
                         required={true}
                     />
-                    <fieldset>
-                        <legend>Change Payment Method</legend>
+                    <fieldset className="form--input">
+                        <legend>How are you paying for your order?</legend>
                         <label htmlFor="EFT">EFT:</label>
                         <input
                             type="radio"

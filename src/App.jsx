@@ -20,7 +20,7 @@ import SignUpForm from "./pages/SignUpForm";
 import ClientOrderHistory from "./pages/ClientPortal/ClientOrderHistory";
 import UpdateClientDetails from "./pages/ClientPortal/UpdateClientDetails";
 import toast, { Toaster } from 'react-hot-toast'
-import FloatOrder from "./host/FloatOrder";
+import FloatOrder from "./components/HostComponents/FloatOrderInput";
 import NotFound from "./pages/NotFound";
 import AuthRequired from "./components/HostComponents/AuthRequired";
 
@@ -37,24 +37,25 @@ export default function App() {
             console.error('Error logging out:', error);
         }
     };
-
     useEffect(() => {
         supabase.auth.getSession().then(({ data: { session } }) => {
             setSession(session)
         })
+
         //store variable userIsLoggedIn = true and store in local storage 
         supabase.auth.onAuthStateChange((_event, session) => {
             setSession(session)
         })
     }, [])
 
+    console.log(session);
     return (
         <>
             <Toaster />
             <BrowserRouter>
                 <Routes>
                     <Route element={<Layout session={session} handleLogout={handleLogout} />}>
-                        <Route path="/" element={<Home />} />
+                        <Route path="/" element={<Login session={session} />} />
                         <Route path="/signup" element={<Auth />} />
                         <Route path="/login" element={<Login />} />
                         <Route element={<AuthRequired session={session} />}>

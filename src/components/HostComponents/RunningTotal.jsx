@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import supabase from "../../config/supabaseClient";
 
+
 export default function RunningTotal() {
     const [order, setData] = useState([])
     const [floatOrder, setFloatOrder] = useState()
@@ -117,7 +118,7 @@ export default function RunningTotal() {
             <tr>
                 <td>Running Total</td>
                 <td></td>
-                <td className="warning-limit">{runningFifty || 0}</td>
+                <td>{runningFifty || 0}</td>
                 <td>{runningTwenty || 0}</td>
                 <td>{runningTen || 0}</td>
                 <td>{runningFive || 0}</td>

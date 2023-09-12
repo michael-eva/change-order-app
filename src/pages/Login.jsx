@@ -1,14 +1,28 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import supabase from "../config/supabaseClient"
 import { Link, useNavigate, useLocation } from "react-router-dom"
+import { fetchClientData } from "./FetchData"
 
-export default function Login() {
+export default function Login({ session }) {
     let navigate = useNavigate()
     const location = useLocation('')
+    const [clientData, setClientData] = useState([])
     const [loginData, setLoginData] = useState({
         email: "",
         password: "",
     })
+    useEffect(() => {
+        async function loadClientData() {
+            try {
+                const data = await fetchClientData()
+                setClientData(data)
+            } catch (error) {
+                // setClientError(error)
+                console.log(error);
+            }
+        }
+        loadClientData()
+    }, [])
 
     function handleChange(event) {
         const { type, name, value, checked } = event.target
@@ -19,7 +33,7 @@ export default function Login() {
             }
         })
     }
-
+    // console.log(clientData[0].id);
     async function submitHandler(event) {
         event.preventDefault()
         try {
@@ -28,13 +42,20 @@ export default function Login() {
                 password: loginData.password
             })
             if (error) throw error
-            console.log(data)
-            navigate('/client-portal')
+            console.log(error)
+            clientData?.map((client) => (
+                client.email === loginData.email ?
+                    navigate('/client-portal')
+                    : navigate('/signup-form')
+            ))
+
+
 
         } catch (error) {
             alert(error)
         }
     }
+
     return (
         <div className="signup-body">
             <div className="form-container">
