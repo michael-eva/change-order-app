@@ -1,7 +1,7 @@
 import { useState } from "react";
-import supabase from "../config/supabaseClient";
+import supabase from "../../config/supabaseClient";
 import { toast } from "react-hot-toast";
-import { formatDateForDatabase } from "../utils/dateUtils";
+import { formatDateForDatabase } from "../../utils/dateUtils";
 
 export default function FloatOrder({ session }) {
     const [grandTotal, setGrandTotal] = useState(0);

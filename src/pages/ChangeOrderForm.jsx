@@ -33,7 +33,7 @@ export default function ChangeOrderForm({ session }) {
     useEffect(() => {
         const fetchClientData = async () => {
             try {
-                const { data: userData } = await supabase.auth.getUser()
+                const { data: userData } = await supabase?.auth.getUser()
                 if (userData) {
                     const { data: clientData } = await supabase
                         .from("clients")
@@ -325,7 +325,7 @@ export default function ChangeOrderForm({ session }) {
                 </div>
                 <button className="submit-btn" >Submit</button>
                 <Toaster />
-                <p>Contact <span>thiswebapp@email.com</span> if you experience any issues.</p>
+                <p>Contact <span>thiswebapp@email.com</span> if you have any queries.</p>
             </div>
         </form>
     )
