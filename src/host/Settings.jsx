@@ -3,6 +3,7 @@ export default function Settings() {
         <>
             <div>settings page</div>
             <div>Warning Limit:</div>
+            <h1>On a branch</h1>
         </>
     )
 }
