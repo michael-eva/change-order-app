@@ -13,8 +13,9 @@ export default function OrderHistory({ pendingOrders, selectedDay, handleOrderSt
     ));
 
     useEffect(() => {
-        handleOrderStatusChange(statuses)
-    }, [statuses])
+        handleOrderStatusChange(statuses);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [statuses]);
 
 
     function handleChange(event) {
