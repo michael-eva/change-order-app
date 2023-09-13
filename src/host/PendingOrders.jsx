@@ -1,6 +1,6 @@
 import WeekSlider from "../components/HostComponents/WeekSlider"
 import { useSearchParams } from "react-router-dom";
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 import supabase from "../config/supabaseClient";
 import OrderHistory from "../components/HostComponents/OrderHistory"
 import { formattedDate } from "../utils/dateUtils";
@@ -9,7 +9,8 @@ import FloatOrderInput from "../components/HostComponents/FloatOrderInput";
 import FloatOrderHistory from "./FloatOrderHistory";
 import { fetchPendingOrderData, fetchClientData, fetchPendingFloatOrderData } from "../pages/FetchData";
 import RunningTotal from "../components/HostComponents/RunningTotal";
-import useStore from "../store/lowerLimitStore";
+// import useStore from "../store/lowerLimitStore";
+import toast, { Toaster } from "react-hot-toast";
 
 
 export default function PendingOrders({ session }) {
@@ -23,8 +24,6 @@ export default function PendingOrders({ session }) {
     const [clientError, setClientError] = useState("")
     const [floatOrderStatus, setFloatOrderStatus] = useState('')
     const [orderStatus, setOrderStatus] = useState('')
-    const [initOrderStatus, setInitOrderStatus] = useState('pending')
-    const [initFloatStatus, setInitFloatStatus] = useState(floatOrderStatus)
 
     const dateFilter = searchParams.get("date");
 
@@ -39,6 +38,7 @@ export default function PendingOrders({ session }) {
             setPendingOrders(data)
         } catch (error) {
             setPendingErrors(error)
+            toast.error(pendingErrors)
         }
     }
     async function loadClientData() {
@@ -47,6 +47,7 @@ export default function PendingOrders({ session }) {
             setClientData(data)
         } catch (error) {
             setClientError(error)
+            toast.error(clientError)
         }
     }
     async function loadPendingFloatOrders() {
@@ -55,6 +56,7 @@ export default function PendingOrders({ session }) {
             setFloatOrder(data)
         } catch (error) {
             setFloatError(error)
+            toast.error(floatError)
         }
     }
 
@@ -115,10 +117,10 @@ export default function PendingOrders({ session }) {
         }
     }
 
-    const minimumLimitWarnings = useStore((state) => state.minimumLimitWarnings)
-    minimumLimitWarnings.map(item => {
-        console.log(item.denomination, item.value);
-    })
+    // const minimumLimitWarnings = useStore((state) => state.minimumLimitWarnings)
+    // minimumLimitWarnings.map(item => {
+    //     console.log(item.denomination, item.value);
+    // })
 
     return (
         <>
@@ -160,6 +162,7 @@ export default function PendingOrders({ session }) {
                 </tbody>
             </table>
             <button className='submit-btn' onClick={handleSubmit}>Change Status</button>
+            <Toaster />
         </>
     )
 }

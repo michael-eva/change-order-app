@@ -11,7 +11,6 @@ export default function Login({ session }) {
         email: "",
         password: "",
     })
-    const [currentClient, setCurrentClient] = useState('')
     useEffect(() => {
         async function loadClientData() {
             try {
