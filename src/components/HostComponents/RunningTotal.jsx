@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import supabase from "../../config/supabaseClient";
+import { numberToDollar } from "../../utils/hostUtils";
 
 export default function RunningTotal() {
     const [order, setData] = useState([])
@@ -80,23 +81,20 @@ export default function RunningTotal() {
         }, 0)
     }
 
-    const runningFifty = sumFloatOrders('fifty') - sumChangeOrders('fifty')
-    const runningTwenty = sumFloatOrders('twenty') - sumChangeOrders('twenty')
-    const runningTen = sumFloatOrders('ten') - sumChangeOrders('ten')
-    const runningFive = sumFloatOrders('five') - sumChangeOrders('five')
-    const runningTwo = sumFloatOrders('two') - sumChangeOrders('two')
-    const runningOne = sumFloatOrders('one') - sumChangeOrders('one')
-    const runningFiftyCents = sumFloatOrders('fiftyCents') - sumChangeOrders('fiftyCents')
-    const runningTwentyCents = sumFloatOrders('twentyCents') - sumChangeOrders('twentyCents')
-    const runningTenCents = sumFloatOrders('tenCents') - sumChangeOrders('tenCents')
-    const runningFiveCents = sumFloatOrders('fiveCents') - sumChangeOrders('fiveCents')
-
+    const runningFifty = sumFloatOrders('fifty') - sumChangeOrders('fifty') || ""
+    const runningTwenty = sumFloatOrders('twenty') - sumChangeOrders('twenty') || ""
+    const runningTen = sumFloatOrders('ten') - sumChangeOrders('ten') || ""
+    const runningFive = sumFloatOrders('five') - sumChangeOrders('five') || ""
+    const runningTwo = sumFloatOrders('two') - sumChangeOrders('two') || ""
+    const runningOne = sumFloatOrders('one') - sumChangeOrders('one') || ""
+    const runningFiftyCents = sumFloatOrders('fiftyCents') - sumChangeOrders('fiftyCents') || ""
+    const runningTwentyCents = sumFloatOrders('twentyCents') - sumChangeOrders('twentyCents') || ""
+    const runningTenCents = sumFloatOrders('tenCents') - sumChangeOrders('tenCents') || ""
+    const runningFiveCents = sumFloatOrders('fiveCents') - sumChangeOrders('fiveCents') || ""
     return (
 
         <>
-
-
-            <tr>
+            <tr className="running-total">
                 <td></td>
                 <td></td>
                 <td>$50</td>
@@ -112,24 +110,26 @@ export default function RunningTotal() {
                 <td>5c</td>
                 <td>Coin Total</td>
                 <td>Grand Total</td>
+                <td></td>
 
             </tr>
-            <tr>
+            <tr className="running-total-body">
                 <td>Running Total</td>
                 <td></td>
-                <td className="warning-limit">{runningFifty || 0}</td>
-                <td>{runningTwenty || 0}</td>
-                <td>{runningTen || 0}</td>
-                <td>{runningFive || 0}</td>
-                <td>{(runningFifty + runningTwenty + runningTen + runningFive) || 0}</td>
-                <td>{runningTwo || 0}</td>
-                <td>{runningOne || 0}</td>
-                <td>{runningFiftyCents || 0}</td>
-                <td>{runningTwentyCents || 0}</td>
-                <td>{runningTenCents || 0}</td>
-                <td>{runningFiveCents || 0}</td>
-                <td>{(runningTwo + runningOne + runningFiftyCents + runningTwentyCents + runningTenCents + runningFiveCents) || 0}</td>
-                <td>{(runningFifty + runningTwenty + runningTen + runningFive + runningTwo + runningOne + runningFiftyCents + runningTwentyCents + runningTenCents + runningFiveCents) || 0}</td>
+                <td >{numberToDollar(runningFifty) || 0}</td>
+                <td>{numberToDollar(runningTwenty) || 0}</td>
+                <td>{numberToDollar(runningTen) || 0}</td>
+                <td>{numberToDollar(runningFive) || 0}</td>
+                <td>{numberToDollar(runningFifty + runningTwenty + runningTen + runningFive) || 0}</td>
+                <td>{numberToDollar(runningTwo) || 0}</td>
+                <td>{numberToDollar(runningOne) || 0}</td>
+                <td>{numberToDollar(runningFiftyCents) || 0}</td>
+                <td>{numberToDollar(runningTwentyCents) || 0}</td>
+                <td>{numberToDollar(runningTenCents) || 0}</td>
+                <td>{numberToDollar(runningFiveCents) || 0}</td>
+                <td>{numberToDollar(runningTwo + runningOne + runningFiftyCents + runningTwentyCents + runningTenCents + runningFiveCents) || 0}</td>
+                <td>{numberToDollar(runningFifty + runningTwenty + runningTen + runningFive + runningTwo + runningOne + runningFiftyCents + runningTwentyCents + runningTenCents + runningFiveCents) || 0}</td>
+                <td></td>
             </tr>
 
         </>

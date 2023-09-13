@@ -10,7 +10,7 @@ export default function Auth() {
         email: "",
         password: "",
         confirmPassword: "",
-        // companyName: ""
+
 
     })
     const navigate = useNavigate('')
@@ -41,11 +41,7 @@ export default function Auth() {
             {
                 email: signUpData.email,
                 password: signUpData.password,
-                // options: {
-                //     data: {
-                //         companyName: signUpData.companyName
-                //     }
-                // }
+
             }
         )
 
@@ -53,8 +49,12 @@ export default function Auth() {
             console.log(error);
             alert(error.error_description || error.message)
         } else {
-            toast.success('Success')
-            navigate('/signup-form')
+            toast.success('Please check your email')
+            setSignUpData({
+                email: "",
+                password: "",
+                confirmPassword: "",
+            })
         }
     }
     return (

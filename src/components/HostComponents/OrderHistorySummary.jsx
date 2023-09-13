@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { formatDate } from "../../utils/dateUtils";
 import { useSearchParams } from "react-router-dom";
-import { tableFormat, changeStatus } from "../../utils/hostUtils";
+import { tableFormat, changeStatus, numberToDollar } from "../../utils/hostUtils";
 import { fetchChangeOrderData, fetchClientData, fetchFloatOrderData } from "../../pages/FetchData";
-import OrderHistory from "./OrderHistory";
+
 
 const OrderHistorySummary = () => {
     const [order, setOrder] = useState([])
@@ -128,19 +128,19 @@ const OrderHistorySummary = () => {
                                     })}
                                 </td>
                                 <td className={tableFormat(index)}>{formatDate(item.date)}</td>
-                                <td className={tableFormat(index)}>${item.fifty}</td>
-                                <td className={tableFormat(index)}>${item.twenty}</td>
-                                <td className={tableFormat(index)}>${item.ten}</td>
-                                <td className={tableFormat(index)}>${item.five}</td>
-                                <td className={tableFormat(index)}>${item.noteTotal}</td>
-                                <td className={tableFormat(index)}>${item.two}</td>
-                                <td className={tableFormat(index)}>${item.one}</td>
-                                <td className={tableFormat(index)}>${item.fiftyCents}</td>
-                                <td className={tableFormat(index)}>${item.twentyCents}</td>
-                                <td className={tableFormat(index)}>${item.tenCents}</td>
-                                <td className={tableFormat(index)}>${item.fiveCents}</td>
-                                <td className={tableFormat(index)}>${item.coinTotal}</td>
-                                <td className={tableFormat(index)}>${item.grandTotal}</td>
+                                <td className={tableFormat(index)}>{numberToDollar(item.fifty)}</td>
+                                <td className={tableFormat(index)}>{numberToDollar(item.twenty)}</td>
+                                <td className={tableFormat(index)}>{numberToDollar(item.ten)}</td>
+                                <td className={tableFormat(index)}>{numberToDollar(item.five)}</td>
+                                <td className={tableFormat(index)}>{numberToDollar(item.noteTotal)}</td>
+                                <td className={tableFormat(index)}>{numberToDollar(item.two)}</td>
+                                <td className={tableFormat(index)}>{numberToDollar(item.one)}</td>
+                                <td className={tableFormat(index)}>{numberToDollar(item.fiftyCents)}</td>
+                                <td className={tableFormat(index)}>{numberToDollar(item.twentyCents)}</td>
+                                <td className={tableFormat(index)}>{numberToDollar(item.tenCents)}</td>
+                                <td className={tableFormat(index)}>{numberToDollar(item.fiveCents)}</td>
+                                <td className={tableFormat(index)}>{numberToDollar(item.coinTotal)}</td>
+                                <td className={tableFormat(index)}>{numberToDollar(item.grandTotal)}</td>
                                 <td className={`${tableFormat(index)} ${changeStatus(item)}`}>
                                     {item.status === "packed" ? "Packed" : "Pending"}
                                 </td>
@@ -165,19 +165,19 @@ const OrderHistorySummary = () => {
                             <tr key={index}>
                                 <td className={tableFormat(index)}>Float Order</td>
                                 <td className={tableFormat(index)}>{formatDate(item.date)}</td>
-                                <td className={tableFormat(index)}>${item.fifty}</td>
-                                <td className={tableFormat(index)}>${item.twenty}</td>
-                                <td className={tableFormat(index)}>${item.ten}</td>
-                                <td className={tableFormat(index)}>${item.five}</td>
-                                <td className={tableFormat(index)}>${item.noteTotal}</td>
-                                <td className={tableFormat(index)}>${item.two}</td>
-                                <td className={tableFormat(index)}>${item.one}</td>
-                                <td className={tableFormat(index)}>${item.fiftyCents}</td>
-                                <td className={tableFormat(index)}>${item.twentyCents}</td>
-                                <td className={tableFormat(index)}>${item.tenCents}</td>
-                                <td className={tableFormat(index)}>${item.fiveCents}</td>
-                                <td className={tableFormat(index)}>${item.coinTotal}</td>
-                                <td className={tableFormat(index)}>${item.grandTotal}</td>
+                                <td className={tableFormat(index)}>{numberToDollar(item.fifty)}</td>
+                                <td className={tableFormat(index)}>{numberToDollar(item.twenty)}</td>
+                                <td className={tableFormat(index)}>{numberToDollar(item.ten)}</td>
+                                <td className={tableFormat(index)}>{numberToDollar(item.five)}</td>
+                                <td className={tableFormat(index)}>{numberToDollar(item.noteTotal)}</td>
+                                <td className={tableFormat(index)}>{numberToDollar(item.two)}</td>
+                                <td className={tableFormat(index)}>{numberToDollar(item.one)}</td>
+                                <td className={tableFormat(index)}>{numberToDollar(item.fiftyCents)}</td>
+                                <td className={tableFormat(index)}>{numberToDollar(item.twentyCents)}</td>
+                                <td className={tableFormat(index)}>{numberToDollar(item.tenCents)}</td>
+                                <td className={tableFormat(index)}>{numberToDollar(item.fiveCents)}</td>
+                                <td className={tableFormat(index)}>{numberToDollar(item.coinTotal)}</td>
+                                <td className={tableFormat(index)}>{numberToDollar(item.grandTotal)}</td>
                                 <td className={`${tableFormat(index)} ${changeStatus(item)}`}>
                                     {item.status === "received" ? "Received" : "Pending"}
                                 </td>

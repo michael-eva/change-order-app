@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { formatDate } from "../utils/dateUtils";
-import { tableFormat } from "../utils/hostUtils";
+import { numberToDollar, tableFormat } from "../utils/hostUtils";
 
 export default function FloatOrderHistory({ dateFilter, selectedDay, floatOrder, handleFloatStatusChange }) {
     const [selectedStatus, setSelectedStatus] = useState('')
@@ -36,19 +36,19 @@ export default function FloatOrderHistory({ dateFilter, selectedDay, floatOrder,
                 <tr key={index}>
                     <td className={tableFormat(index + 1)}>Float Order</td>
                     <td className={tableFormat(index + 1)}>{formatDate(item.date)}</td>
-                    <td className={tableFormat(index + 1)}>${item.fifty}</td>
-                    <td className={tableFormat(index + 1)}>${item.twenty}</td>
-                    <td className={tableFormat(index + 1)}>${item.ten}</td>
-                    <td className={tableFormat(index + 1)}>${item.five}</td>
-                    <td className={tableFormat(index + 1)}>${item.noteTotal}</td>
-                    <td className={tableFormat(index + 1)}>${item.two}</td>
-                    <td className={tableFormat(index + 1)}>${item.one}</td>
-                    <td className={tableFormat(index + 1)}>${item.fiftyCents}</td>
-                    <td className={tableFormat(index + 1)}>${item.twentyCents}</td>
-                    <td className={tableFormat(index + 1)}>${item.tenCents}</td>
-                    <td className={tableFormat(index + 1)}>${item.fiveCents}</td>
-                    <td className={tableFormat(index + 1)}>${item.coinTotal}</td>
-                    <td className={tableFormat(index + 1)}>${item.grandTotal}</td>
+                    <td className={tableFormat(index + 1)}>{numberToDollar(item.fifty)}</td>
+                    <td className={tableFormat(index + 1)}>{numberToDollar(item.twenty)}</td>
+                    <td className={tableFormat(index + 1)}>{numberToDollar(item.ten)}</td>
+                    <td className={tableFormat(index + 1)}>{numberToDollar(item.five)}</td>
+                    <td className={tableFormat(index + 1)}>{numberToDollar(item.noteTotal)}</td>
+                    <td className={tableFormat(index + 1)}>{numberToDollar(item.two)}</td>
+                    <td className={tableFormat(index + 1)}>{numberToDollar(item.one)}</td>
+                    <td className={tableFormat(index + 1)}>{numberToDollar(item.fiftyCents)}</td>
+                    <td className={tableFormat(index + 1)}>{numberToDollar(item.twentyCents)}</td>
+                    <td className={tableFormat(index + 1)}>{numberToDollar(item.tenCents)}</td>
+                    <td className={tableFormat(index + 1)}>{numberToDollar(item.fiveCents)}</td>
+                    <td className={tableFormat(index + 1)}>{numberToDollar(item.coinTotal)}</td>
+                    <td className={tableFormat(index + 1)}>{numberToDollar(item.grandTotal)}</td>
                     <td className={tableFormat(index + 1)}>
                         <select
                             name="status"

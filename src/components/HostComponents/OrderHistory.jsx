@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import supabase from "../../config/supabaseClient";
-import { tableFormat } from "../../utils/hostUtils";
+import { numberToDollar, tableFormat } from "../../utils/hostUtils";
 
 
 
@@ -58,20 +58,20 @@ export default function OrderHistory({ pendingOrders, selectedDay, handleOrderSt
                             return user.id === order.uuid ? user.companyName : ""
                         })}
                     </td>
-                    <td className={tableFormat(index)}>{order.date}</td>
-                    <td className={tableFormat(index)}>{order.fifty}</td>
-                    <td className={tableFormat(index)}>{order.twenty}</td>
-                    <td className={tableFormat(index)}>{order.ten}</td>
-                    <td className={tableFormat(index)}>{order.five}</td>
-                    <td className={tableFormat(index)}>{order.noteTotal}</td>
-                    <td className={tableFormat(index)}>{order.two}</td>
-                    <td className={tableFormat(index)}>{order.one}</td>
-                    <td className={tableFormat(index)}>{order.fiftyCents}</td>
-                    <td className={tableFormat(index)}>{order.twentyCents}</td>
-                    <td className={tableFormat(index)}>{order.tenCents}</td>
-                    <td className={tableFormat(index)}>{order.fiveCents}</td>
-                    <td className={tableFormat(index)}>{order.coinTotal}</td>
-                    <td className={tableFormat(index)}>{order.grandTotal}</td>
+                    <td className={tableFormat(index)}>{numberToDollar(order.date)}</td>
+                    <td className={tableFormat(index)}>{numberToDollar(order.fifty)}</td>
+                    <td className={tableFormat(index)}>{numberToDollar(order.twenty)}</td>
+                    <td className={tableFormat(index)}>{numberToDollar(order.ten)}</td>
+                    <td className={tableFormat(index)}>{numberToDollar(order.five)}</td>
+                    <td className={tableFormat(index)}>{numberToDollar(order.noteTotal)}</td>
+                    <td className={tableFormat(index)}>{numberToDollar(order.two)}</td>
+                    <td className={tableFormat(index)}>{numberToDollar(order.one)}</td>
+                    <td className={tableFormat(index)}>{numberToDollar(order.fiftyCents)}</td>
+                    <td className={tableFormat(index)}>{numberToDollar(order.twentyCents)}</td>
+                    <td className={tableFormat(index)}>{numberToDollar(order.tenCents)}</td>
+                    <td className={tableFormat(index)}>{numberToDollar(order.fiveCents)}</td>
+                    <td className={tableFormat(index)}>{numberToDollar(order.coinTotal)}</td>
+                    <td className={tableFormat(index)}>{numberToDollar(order.grandTotal)}</td>
                     <td className={tableFormat(index)}>
                         <select
                             name="status"
