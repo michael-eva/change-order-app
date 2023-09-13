@@ -5,7 +5,7 @@ import { AiOutlinePlusCircle } from 'react-icons/ai';
 
 export default function Clients() {
     const [clients, setClients] = useState()
-    const [currentUser, setCurrentUser] = useState('')
+    // const [currentUser, setCurrentUser] = useState('')
 
     useEffect(() => {
         fetchData()
@@ -18,24 +18,6 @@ export default function Clients() {
         setClients(data)
     }
     console.log(clients);
-    // useEffect(() => {
-
-
-    //     const getUser = async () => {
-    //         try {
-    //             const { data } = await supabase.auth.getUser()
-
-    //             if (data) {
-    //                 setCurrentUser(data)
-    //             }
-
-    //         } catch (error) {
-    //             alert(error.message)
-    //         }
-    //     }
-    //     getUser()
-    // }, [])
-    console.log(currentUser);
 
     return (
         <div className="clients-container">

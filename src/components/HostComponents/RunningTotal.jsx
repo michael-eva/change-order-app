@@ -57,7 +57,7 @@ export default function RunningTotal() {
         };
         // console.log(error);
         fetchData();
-    }, [floatOrder]);
+    }, [floatOrder, error]);
 
     const sumChangeOrders = (columnName) => {
         return order?.reduce((total, item) => {
