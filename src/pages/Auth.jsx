@@ -1,7 +1,7 @@
 import { useState } from "react"
 import supabase from "../config/supabaseClient"
 import { Link } from "react-router-dom"
-import { useNavigate } from "react-router-dom"
+// import { useNavigate } from "react-router-dom"
 import { toast } from "react-hot-toast"
 
 export default function Auth() {
@@ -13,7 +13,7 @@ export default function Auth() {
 
 
     })
-    const navigate = useNavigate('')
+    // const navigate = useNavigate('')
 
     function handleChange(event) {
         const { name, value } = event.target;
