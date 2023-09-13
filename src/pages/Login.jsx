@@ -11,6 +11,7 @@ export default function Login({ session }) {
         email: "",
         password: "",
     })
+    const [currentClient, setCurrentClient] = useState('')
     useEffect(() => {
         async function loadClientData() {
             try {
@@ -33,26 +34,35 @@ export default function Login({ session }) {
             }
         })
     }
-    // console.log(clientData[0].id);
+
     async function submitHandler(event) {
-        event.preventDefault()
+        event.preventDefault();
         try {
             const { data, error } = await supabase.auth.signInWithPassword({
                 email: loginData.email,
-                password: loginData.password
-            })
-            if (error) throw error
-            console.log(error)
-            clientData?.map((client) => (
-                client.email === loginData.email ?
-                    navigate('/client-portal')
-                    : navigate('/signup-form')
-            ))
+                password: loginData.password,
+            });
 
+            if (error) throw error;
 
+            if (data && data.user) {
+                const loggedInUser = data.user;
 
+                // Check if the ID of the logged-in user matches any ID in clientData
+                const userMatchesClient = clientData.some(
+                    (client) => client.id === loggedInUser.id
+                );
+
+                if (userMatchesClient) {
+                    // Navigate to a specific page for clients
+                    navigate('/client-portal');
+                } else {
+                    // Navigate to the signup-form for users who are not in clientData
+                    navigate('/signup-form');
+                }
+            }
         } catch (error) {
-            alert(error)
+            alert(error);
         }
     }
 

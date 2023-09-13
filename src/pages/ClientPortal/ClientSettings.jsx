@@ -7,11 +7,12 @@ export default function ClientSettings({ session }) {
     const navigate = useNavigate('')
     const [paymentMethod, setPaymentMethod] = useState('')
     const [initialPaymentMethod, setInitialPaymentMethod] = useState('')
-    const { user } = session
+
     useEffect(() => {
         async function getProfile() {
             // setLoading(true)
             if (session) {
+                const { user } = session
                 let { data, error } = await supabase
                     .from('clients')
                     .select(`paymentMethod`)
@@ -28,7 +29,7 @@ export default function ClientSettings({ session }) {
             }
         }
         getProfile()
-    }, [session, user.id])
+    }, [session])
 
     async function handleSubmit(e) {
         e.preventDefault()
@@ -37,7 +38,7 @@ export default function ClientSettings({ session }) {
             .update({
                 paymentMethod
             })
-            .eq('id', user.id)
+            .eq('id', session.user.id)
         if (error) {
             alert(error)
         }
