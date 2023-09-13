@@ -7,8 +7,9 @@ export default function FloatOrderHistory({ dateFilter, selectedDay, floatOrder,
 
 
     useEffect(() => {
-        handleFloatStatusChange(selectedStatus)
-    }, [selectedStatus])
+        handleFloatStatusChange(selectedStatus);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [selectedStatus]);
 
     function handleStatusChange(event) {
         const { value, dataset } = event.target;

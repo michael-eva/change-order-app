@@ -28,10 +28,11 @@ export default function PendingOrders({ session }) {
     const dateFilter = searchParams.get("date");
 
     useEffect(() => {
-        loadClientData()
-        loadPendingFloatOrders()
+        loadClientData();
+        loadPendingFloatOrders();
         loadPendingOrders();
-    }, [pendingOrders, clientData, floatOrder]);
+    }, [loadClientData, loadPendingFloatOrders, loadPendingOrders]);
+
     async function loadPendingOrders() {
         try {
             const data = await fetchPendingOrderData()
