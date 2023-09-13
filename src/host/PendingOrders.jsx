@@ -27,11 +27,6 @@ export default function PendingOrders({ session }) {
 
     const dateFilter = searchParams.get("date");
 
-    useEffect(() => {
-        loadClientData();
-        loadPendingFloatOrders();
-        loadPendingOrders();
-    }, [loadClientData, loadPendingFloatOrders, loadPendingOrders]);
 
     const loadPendingOrders = useCallback(async () => {
         try {
@@ -61,6 +56,13 @@ export default function PendingOrders({ session }) {
             toast.error(floatError);
         }
     }, [floatError]);
+
+
+    useEffect(() => {
+        loadClientData();
+        loadPendingFloatOrders();
+        loadPendingOrders();
+    }, [loadClientData, loadPendingFloatOrders, loadPendingOrders]);
 
     function handleOrderStatusChange(newStatus) {
         setOrderStatus(newStatus)
