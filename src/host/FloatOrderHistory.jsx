@@ -8,7 +8,7 @@ export default function FloatOrderHistory({ dateFilter, selectedDay, floatOrder,
 
     useEffect(() => {
         handleFloatStatusChange(selectedStatus)
-    }, [handleFloatStatusChange])
+    }, [selectedStatus])
 
     function handleStatusChange(event) {
         const { value, dataset } = event.target;

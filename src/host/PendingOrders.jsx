@@ -31,7 +31,7 @@ export default function PendingOrders({ session }) {
         loadClientData()
         loadPendingFloatOrders()
         loadPendingOrders();
-    }, []);
+    }, [loadClientData, loadPendingFloatOrders, loadPendingOrders]);
     async function loadPendingOrders() {
         try {
             const data = await fetchPendingOrderData()
