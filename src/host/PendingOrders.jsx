@@ -1,6 +1,6 @@
 import WeekSlider from "../components/HostComponents/WeekSlider"
 import { useSearchParams } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import supabase from "../config/supabaseClient";
 import OrderHistory from "../components/HostComponents/OrderHistory"
 import { formattedDate } from "../utils/dateUtils";
@@ -31,35 +31,36 @@ export default function PendingOrders({ session }) {
         loadClientData();
         loadPendingFloatOrders();
         loadPendingOrders();
-    }, [loadClientData, loadPendingFloatOrders, loadPendingOrders]);
+    }, []);
 
-    async function loadPendingOrders() {
+    const loadPendingOrders = useCallback(async () => {
         try {
-            const data = await fetchPendingOrderData()
-            setPendingOrders(data)
+            const data = await fetchPendingOrderData();
+            setPendingOrders(data);
         } catch (error) {
-            setPendingErrors(error)
-            toast.error(pendingErrors)
+            setPendingErrors(error);
+            toast.error(pendingErrors);
         }
-    }
-    async function loadClientData() {
+    }, [pendingErrors]);
+
+    const loadClientData = useCallback(async () => {
         try {
-            const data = await fetchClientData()
-            setClientData(data)
+            const data = await fetchClientData();
+            setClientData(data);
         } catch (error) {
-            setClientError(error)
-            toast.error(clientError)
+            setClientError(error);
+            toast.error(clientError);
         }
-    }
-    async function loadPendingFloatOrders() {
+    }, [clientError]);
+    const loadPendingFloatOrders = useCallback(async () => {
         try {
-            const data = await fetchPendingFloatOrderData()
-            setFloatOrder(data)
+            const data = await fetchPendingFloatOrderData();
+            setFloatOrder(data);
         } catch (error) {
-            setFloatError(error)
-            toast.error(floatError)
+            setFloatError(error);
+            toast.error(floatError);
         }
-    }
+    }, [floatError]);
 
     function handleOrderStatusChange(newStatus) {
         setOrderStatus(newStatus)
