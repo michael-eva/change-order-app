@@ -45,35 +45,14 @@ export default function App() {
 
         // Fetch the initial session and update the state
         supabase.auth.getSession().then(({ data: { session } }) => {
-            setSession(session);
+            setSession(session)
+        })
+        //store variable userIsLoggedIn = true and store in local storage 
+        supabase.auth.onAuthStateChange((_event, session) => {
+            setSession(session)
+        })
+    }, [])
 
-            // Set the userIsLoggedIn status in localStorage to true when a session is present
-            if (session) {
-                updateUserLoggedInStatus(true);
-            } else {
-                updateUserLoggedInStatus(false);
-            }
-        });
-
-        // Listen for changes in authentication state
-        const authListener = supabase.auth.onAuthStateChange((_event, session) => {
-            setSession(session);
-
-            // Update the userIsLoggedIn status in localStorage when the authentication state changes
-            if (session) {
-                updateUserLoggedInStatus(true);
-            } else {
-                updateUserLoggedInStatus(false);
-            }
-        });
-
-        // Clean up the listener when the component unmounts
-        return () => {
-            authListener?.unsubscribe();
-        };
-    }, []);
-
-    console.log(session);
     return (
         <>
             <Toaster />
