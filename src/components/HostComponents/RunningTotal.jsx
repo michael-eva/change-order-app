@@ -58,7 +58,7 @@ export default function RunningTotal() {
         };
         // console.log(error);
         fetchData();
-    }, [floatOrder]);
+    }, [floatOrder, error]);
 
     const sumChangeOrders = (columnName) => {
         return order?.reduce((total, item) => {
@@ -92,45 +92,6 @@ export default function RunningTotal() {
     // console.log(numberToDollar(runningFifty));
     return (
         <>
-<<<<<<< HEAD
-            <tr className="react-fragment">
-                <td></td>
-                <td></td>
-                <td>$50</td>
-                <td>$20</td>
-                <td>$10</td>
-                <td>$5</td>
-                <td>Note Total</td>
-                <td>$2</td>
-                <td>$1</td>
-                <td>50c</td>
-                <td>20c</td>
-                <td>10c</td>
-                <td>5c</td>
-                <td>Coin Total</td>
-                <td>Grand Total</td>
-                <td></td>
-
-            </tr>
-            <tr className="react-fragment">
-                <td>Running Total</td>
-                <td></td>
-                <td>{numberToDollar(runningFifty) || 0}</td>
-                <td>{numberToDollar(runningTwenty) || 0}</td>
-                <td>{numberToDollar(runningTen) || 0}</td>
-                <td>{numberToDollar(runningFive) || 0}</td>
-                <td>{numberToDollar(runningFifty + runningTwenty + runningTen + runningFive) || 0}</td>
-                <td>{numberToDollar(runningTwo) || 0}</td>
-                <td>{numberToDollar(runningOne) || 0}</td>
-                <td>{numberToDollar(runningFiftyCents) || 0}</td>
-                <td>{numberToDollar(runningTwentyCents) || 0}</td>
-                <td>{numberToDollar(runningTenCents) || 0}</td>
-                <td>{numberToDollar(runningFiveCents) || 0}</td>
-                <td>{numberToDollar(runningTwo + runningOne + runningFiftyCents + runningTwentyCents + runningTenCents + runningFiveCents) || 0}</td>
-                <td>{numberToDollar(runningFifty + runningTwenty + runningTen + runningFive + runningTwo + runningOne + runningFiftyCents + runningTwentyCents + runningTenCents + runningFiveCents) || 0}</td>
-                <td></td>
-            </tr>
-=======
             {isLoading ? <h3>Loading...</h3> : <>
                 <tr className="running-total">
                     <td></td>
@@ -149,7 +110,6 @@ export default function RunningTotal() {
                     <td>Coin Total</td>
                     <td>Grand Total</td>
                     <td></td>
->>>>>>> b4547d1 (syncing with netlify)
 
                 </tr>
                 <tr className="running-total-body">

@@ -14,7 +14,7 @@ export default function OrderHistory({ pendingOrders, selectedDay, handleOrderSt
 
     useEffect(() => {
         handleOrderStatusChange(statuses)
-    }, [handleOrderStatusChange])
+    }, [statuses])
 
 
     function handleChange(event) {
