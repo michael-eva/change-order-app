@@ -31,7 +31,7 @@ export default function PendingOrders({ session }) {
         loadClientData();
         loadPendingFloatOrders();
         loadPendingOrders();
-    }, []);
+    }, [loadClientData, loadPendingFloatOrders, loadPendingOrders]);
 
     const loadPendingOrders = useCallback(async () => {
         try {
