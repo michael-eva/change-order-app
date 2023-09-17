@@ -10,7 +10,7 @@ export default function HomePage({ session }) {
         if (session) {
 
             const loadClients = async () => {
-                const { data, error } = await supabase
+                const { data } = await supabase
                     .from('clients')
                     .select('id')
                     .eq('id', session?.user.id)

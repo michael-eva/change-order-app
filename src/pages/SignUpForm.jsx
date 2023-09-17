@@ -39,7 +39,7 @@ export default function SignUpForm({ session }) {
             } else (<Navigate to={'/'} />)
         }
         getProfile()
-    }, [])
+    }, [session])
 
 
     async function handleSubmit(e) {

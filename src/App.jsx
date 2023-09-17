@@ -1,5 +1,5 @@
 
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom"
+import { BrowserRouter, Routes, Route } from "react-router-dom"
 import supabase from "./config/supabaseClient";
 import './index.css';
 import ChangeOrderForm from "./pages/ChangeOrderForm";
@@ -27,7 +27,7 @@ import HomePage from "./components/HomePage";
 
 export default function App() {
     const [session, setSession] = useState(null)
-    const userIsLoggedIn = JSON.parse(localStorage.getItem('userIsLoggedIn'))
+
 
     const handleLogout = async () => {
         try {
@@ -40,14 +40,7 @@ export default function App() {
             console.error('Error logging out:', error);
         }
     };
-    useEffect(() => {
-        const loadClients = async () => {
-            const { data, error } = await supabase
-                .from('clients')
-                .select('*')
-        }
-        loadClients()
-    }, [])
+
     useEffect(() => {
         // Function to update localStorage with the user's login status
         const updateUserLoggedInStatus = (loggedIn) => {
