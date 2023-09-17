@@ -2,7 +2,7 @@ import WeekSlider from "../components/HostComponents/WeekSlider"
 import { useSearchParams } from "react-router-dom";
 import { useEffect, useState, useCallback } from "react";
 import supabase from "../config/supabaseClient";
-import OrderHistory from "../components/HostComponents/OrderHistory"
+import OrderList from "../components/HostComponents/OrderList"
 import { formattedDate } from "../utils/dateUtils";
 import Toggle from "../Toggle";
 import FloatOrderInput from "../components/HostComponents/FloatOrderInput";
@@ -126,9 +126,25 @@ export default function PendingOrders({ session }) {
     //     console.log(item.denomination, item.value);
     // })
 
+
+    const filteredOrders = pendingOrders.filter((order) => {
+        return order.date === selectedDay
+    })
+    const filteredFloatOrders = floatOrder.filter((order) => (
+        order.date === selectedDay
+    ))
+
+    const displayButton = () => {
+        if (filteredFloatOrders.length > 0
+            || filteredOrders.length > 0) {
+            return <button className='submit-btn' onClick={handleSubmit}>Change Status</button>
+        }
+    }
+    displayButton()
+
+
     return (
         <>
-            <button>Manually Add Change Order</button>
             <Toggle>
                 <Toggle.Button><button>Add Float Order</button></Toggle.Button>
                 <Toggle.On>
@@ -158,14 +174,14 @@ export default function PendingOrders({ session }) {
                     </tr>
                 </thead>
                 <tbody className="pending-orders-body">
-                    <OrderHistory pendingOrders={pendingOrders} selectedDay={selectedDay} clientData={clientData} session={session} handleOrderStatusChange={handleOrderStatusChange} />
+                    <OrderList pendingOrders={pendingOrders} selectedDay={selectedDay} clientData={clientData} session={session} handleOrderStatusChange={handleOrderStatusChange} />
                     <br />
                     <FloatOrderHistory dateFilter={dateFilter} selectedDay={selectedDay} floatOrder={floatOrder} handleFloatStatusChange={handleFloatStatusChange} />
                     <br />
                     <RunningTotal />
                 </tbody>
             </table>
-            <button className='submit-btn' onClick={handleSubmit}>Change Status</button>
+            {displayButton()}
             <Toaster />
         </>
     )

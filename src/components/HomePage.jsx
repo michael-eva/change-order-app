@@ -5,10 +5,9 @@ import supabase from "../config/supabaseClient";
 export default function HomePage({ session }) {
     const userIsLoggedIn = JSON.parse(localStorage.getItem('userIsLoggedIn'))
     const [isClient, setIsClients] = useState([])
-    console.log(session);
+
     useEffect(() => {
         if (session) {
-
             const loadClients = async () => {
                 const { data } = await supabase
                     .from('clients')
@@ -22,7 +21,6 @@ export default function HomePage({ session }) {
             loadClients()
         }
     }, [session])
-    console.log('client:', isClient);
 
     if (userIsLoggedIn === true) {
         if (isClient) {
