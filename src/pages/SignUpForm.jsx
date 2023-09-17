@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import supabase from "../config/supabaseClient";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
 
 export default function SignUpForm({ session }) {
@@ -13,16 +13,16 @@ export default function SignUpForm({ session }) {
     const [paymentMethod, setPaymentMethod] = useState('')
     const [required, setRequired] = useState('')
     const navigate = useNavigate('')
-    const { user } = session
+
     useEffect(() => {
-        setEmail(user.email)
+        setEmail(session?.user.email)
         async function getProfile() {
             // setLoading(true)
             if (session) {
                 let { data, error } = await supabase
                     .from('clients')
                     .select(`contactName, contactNumber, address, abn, paymentMethod, companyName`)
-                    .eq('id', user.id)
+                    .eq('id', session.user.id)
                     .single()
 
                 if (error) {
@@ -36,10 +36,10 @@ export default function SignUpForm({ session }) {
                     setCompanyName(data.companyName)
                 }
                 // setLoading(false)
-            }
+            } else (<Navigate to={'/'} />)
         }
         getProfile()
-    }, [session, user.id, user.user_metadata.companyName, user.email])
+    }, [])
 
 
     async function handleSubmit(e) {
@@ -50,7 +50,7 @@ export default function SignUpForm({ session }) {
         const { error } = await supabase
             .from('clients')
             .insert({
-                id: user.id,
+                id: session.user.id,
                 contactName,
                 contactNumber,
                 address,
@@ -59,7 +59,7 @@ export default function SignUpForm({ session }) {
                 paymentMethod,
                 abn
             })
-            .eq('id', user.id)
+            .eq('id', session.user.id)
 
 
         if (error) {

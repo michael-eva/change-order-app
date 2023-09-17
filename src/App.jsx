@@ -23,6 +23,7 @@ import toast, { Toaster } from 'react-hot-toast'
 import FloatOrder from "./components/HostComponents/FloatOrderInput";
 import NotFound from "./pages/NotFound";
 import AuthRequired from "./components/HostComponents/AuthRequired";
+import HomePage from "./components/HomePage";
 
 export default function App() {
     const [session, setSession] = useState(null)
@@ -39,7 +40,14 @@ export default function App() {
             console.error('Error logging out:', error);
         }
     };
-    console.log(session);
+    useEffect(() => {
+        const loadClients = async () => {
+            const { data, error } = await supabase
+                .from('clients')
+                .select('*')
+        }
+        loadClients()
+    }, [])
     useEffect(() => {
         // Function to update localStorage with the user's login status
         const updateUserLoggedInStatus = (loggedIn) => {
@@ -82,7 +90,7 @@ export default function App() {
             <BrowserRouter>
                 <Routes>
                     <Route element={<Layout session={session} handleLogout={handleLogout} />}>
-                        <Route path="/" element={userIsLoggedIn ? <Navigate to={'/signup-form'} /> : <Login />} />
+                        <Route path="/" element={<HomePage session={session} />} />
                         <Route path="/signup" element={<Auth />} />
                         <Route path="/login" element={<Login session={session} />} />
                         <Route path="/signup-form" element={<SignUpForm session={session} />} />
