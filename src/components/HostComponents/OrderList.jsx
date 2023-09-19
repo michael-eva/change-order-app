@@ -59,7 +59,7 @@ export default function OrderHistory({ pendingOrders, selectedDay, handleOrderSt
                             return user.id === order.uuid ? user.companyName : ""
                         })}
                     </td>
-                    <td className={tableFormat(index)}>{numberToDollar(order.date)}</td>
+                    <td className={tableFormat(index)}>{order.date}</td>
                     <td className={tableFormat(index)}>{numberToDollar(order.fifty)}</td>
                     <td className={tableFormat(index)}>{numberToDollar(order.twenty)}</td>
                     <td className={tableFormat(index)}>{numberToDollar(order.ten)}</td>

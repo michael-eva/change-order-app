@@ -10,7 +10,7 @@ export default function ChangeOrderForm({ session }) {
     const [noteTotal, setNoteTotal] = useState(0)
     const currentDate = (new Date());
     const [error, setError] = useState("")
-    // const [date, setDate] = useState(new Date())
+    const [clientData, setClientData] = useState({})
     const [formData, setFormData] = useState({
 
         fifty: 0,
@@ -26,9 +26,7 @@ export default function ChangeOrderForm({ session }) {
         coinTotal: 0,
         noteTotal: 0,
         grandTotal: 0,
-        date: ''
     });
-    const [clientData, setClientData] = useState({})
 
     useEffect(() => {
         const fetchClientData = async () => {
@@ -49,7 +47,7 @@ export default function ChangeOrderForm({ session }) {
         }
         fetchClientData()
     }, [])
-    console.log(clientData);
+
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -106,7 +104,6 @@ export default function ChangeOrderForm({ session }) {
 
     function handleChange(event) {
         const { name, value } = event.target;
-
         // Update the form data state
         setFormData(prevFormData => ({
             ...prevFormData,
@@ -142,7 +139,6 @@ export default function ChangeOrderForm({ session }) {
     }
 
     function calculateNoteTotal(data) {
-        // Function to sum the first 4 items in the array
         let sum = 0;
         const dataArray = Object.values(data);
         for (let i = 0; i < Math.min(4, dataArray.length); i++) {
@@ -155,7 +151,6 @@ export default function ChangeOrderForm({ session }) {
     }
 
     function calculateCoinTotal(data) {
-        // Function to sum the first 4 items in the array
         let sum = 0;
         const dataArray = Object.values(data);
         for (let i = 4; i < 10; i++) {
@@ -187,7 +182,7 @@ export default function ChangeOrderForm({ session }) {
 
                 <div className="change-order-form">
                     <div className="input ">
-                        <label className="label fifty" htmlFor="fifty">$50</label>
+                        <label className="label" htmlFor="fifty">$50</label>
                         <input
                             type="number"
                             placeholder="$-"
@@ -198,7 +193,7 @@ export default function ChangeOrderForm({ session }) {
                     </div>
 
 
-                    <div className="input twenty">
+                    <div className="input">
                         <label className="label" htmlFor="twenty">$20</label>
                         <input
                             type="number"
@@ -209,7 +204,7 @@ export default function ChangeOrderForm({ session }) {
                         />
 
                     </div>
-                    <div className="input ten">
+                    <div className="input ">
                         <label className="label" htmlFor="ten">$10</label>
                         <input
                             type="number"
@@ -220,7 +215,7 @@ export default function ChangeOrderForm({ session }) {
                         />
 
                     </div>
-                    <div className="input five">
+                    <div className="input ">
                         <label className="label" htmlFor="five">$5</label>
                         <input
                             type="number"
@@ -243,7 +238,7 @@ export default function ChangeOrderForm({ session }) {
                             onChange={handleChange}
                         />
                     </div>
-                    <div className="input one">
+                    <div className="input ">
                         <label className="label" htmlFor="one">$1</label>
                         <input
                             type="number"
@@ -253,7 +248,7 @@ export default function ChangeOrderForm({ session }) {
                             onChange={handleChange}
                         />
                     </div>
-                    <div className="input fiftyCents">
+                    <div className="input ">
                         <label className="label" htmlFor="fiftyCents">50c</label>
                         <input
                             type="number"
@@ -263,7 +258,7 @@ export default function ChangeOrderForm({ session }) {
                             onChange={handleChange}
                         />
                     </div>
-                    <div className="input twentyCents">
+                    <div className="input ">
                         <label className="label" htmlFor="twentyCents">20c</label>
                         <input
                             type="number"
@@ -273,7 +268,7 @@ export default function ChangeOrderForm({ session }) {
                             onChange={handleChange}
                         />
                     </div>
-                    <div className="input tenCents">
+                    <div className="input ">
                         <label className="label" htmlFor="tenCents">10c</label>
                         <input
                             type="number"
@@ -283,7 +278,7 @@ export default function ChangeOrderForm({ session }) {
                             onChange={handleChange}
                         />
                     </div>
-                    <div className="input fiveCents">
+                    <div className="input">
                         <label className="label" htmlFor="fiveCents">5c</label>
                         <input
                             type="number"

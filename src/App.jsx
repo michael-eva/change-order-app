@@ -24,6 +24,7 @@ import FloatOrder from "./components/HostComponents/FloatOrderInput";
 import NotFound from "./pages/NotFound";
 import AuthRequired from "./components/HostComponents/AuthRequired";
 import HomePage from "./components/HomePage";
+import AdminRequired from "./Admin/AdminRequired";
 
 export default function App() {
     const [session, setSession] = useState(null)
@@ -42,16 +43,12 @@ export default function App() {
     };
 
     useEffect(() => {
-        // Function to update localStorage with the user's login status
         const updateUserLoggedInStatus = (loggedIn) => {
             localStorage.setItem('userIsLoggedIn', JSON.stringify(loggedIn));
         };
 
-        // Fetch the initial session and update the state
         supabase.auth.getSession().then(({ data: { session } }) => {
             setSession(session);
-
-            // Set the userIsLoggedIn status in localStorage to true when a session is present
             if (session) {
                 updateUserLoggedInStatus(true);
             } else {
@@ -62,16 +59,12 @@ export default function App() {
         // Listen for changes in authentication state
         const authListener = supabase.auth.onAuthStateChange((_event, session) => {
             setSession(session);
-
-            // Update the userIsLoggedIn status in localStorage when the authentication state changes
             if (session) {
                 updateUserLoggedInStatus(true);
             } else {
                 updateUserLoggedInStatus(false);
             }
         });
-
-        // Clean up the listener when the component unmounts
         return () => {
             authListener.unsubscribe();
         };
@@ -96,12 +89,14 @@ export default function App() {
                                 <Route path="settings" element={<ClientSettings session={session} />} />
                             </Route>
                         </Route>
-                        <Route path="/west-sure" element={<HostLayout />}>
-                            <Route index element={< PendingOrders session={session} />} />
-                            <Route path="clients" element={< Clients />} />
-                            <Route path="order-history" element={< OrderHistorySummary />} />
-                            <Route path="settings" element={< Settings />} />
-                            <Route path="float-order" element={< FloatOrder />} />
+                        <Route element={<AdminRequired session={session} />}>
+                            <Route path="/west-sure" element={<HostLayout />}>
+                                <Route index element={< PendingOrders session={session} />} />
+                                <Route path="clients" element={< Clients />} />
+                                <Route path="order-history" element={< OrderHistorySummary />} />
+                                <Route path="float-order" element={< FloatOrder />} />
+                                <Route path="settings" element={< Settings />} />
+                            </Route>
                         </Route>
                         <Route path="*" element={<NotFound />} />
                     </Route>
