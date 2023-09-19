@@ -103,8 +103,6 @@ a {
 /* Dates */
 .dates {
   margin-top: 84px;
-  /* margin-left: 370px; */
-  /* display: flex; */
 }
 
 .payment-method {
@@ -117,7 +115,6 @@ a {
 .payment-method span {
   color: var(--dark-text-color);
   cursor: pointer;
-  /* padding: 0; */
 }
 
 .payment-method h3 {
@@ -126,19 +123,29 @@ a {
 }
 
 .first-column {
-  margin-left: 20%;
+  grid-column: 2/ span 1;
+
 }
 
+
 .second-column {
-  margin-left: 15%;
-  display: flex;
-  flex-direction: column;
+  grid-column: 4 / span 1;
+}
+
+.second-column p {
+  margin-top: 40px;
+}
+
+.second-column p span {
+  color: #8D479E;
+  text-decoration: underline;
+  cursor: pointer;
+  margin: 0;
 }
 
 .disabled-btn {
   border-radius: 6px;
   background: grey;
-  /* box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25); */
   border: none;
   height: 40px;
   font-size: large;
@@ -166,21 +173,15 @@ a {
   box-shadow: inset 5px 5px 10px -3px rgba(0, 0, 0, 0.7);
 }
 
-.second-column p {
-  margin-top: 40px;
-  /* margin-left: -100px; */
-}
 
-.second-column p span {
-  color: #8D479E;
-  text-decoration: underline;
-  cursor: pointer;
-  margin: 0;
-}
+
+
 
 /* Change order pahe */
 .change-order-page {
-  display: flex;
+  /* display: flex; */
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
 
 }
 
@@ -216,6 +217,7 @@ a {
   margin-top: 70px;
 
 }
+
 
 .change-order-page span {
   margin-left: 20px;
