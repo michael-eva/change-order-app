@@ -17,7 +17,6 @@ export default function Login({ session }) {
                 const data = await fetchClientData()
                 setClientData(data)
             } catch (error) {
-                // setClientError(error)
                 console.log(error);
             }
         }

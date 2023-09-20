@@ -9,7 +9,6 @@ import OrderHistorySummary from "./components/HostComponents/OrderHistorySummary
 import Layout from "./components/Layout";
 import ClientPortalLayout from "./components/CPLayout";
 import ClientDetails from "./pages/ClientPortal/ClientDetails";
-// import Home from "./pages/Home"; 
 import ClientSettings from "./pages/ClientPortal/ClientSettings";
 import HostLayout from "./host/HostLayout";
 import Clients from "./host/Clients";
@@ -25,10 +24,11 @@ import NotFound from "./pages/NotFound";
 import AuthRequired from "./components/HostComponents/AuthRequired";
 import HomePage from "./components/HomePage";
 import AdminRequired from "./Admin/AdminRequired";
+import { getAdminUsers } from "./components/HostComponents/Admin";
 
 export default function App() {
     const [session, setSession] = useState(null)
-
+    const isAdmin = getAdminUsers().includes(session?.user.id)
 
     const handleLogout = async () => {
         try {
@@ -46,13 +46,20 @@ export default function App() {
         const updateUserLoggedInStatus = (loggedIn) => {
             localStorage.setItem('userIsLoggedIn', JSON.stringify(loggedIn));
         };
+        const updateAdminLoggedInStatus = (loggedIn) => {
+            localStorage.setItem('adminIsLoggedIn', JSON.stringify(loggedIn))
+        }
 
         supabase.auth.getSession().then(({ data: { session } }) => {
             setSession(session);
             if (session) {
+                if (isAdmin) {
+                    updateAdminLoggedInStatus(true)
+                }
                 updateUserLoggedInStatus(true);
             } else {
                 updateUserLoggedInStatus(false);
+                updateAdminLoggedInStatus(false)
             }
         });
 
@@ -60,9 +67,13 @@ export default function App() {
         const authListener = supabase.auth.onAuthStateChange((_event, session) => {
             setSession(session);
             if (session) {
+                if (isAdmin) {
+                    updateAdminLoggedInStatus(true)
+                }
                 updateUserLoggedInStatus(true);
             } else {
                 updateUserLoggedInStatus(false);
+                updateAdminLoggedInStatus(false)
             }
         });
         return () => {
