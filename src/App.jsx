@@ -77,7 +77,7 @@ export default function App() {
             }
         });
         return () => {
-            // authListener.unsubscribe();
+            authListener.unsubscribe();
         };
     }, [isAdmin])
 
