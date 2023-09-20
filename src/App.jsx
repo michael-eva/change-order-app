@@ -76,9 +76,9 @@ export default function App() {
                 updateAdminLoggedInStatus(false)
             }
         });
-        return () => {
-            authListener.unsubscribe();
-        };
+        // return () => {
+        //     authListener.unsubscribe();
+        // };
     }, [isAdmin])
 
     return (
