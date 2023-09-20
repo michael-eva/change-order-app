@@ -24,7 +24,7 @@ export default function ClientDetails() {
                     }
                 }
             } catch (error) {
-                alert(error.message)
+                // alert(error.message)
             }
         }
         fetchClientData()

@@ -15,7 +15,7 @@ export default function ClientPortalLayout() {
                 const { data: clientData } = await supabase
                     .from("clients")
                     .select("*")
-                    .eq('id', userData.user.id)
+                    .eq('id', userData?.user.id)
                 if (clientData && clientData.length > 0) {
                     setClientData(clientData)
                 }

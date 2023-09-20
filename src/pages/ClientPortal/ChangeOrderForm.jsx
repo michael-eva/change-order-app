@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react"
-import supabase from "../config/supabaseClient";
+import supabase from "../../config/supabaseClient";
 import toast, { Toaster } from 'react-hot-toast'
-import Toggle from "../Toggle";
-import { formatDateForDatabase } from "../utils/dateUtils";
+import Toggle from "../../Toggle";
+import { formatDateForDatabase } from "../../utils/dateUtils";
 
 export default function ChangeOrderForm({ session }) {
     const [grandTotal, setGrandTotal] = useState(0);
@@ -42,7 +42,7 @@ export default function ChangeOrderForm({ session }) {
                     }
                 }
             } catch (error) {
-                alert(error.message)
+                // alert(error.message)
             }
         }
         fetchClientData()

@@ -2,7 +2,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom"
 import supabase from "./config/supabaseClient";
 import './index.css';
-import ChangeOrderForm from "./pages/ChangeOrderForm";
+import ChangeOrderForm from "./pages/ClientPortal/ChangeOrderForm";
 import Auth from "./pages/Auth";
 import Login from "./pages/Login";
 import OrderHistorySummary from "./components/HostComponents/OrderHistorySummary";
@@ -77,7 +77,7 @@ export default function App() {
             }
         });
         return () => {
-            authListener.unsubscribe();
+            // authListener.unsubscribe();
         };
     }, [isAdmin])
 
