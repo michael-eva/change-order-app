@@ -63,8 +63,8 @@ export default function App() {
             }
         });
 
-        // Listen for changes in authentication state
-        const authListener = supabase.auth.onAuthStateChange((_event, session) => {
+        // // Listen for changes in authentication state
+        supabase.auth.onAuthStateChange((_event, session) => {
             setSession(session);
             if (session) {
                 if (isAdmin) {
