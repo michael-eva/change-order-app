@@ -12,7 +12,7 @@ export default function NavBar({ handleLogout, navigate, session }) {
 
     return (
         <div className="nav">
-            <NavLink to={isAdmin ? 'west-sure' : '#'}> <img src={logo} alt="Logo" /></NavLink>
+            <NavLink to={isAdmin ? 'west-sure' : '#'}> Service - Link</NavLink>
             <Toggle>
                 <ul className="nav-items">
                     {userIsLoggedIn ?

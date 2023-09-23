@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { formatDate } from "../../utils/dateUtils";
 import { useSearchParams } from "react-router-dom";
 import { tableFormat, changeStatus, numberToDollar } from "../../utils/hostUtils";
-import { fetchChangeOrderData, fetchClientData, fetchFloatOrderData } from "../../pages/FetchData";
+import { fetchChangeOrderData, fetchClientData, fetchFloatOrderData } from "../../utils/FetchData";
 
 
 const OrderHistorySummary = () => {

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import supabase from "../config/supabaseClient"
 import { Link, useNavigate, useLocation } from "react-router-dom"
-import { fetchClientData } from "./FetchData"
+import { fetchClientData } from "../utils/FetchData"
 
 export default function Login({ session }) {
     let navigate = useNavigate()

@@ -1,19 +1,15 @@
 import { useState } from "react"
 import supabase from "../config/supabaseClient"
 import { Link } from "react-router-dom"
-// import { useNavigate } from "react-router-dom"
 import { toast } from "react-hot-toast"
 
-export default function Auth() {
+export default function SignupForm() {
     const [passwordsMatch, setPasswordsMatch] = useState(true)
     const [signUpData, setSignUpData] = useState({
         email: "",
         password: "",
         confirmPassword: "",
-
-
     })
-    // const navigate = useNavigate('')
 
     function handleChange(event) {
         const { name, value } = event.target;
@@ -30,18 +26,14 @@ export default function Auth() {
                 [name]: value
             }
         })
-
     }
 
     const handleLogin = async (event) => {
         event.preventDefault()
-
-
         const { error } = await supabase.auth.signUp(
             {
                 email: signUpData.email,
                 password: signUpData.password,
-
             }
         )
 
@@ -62,15 +54,6 @@ export default function Auth() {
             <div className="form-container">
                 <form className="form" onSubmit={handleLogin}>
                     <h2>Sign Up</h2>
-                    {/* <input
-                        type="text"
-                        name="companyName"
-                        value={signUpData.companyName}
-                        placeholder="Company Name"
-                        onChange={handleChange}
-                        className="form--input"
-                        required={true}
-                    /> */}
                     <input
                         type="text"
                         name="email"

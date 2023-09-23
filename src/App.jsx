@@ -3,8 +3,8 @@ import { BrowserRouter, Routes, Route } from "react-router-dom"
 import supabase from "./config/supabaseClient";
 import './index.css';
 import ChangeOrderForm from "./pages/ClientPortal/ChangeOrderForm";
-import Auth from "./pages/Auth";
-import Login from "./pages/Login";
+import Signup from "./Auth/Signup";
+import Login from "./Auth/Login";
 import OrderHistorySummary from "./components/HostComponents/OrderHistorySummary";
 import Layout from "./components/Layout";
 import ClientPortalLayout from "./components/CPLayout";
@@ -15,16 +15,17 @@ import Clients from "./host/Clients";
 import Settings from "./host/Settings";
 import PendingOrders from "./host/PendingOrders";
 import { useEffect, useState } from "react";
-import SignUpForm from "./pages/SignUpForm";
+import SignUpForm from "./Auth/SignUpForm";
 import ClientOrderHistory from "./pages/ClientPortal/ClientOrderHistory";
 import UpdateClientDetails from "./pages/ClientPortal/UpdateClientDetails";
 import toast, { Toaster } from 'react-hot-toast'
 import FloatOrder from "./components/HostComponents/FloatOrderInput";
 import NotFound from "./pages/NotFound";
-import AuthRequired from "./components/HostComponents/AuthRequired";
+import AuthRequired from "./Auth/AuthRequired";
 import HomePage from "./components/HomePage";
 import AdminRequired from "./Admin/AdminRequired";
 import { getAdminUsers } from "./components/HostComponents/Admin";
+// import Auth from "./Auth/Auth";
 
 export default function App() {
     const [session, setSession] = useState(null)
@@ -42,24 +43,17 @@ export default function App() {
         }
     };
 
+
     useEffect(() => {
         const updateUserLoggedInStatus = (loggedIn) => {
             localStorage.setItem('userIsLoggedIn', JSON.stringify(loggedIn));
         };
-        const updateAdminLoggedInStatus = (loggedIn) => {
-            localStorage.setItem('adminIsLoggedIn', JSON.stringify(loggedIn))
-        }
-
         supabase.auth.getSession().then(({ data: { session } }) => {
             setSession(session);
             if (session) {
-                if (isAdmin) {
-                    updateAdminLoggedInStatus(true)
-                }
                 updateUserLoggedInStatus(true);
             } else {
                 updateUserLoggedInStatus(false);
-                updateAdminLoggedInStatus(false)
             }
         });
 
@@ -67,28 +61,23 @@ export default function App() {
         supabase.auth.onAuthStateChange((_event, session) => {
             setSession(session);
             if (session) {
-                if (isAdmin) {
-                    updateAdminLoggedInStatus(true)
-                }
                 updateUserLoggedInStatus(true);
             } else {
                 updateUserLoggedInStatus(false);
-                updateAdminLoggedInStatus(false)
             }
         });
-        // return () => {
-        //     authListener.unsubscribe();
-        // };
+
     }, [isAdmin])
 
     return (
         <>
             <Toaster />
+            {/* <Auth /> */}
             <BrowserRouter>
                 <Routes>
-                    <Route element={<Layout session={session} handleLogout={handleLogout} />}>
+                    <Route element={<Layout handleLogout={handleLogout} session={session} />}>
                         <Route path="/" element={<HomePage session={session} />} />
-                        <Route path="/signup" element={<Auth />} />
+                        <Route path="/signup" element={<Signup />} />
                         <Route path="/login" element={<Login session={session} />} />
                         <Route path="/signup-form" element={<SignUpForm session={session} />} />
                         <Route element={<AuthRequired session={session} />}>

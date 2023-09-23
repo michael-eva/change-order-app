@@ -7,7 +7,7 @@ import { formattedDate } from "../utils/dateUtils";
 import Toggle from "../Toggle";
 import FloatOrderInput from "../components/HostComponents/FloatOrderInput";
 import FloatOrderHistory from "./FloatOrderHistory";
-import { fetchPendingOrderData, fetchClientData, fetchPendingFloatOrderData } from "../pages/FetchData";
+import { fetchPendingOrderData, fetchClientData, fetchPendingFloatOrderData } from "../utils/FetchData";
 import RunningTotal from "../components/HostComponents/RunningTotal";
 // import useStore from "../store/lowerLimitStore";
 import toast, { Toaster } from "react-hot-toast";
