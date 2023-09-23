@@ -1,6 +1,6 @@
 import { NavLink } from "react-router-dom"
 import Toggle from "../Toggle/index"
-import logo from "../images/west-sure-logo.png"
+import logo from "../images/logo512.png"
 import { getAdminUsers } from './HostComponents/Admin'
 
 
@@ -12,7 +12,7 @@ export default function NavBar({ handleLogout, navigate, session }) {
 
     return (
         <div className="nav">
-            <NavLink to={isAdmin ? 'west-sure' : '#'}> Service - Link</NavLink>
+            <NavLink to={isAdmin ? 'west-sure' : '#'}> <img src={logo} alt="" /></NavLink>
             <Toggle>
                 <ul className="nav-items">
                     {userIsLoggedIn ?
