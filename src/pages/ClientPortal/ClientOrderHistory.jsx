@@ -7,7 +7,6 @@ import { useSearchParams } from "react-router-dom";
 const ClientOrderHistory = ({ session }) => {
     const [data, setData] = useState([])
     const [error, setError] = useState(null)
-    const [isLoading, setIsLoading] = useState(true)
     const [searchParams, setSearchParams] = useSearchParams()
     const pendingFilter = searchParams.get("status")
     const filterOrders = pendingFilter
@@ -15,32 +14,31 @@ const ClientOrderHistory = ({ session }) => {
         : data
 
 
-
-
     useEffect(() => {
         const fetchData = async () => {
-            try {
-                const { data: changeOrderData, error: changeOrderError } = await supabase
-                    .from('change_order')
-                    .select('*')
-                    .eq('uuid', session.user.id)
+            if (session) {
+                try {
+                    const { data: changeOrderData, error: changeOrderError } = await supabase
+                        .from('change_order')
+                        .select('*')
+                        .eq('uuid', session.user.id)
 
-                let clientsError = null;
+                    let clientsError = null;
 
-                setData(changeOrderData);
-                setError(changeOrderError || clientsError);
-                setIsLoading(false);
-            } catch (error) {
-                setError("Error fetching data");
-                setData([]);
+                    setData(changeOrderData);
+                    setError(changeOrderError || clientsError);
+                } catch (error) {
+                    setError("Error fetching data");
+                    setData([]);
+                }
             }
         };
-
         fetchData();
     }, [session]);
-    console.log(error);
-    console.log(isLoading);
-    console.log(error);
+
+    if (error) {
+        console.log(error);
+    }
     const customDateSort = (dateA, dateB) => {
         const [dayA, monthA, yearA] = dateA.split("-").map(Number);
         const [dayB, monthB, yearB] = dateB.split("-").map(Number);

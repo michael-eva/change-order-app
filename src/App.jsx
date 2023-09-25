@@ -24,12 +24,11 @@ import NotFound from "./pages/NotFound";
 import AuthRequired from "./Auth/AuthRequired";
 import HomePage from "./components/HomePage";
 import AdminRequired from "./Admin/AdminRequired";
-import { getAdminUsers } from "./components/HostComponents/Admin";
 // import Auth from "./Auth/Auth";
 
 export default function App() {
     const [session, setSession] = useState(null)
-    const isAdmin = getAdminUsers().includes(session?.user.id)
+
 
     const handleLogout = async () => {
         try {
@@ -67,12 +66,11 @@ export default function App() {
             }
         });
 
-    }, [isAdmin])
+    }, [])
 
     return (
         <>
             <Toaster />
-            {/* <Auth /> */}
             <BrowserRouter>
                 <Routes>
                     <Route element={<Layout handleLogout={handleLogout} session={session} />}>
