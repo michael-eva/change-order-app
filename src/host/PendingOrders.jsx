@@ -175,9 +175,15 @@ export default function PendingOrders({ session }) {
                 </thead>
                 <tbody className="pending-orders-body">
                     <OrderList pendingOrders={pendingOrders} selectedDay={selectedDay} clientData={clientData} session={session} handleOrderStatusChange={handleOrderStatusChange} />
-                    <br />
+                    <tr>
+                        <td style={{ paddingBottom: '30px' }}></td>
+                    </tr>
+
                     <FloatOrderHistory dateFilter={dateFilter} selectedDay={selectedDay} floatOrder={floatOrder} handleFloatStatusChange={handleFloatStatusChange} />
-                    <br />
+
+                    <tr>
+                        <td style={{ paddingBottom: '30px' }}></td>
+                    </tr>
                     <RunningTotal />
                 </tbody>
             </table>

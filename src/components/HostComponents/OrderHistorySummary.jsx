@@ -115,13 +115,17 @@ const OrderHistorySummary = () => {
                 </thead>
                 <tbody>
                     {isLoading ? (
-                        <h2>Loading...</h2>
+                        <tr>
+                            <td>...Loading</td>
+                        </tr>
                     ) : filterOrders.length === 0 ? (
-                        <h2>No orders to display yet</h2>
+                        <tr>
+                            <td>No orders to display yet</td>
+                        </tr>
                     ) : (
                         filterOrders.map((item, index) => (
 
-                            <tr>
+                            <tr key={index}>
                                 <td className={tableFormat(index)}>
                                     {clientData?.map(user => {
                                         return user.id === item.uuid ? user.companyName : ""
@@ -148,10 +152,9 @@ const OrderHistorySummary = () => {
                         ))
                     )
                     }
-                    {/* <OrderHistory /> */}
-                    <br />
-                    {/* <RunningTotal /> */}
-                    <br />
+                    <tr>
+                        <td style={{ paddingBottom: '30px' }}></td>
+                    </tr>
                     {isLoadingFloat ? (
                         <tr>
                             <td colSpan='15'>Loading...</td>

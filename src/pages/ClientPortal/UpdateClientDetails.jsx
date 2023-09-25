@@ -14,7 +14,7 @@ export default function UpdateClientDetails({ session }) {
     const [email, setEmail] = useState('')
 
     const { user } = session
-    console.log(user);
+
     useEffect(() => {
         async function getProfile() {
             setLoading(true)

@@ -25,13 +25,13 @@ export default function NavBar({ handleLogout, navigate, session }) {
                     setIsAdmin(data?.isAdmin === true);
                 }
             } catch (error) {
-                console.error("Error checking admin status:", error);
+                // console.error("Error checking admin status:", error);
             }
         };
 
         checkAdminStatus();
     }, [session]);
-    console.log(isAdmin);
+
     return (
         <div className="nav">
             <NavLink to={session && isAdmin === true ? 'west-sure' : '#'}> <img src={logo} alt="" /></NavLink>

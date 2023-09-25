@@ -17,7 +17,6 @@ export default function Clients() {
             .select("*")
         setClients(data)
     }
-    console.log(clients);
 
     return (
         <div className="clients-container">
@@ -39,17 +38,17 @@ export default function Clients() {
                         <th>Contact Email</th>
                     </tr>
                 </thead>
-                {clients && clients.map(client => (
-                    <tbody>
-                        <tr>
+                <tbody>
+                    {clients && clients.map((client, index) => (
+                        <tr key={index}>
                             <td>{client.companyName}</td>
                             <td>{client.address}</td>
                             <td>{client.contactName}</td>
                             <td>{client.contactNumber}</td>
                             <td>{client.email}</td>
                         </tr>
-                    </tbody>
-                ))}
+                    ))}
+                </tbody>
             </table>
 
 

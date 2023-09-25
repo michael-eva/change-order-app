@@ -24,13 +24,13 @@ export default function ClientDetails() {
                     }
                 }
             } catch (error) {
-                // alert(error.message)
+                console.error("Error loading data:", error);
             }
         }
         fetchClientData()
     }, [])
 
-    console.log(clientData);
+
     return (
         <div className="client-details">
             {clientData[0] ?

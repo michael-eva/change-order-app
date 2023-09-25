@@ -90,7 +90,9 @@ export default function RunningTotal() {
     const runningFiveCents = sumFloatOrders('fiveCents') - sumChangeOrders('fiveCents') || ""
     return (
         <>
-            {isLoading ? <h3>Loading...</h3> : <>
+            {isLoading ? <tr>
+                <td>...Loading</td>
+            </tr> : <>
                 <tr className="running-total">
                     <td></td>
                     <td></td>
