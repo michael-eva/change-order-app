@@ -44,26 +44,13 @@ export default function App() {
 
 
     useEffect(() => {
-        const updateUserLoggedInStatus = (loggedIn) => {
-            localStorage.setItem('userIsLoggedIn', JSON.stringify(loggedIn));
-        };
         supabase.auth.getSession().then(({ data: { session } }) => {
             setSession(session);
-            if (session) {
-                updateUserLoggedInStatus(true);
-            } else {
-                updateUserLoggedInStatus(false);
-            }
         });
 
         // // Listen for changes in authentication state
         supabase.auth.onAuthStateChange((_event, session) => {
             setSession(session);
-            if (session) {
-                updateUserLoggedInStatus(true);
-            } else {
-                updateUserLoggedInStatus(false);
-            }
         });
 
     }, [])
