@@ -6,7 +6,6 @@ import supabase from "../config/supabaseClient"
 
 
 export default function NavBar({ handleLogout, navigate, session }) {
-    const userIsLoggedIn = JSON.parse(localStorage.getItem('userIsLoggedIn'))
 
     const [isAdmin, setIsAdmin] = useState(null)
 
@@ -38,7 +37,7 @@ export default function NavBar({ handleLogout, navigate, session }) {
             <NavLink to={session && isAdmin === true ? 'west-sure' : '#'}> <img src={logo} alt="" /></NavLink>
             <Toggle>
                 <ul className="nav-items">
-                    {userIsLoggedIn ?
+                    {session?.user.role === "authenticated" ?
                         <NavLink className={({ isActive }) => isActive ? "nav-link-focus" : "nav-link"} to="/client-portal">
                             <li>Client Portal</li>
                         </NavLink>
@@ -47,7 +46,7 @@ export default function NavBar({ handleLogout, navigate, session }) {
                             <li>Login</li>
                         </NavLink>
                     }
-                    {userIsLoggedIn ?
+                    {session?.user.role === "authenticated" ?
                         <>
                             <li onClick={() => { handleLogout(); navigate('/login') }}>Logout</li>
                         </> : ""}

@@ -3,7 +3,7 @@ import { Navigate } from "react-router-dom";
 import supabase from "../config/supabaseClient";
 
 export default function HomePage({ session }) {
-    const userIsLoggedIn = JSON.parse(localStorage.getItem('userIsLoggedIn'))
+
     const [isClient, setIsClients] = useState([])
 
     useEffect(() => {
@@ -22,7 +22,7 @@ export default function HomePage({ session }) {
         }
     }, [session])
 
-    if (userIsLoggedIn === true) {
+    if (session?.user.role === "authenticated") {
         if (isClient) {
             return <Navigate to={'/client-portal'} />;
         } else {
