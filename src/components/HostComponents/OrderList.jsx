@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from "react";
-import supabase from "../../config/supabaseClient";
 import { numberToDollar, tableFormat } from "../../utils/hostUtils";
 
 
 
-export default function OrderHistory({ pendingOrders, selectedDay, handleOrderStatusChange }) {
+export default function OrderHistory({ pendingOrders, selectedDay, handleOrderStatusChange, clientData }) {
     const [statuses, setStatuses] = useState({});
-    const [userData, setUserData] = useState(null)
 
     const filteredOrders = pendingOrders.filter(order => (
         order.date === selectedDay
@@ -14,7 +12,6 @@ export default function OrderHistory({ pendingOrders, selectedDay, handleOrderSt
 
     useEffect(() => {
         handleOrderStatusChange(statuses);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [statuses]);
 
 
@@ -26,36 +23,13 @@ export default function OrderHistory({ pendingOrders, selectedDay, handleOrderSt
             [orderId]: value,
         }));
     }
-    useEffect(() => {
-        fetchClients();
-    }, []);
-    const fetchClients = async () => {
-        try {
-
-            const { data, error } = await supabase
-                .from('clients')
-                .select('*')
-            // .eq('id', filteredOrders.map((order) => (order.uuid)));
-
-            if (error) {
-                console.error('Error fetching client data:', error);
-            } else {
-            }
-
-            setUserData(data);
-            // setLoading(false);
-        } catch (error) {
-            console.error('Error fetching client data:', error);
-            // setLoading(false);
-        }
-    };
 
     return (
         <>
             {filteredOrders.map((order, index) => (
                 <tr key={index}>
                     <td className={tableFormat(index)}>
-                        {userData?.map(user => {
+                        {clientData?.map(user => {
                             return user.id === order.uuid ? user.companyName : ""
                         })}
                     </td>

@@ -34,7 +34,7 @@ export default function AdminRequired({ session }) {
         // Delay setting isAdminDelayed to true for 1 second
         delayTimer = setTimeout(() => {
             setIsAdminDelayed(true);
-        }, 1000);
+        }, 2000);
 
         checkAdminStatus();
 

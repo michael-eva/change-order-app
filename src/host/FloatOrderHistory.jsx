@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { formatDate } from "../utils/dateUtils";
 import { numberToDollar, tableFormat } from "../utils/hostUtils";
 
-export default function FloatOrderHistory({ dateFilter, selectedDay, floatOrder, handleFloatStatusChange }) {
+export default function FloatOrderHistory({ dateFilter, selectedDay, pendingFloatOrder, handleFloatStatusChange }) {
     const [selectedStatus, setSelectedStatus] = useState('')
 
 
@@ -23,13 +23,13 @@ export default function FloatOrderHistory({ dateFilter, selectedDay, floatOrder,
 
 
 
-    const filteredData = dateFilter ? floatOrder?.filter(order => {
+    const filteredData = dateFilter ? pendingFloatOrder?.filter(order => {
         return order.date === dateFilter
-    }) : floatOrder;
+    }) : pendingFloatOrder;
 
     const filteredOrders = filteredData ? filteredData.filter(order => {
         return order.date === selectedDay
-    }) : floatOrder;
+    }) : pendingFloatOrder;
 
     return (
         <>

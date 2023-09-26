@@ -2,7 +2,7 @@ import { useState } from "react";
 import { formattedDate } from "../../utils/dateUtils";
 
 
-const WeekSlider = ({ clickHandle, selectedDay, floatOrder, pendingOrders }) => {
+const WeekSlider = ({ clickHandle, selectedDay, pendingFloatOrder, pendingOrders }) => {
     // State to keep track of the currently displayed week's start date
     const [currentWeekStartDate, setCurrentWeekStartDate] = useState(new Date());
     // Logic to calculate the previous and next week's start dates
@@ -31,7 +31,7 @@ const WeekSlider = ({ clickHandle, selectedDay, floatOrder, pendingOrders }) => 
                             const pendingOrdersForDay = pendingOrders.filter(order => order.date === formattedDate(day));
                             const pendingOrdersCount = pendingOrdersForDay.length;
 
-                            const pendingFloatOrdersForDay = floatOrder.filter(order => order.date === formattedDate(day))
+                            const pendingFloatOrdersForDay = pendingFloatOrder.filter(order => order.date === formattedDate(day))
                             const pendingFloatOrdersCount = pendingFloatOrdersForDay.length
 
                             return (
