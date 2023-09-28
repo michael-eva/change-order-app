@@ -1,16 +1,16 @@
 import WeekSlider from "../components/HostComponents/WeekSlider"
 import { useSearchParams } from "react-router-dom";
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState } from "react";
 import supabase from "../config/supabaseClient";
 import OrderList from "../components/HostComponents/OrderList"
 import { formattedDate } from "../utils/dateUtils";
 import Toggle from "../Toggle";
 import FloatOrderInput from "../components/HostComponents/FloatOrderInput";
 import FloatOrderHistory from "./FloatOrderHistory";
-import { fetchClientData } from "../utils/FetchData";
+
 import RunningTotal from "../components/HostComponents/RunningTotal";
 // import useStore from "../store/lowerLimitStore";
-import toast, { Toaster } from "react-hot-toast";
+
 
 
 export default function PendingOrders({ session }) {
@@ -179,7 +179,7 @@ export default function PendingOrders({ session }) {
                 </tbody>
             </table>
             {displayButtonLogic()}
-            <Toaster />
+
         </>
     )
 }

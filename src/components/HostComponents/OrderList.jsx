@@ -12,7 +12,7 @@ export default function OrderHistory({ pendingOrders, selectedDay, handleOrderSt
 
     useEffect(() => {
         handleOrderStatusChange(statuses);
-    }, [statuses]);
+    }, [handleOrderStatusChange]);
 
 
     function handleChange(event) {
