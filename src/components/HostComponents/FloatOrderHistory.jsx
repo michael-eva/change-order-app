@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { formatDate } from "../utils/dateUtils";
-import { numberToDollar, tableFormat } from "../utils/hostUtils";
+import { formatDate } from "../../utils/dateUtils";
+import { numberToDollar, tableFormat } from "../../utils/hostUtils";
 
 export default function FloatOrderHistory({ dateFilter, selectedDay, pendingFloatOrder, handleFloatStatusChange }) {
     const [selectedStatus, setSelectedStatus] = useState('')

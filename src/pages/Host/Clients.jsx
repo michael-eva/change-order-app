@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react"
-import supabase from "../config/supabaseClient"
-import Toggle from "../Toggle"
+import supabase from "../../config/supabaseClient"
+import Toggle from "../../Toggle"
 import { AiOutlinePlusCircle } from 'react-icons/ai';
 
 export default function Clients() {

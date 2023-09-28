@@ -1,7 +1,7 @@
 // SettingsPage.js
 import React, { useState } from 'react';
-import useStore from '../store/lowerLimitStore';
-import Toggle from '../Toggle';
+import useStore from '../../store/lowerLimitStore';
+import Toggle from '../../Toggle';
 
 function Settings() {
     const minimumLimitWarnings = useStore((state) => state.minimumLimitWarnings);
