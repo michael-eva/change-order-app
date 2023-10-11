@@ -112,7 +112,7 @@ const ClientOrderHistory = ({ session }) => {
                                 <td className={getCommonClassName(index)}>${item.coinTotal}</td>
                                 <td className={getCommonClassName(index)}>${item.grandTotal}</td>
                                 <td className={`${getCommonClassName(index)} ${getStatusClassName(item)}`}>
-                                    {item.status === "packed" ? "Packed" : "Pending"}
+                                    {item.status === "completed" ? "Packed" : "Pending"}
                                 </td>
                             </tr>
                         ))}

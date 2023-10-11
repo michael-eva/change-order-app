@@ -1,14 +1,14 @@
 import { Navigate, Outlet } from "react-router-dom";
 
-export default function AuthRequired({ session }) {
-    if (session === null) {
-        return
+export default function AuthRequired() {
+    const token = localStorage.getItem("sb-wsolkhiobftucjmfkwkk-auth-token");
+    if (!token) {
+        return (
+            <Navigate
+                to={"/login"}
+                state={{ message: "Please log in to continue" }}
+            />
+        )
     }
-    if (session?.user.role !== "authenticated") {
-        return <Navigate
-            to={"/login"}
-            state={{ message: "Please log in to continue" }}
-        />
-    }
-    return <Outlet />
+    return <Outlet />;
 }

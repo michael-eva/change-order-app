@@ -14,7 +14,6 @@ export default function HomePage({ session }) {
                     .select('id')
                     .eq('id', session?.user.id)
                 if (data) {
-
                     setIsClients(data)
                 }
             }
