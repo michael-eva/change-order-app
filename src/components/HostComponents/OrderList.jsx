@@ -56,7 +56,7 @@ export default function OrderHistory({ pendingOrders, selectedDay, handleOrderSt
                             onChange={handleChange}
                         >
                             <option className="pending" value="pending">Pending</option>
-                            <option className="packed" value="packed">Packed</option>
+                            <option className="packed" value="completed">Packed</option>
                         </select>
                     </td>
                 </tr>

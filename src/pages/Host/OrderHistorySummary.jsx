@@ -14,9 +14,17 @@ const OrderHistorySummary = () => {
     const [clientError, setClientError] = useState("")
     const [isLoading, setIsLoading] = useState(true)
     const [isLoadingFloat, setIsLoadingFloat] = useState(true)
+    const [orderType, setOrderType] = useState(null)
     const [searchParams, setSearchParams] = useSearchParams()
-    const pendingFilter = searchParams.get("status")
+    const [selectedClient, setSelectedClient] = useState("")
 
+    const pendingFilter = searchParams.get("status")
+    const clientFilter = searchParams.get('company-name')
+
+    const getClientId = () => {
+        const clientDetails = clientData.filter(client => client.companyName === selectedClient)
+        return clientDetails[0]?.id
+    }
 
     useEffect(() => {
         async function loadFloatOrders() {
@@ -70,24 +78,91 @@ const OrderHistorySummary = () => {
         customDateSort(a.date, b.date)
     );
 
-    const filterOrders = pendingFilter
-        ? sortedOrders.filter(order => order.status === pendingFilter)
-        : sortedOrders
-
-
     const sortedFloatOrders = [...floatOrder].sort((a, b) =>
         customDateSort(a.date, b.date)
     )
 
+    const filterOrders = () => {
+        let filteredOrders = [...sortedOrders];
+        if (clientFilter) {
+            filteredOrders = filteredOrders.filter(order => order.uuid === getClientId());
+        }
+        if (pendingFilter) {
+            filteredOrders = filteredOrders.filter(order => order.status === pendingFilter);
+        }
+        return filteredOrders;
+    };
+
+    const filterFloatOrders = pendingFilter
+        ? sortedFloatOrders.filter(order => order.status === pendingFilter)
+        : sortedFloatOrders
+
+
+    const genNewSearchParams = (key, value) => {
+        const sp = new URLSearchParams(searchParams)
+        if (value === null) {
+            sp.delete(key)
+        } else {
+            sp.set(key, value)
+        }
+        setSearchParams(`?${sp.toString()}`)
+    }
+
+    console.log("selected client:", selectedClient);
+
     return (
         <div className="order-history-summary">
-            <div className="filter-orders">
-                <h4>Filter by:</h4>
-                <button onClick={() => setSearchParams({})}>
+            <div className="filter-by-customer">
+                <select
+                    onChange={(e) => {
+                        genNewSearchParams('company-name', e.target.value)
+                        setSelectedClient(e.target.value)
+                    }}
+                    value={clientFilter}
+                >
+                    {clientData.map((client, index) => (
+                        <option
+                            key={index}
+                            value={client.companyName}
+                        >
+                            {client.companyName}
+                        </option>)
+                    )}
+                </select>
+                <button onClick={() => {
+                    genNewSearchParams('company-name', null)
+                    setSelectedClient(null)
+                }}>Clear</button>
+
+            </div>
+            <div className="filter-by-type">
+                <h4>Type:</h4>
+                <button
+                    className={orderType === null ? "filter-btn-focus" : "filter-btn"}
+                    onClick={() => setOrderType(null)}>
                     All
                 </button>
-                <button onClick={() => setSearchParams("?status=packed")}>Packed</button>
-                <button onClick={() => setSearchParams({ status: 'pending' })}>Pending</button>
+                <button
+                    className={orderType === 'floatOrder' ? "filter-btn-focus" : "filter-btn"}
+                    onClick={() => setOrderType('floatOrder')}>Float Order</button>
+                <button
+                    className={orderType === 'changeOrder' ? "filter-btn-focus" : "filter-btn"}
+                    onClick={() => setOrderType('changeOrder')}>Change Order</button>
+
+            </div>
+            <div className="filter-by-status">
+                <h4>Filter by:</h4>
+                <button
+                    className={pendingFilter === null ? "filter-btn-focus" : "filter-btn"}
+                    onClick={() => genNewSearchParams('status', null)}>
+                    All
+                </button>
+                <button
+                    className={pendingFilter === 'completed' ? "filter-btn-focus" : "filter-btn"}
+                    onClick={() => genNewSearchParams('status', 'completed')}>Packed / Received</button>
+                <button
+                    className={pendingFilter === 'pending' ? "filter-btn-focus" : "filter-btn"}
+                    onClick={() => genNewSearchParams('status', 'pending')}>Pending</button>
             </div>
             {orderError && <p>Error fetching orders: {orderError.message}</p>}
             {floatError && <p>Error fetching float orders: {floatError.message}</p>}
@@ -114,16 +189,17 @@ const OrderHistorySummary = () => {
                     </tr>
                 </thead>
                 <tbody>
+
                     {isLoading ? (
                         <tr>
                             <td>...Loading</td>
                         </tr>
-                    ) : filterOrders.length === 0 ? (
+                    ) : filterOrders().length === 0 ? (
                         <tr>
                             <td>No orders to display yet</td>
                         </tr>
-                    ) : (
-                        filterOrders.map((item, index) => (
+                    ) : orderType === 'changeOrder' || orderType === null ? (
+                        filterOrders().map((item, index) => (
 
                             <tr key={index}>
                                 <td className={tableFormat(index)}>
@@ -146,25 +222,28 @@ const OrderHistorySummary = () => {
                                 <td className={tableFormat(index)}>{numberToDollar(item.coinTotal)}</td>
                                 <td className={tableFormat(index)}>{numberToDollar(item.grandTotal)}</td>
                                 <td className={`${tableFormat(index)} ${changeStatus(item)}`}>
-                                    {item.status === "packed" ? "Packed" : "Pending"}
+                                    {item.status === "completed" ? "Packed" : "Pending"}
                                 </td>
                             </tr>
                         ))
-                    )
+                    ) : ""
                     }
-                    <tr>
-                        <td style={{ paddingBottom: '30px' }}></td>
-                    </tr>
+                    {(orderType === null) ?
+                        <tr>
+                            <td style={{ paddingBottom: '30px' }}></td>
+                        </tr>
+                        : ""
+                    }
                     {isLoadingFloat ? (
                         <tr>
                             <td colSpan='15'>Loading...</td>
                         </tr>
-                    ) : sortedFloatOrders.length === 0 ? (
+                    ) : filterFloatOrders.length === 0 ? (
                         <tr>
                             <td colSpan='15'>No orders to display yet</td>
                         </tr>
-                    ) : (
-                        sortedFloatOrders.map((item, index) => (
+                    ) : (orderType === 'floatOrder' || orderType === null) ? (
+                        filterFloatOrders.map((item, index) => (
                             <tr key={index}>
                                 <td className={tableFormat(index)}>Float Order</td>
                                 <td className={tableFormat(index)}>{formatDate(item.date)}</td>
@@ -182,16 +261,15 @@ const OrderHistorySummary = () => {
                                 <td className={tableFormat(index)}>{numberToDollar(item.coinTotal)}</td>
                                 <td className={tableFormat(index)}>{numberToDollar(item.grandTotal)}</td>
                                 <td className={`${tableFormat(index)} ${changeStatus(item)}`}>
-                                    {item.status === "received" ? "Received" : "Pending"}
+                                    {item.status === "completed" ? "Received" : "Pending"}
                                 </td>
                             </tr>
-                        )))}
+                        ))) : ""
+                    }
                 </tbody>
             </table>
+
         </div >
-    );
-
+    )
 }
-
-
 export default OrderHistorySummary;

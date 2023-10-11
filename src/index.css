@@ -334,12 +334,29 @@ a {
   padding-left: 10px;
 }
 
-.filter-orders {
+.filter-by-status {
   margin-bottom: 30px;
 }
 
-.filter-orders button {
+.filter-by-status button {
   margin-right: 5px;
+}
+
+.filter-btn-focus {
+  background-color: #80dd7e;
+  padding: 10px;
+  border-radius: 6px;
+  margin-left: 15px;
+  border: 2px solid green;
+
+}
+
+.filter-btn {
+  border: 2px solid var(--primary-color);
+  padding: 10px;
+  border-radius: 6px;
+  margin-left: 15px;
+  background-color: var(--secondary-color);
 }
 
 /* Order History */

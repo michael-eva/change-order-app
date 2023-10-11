@@ -59,7 +59,7 @@ export default function FloatOrderHistory({ dateFilter, selectedDay, pendingFloa
                             onChange={handleStatusChange}
                         >
                             <option value="pending">Pending</option>
-                            <option value="received">Received</option>
+                            <option value="completed">Received</option>
                         </select>
                     </td>
                 </tr>
