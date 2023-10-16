@@ -334,6 +334,10 @@ a {
   padding-left: 10px;
 }
 
+.filter-container {
+  /* display: flex; */
+}
+
 .filter-by-status {
   margin-bottom: 30px;
 }
@@ -729,6 +733,7 @@ th {
 
 .warning-limit {
   background-color: red;
+  border-radius: 6px;
 }
 
 

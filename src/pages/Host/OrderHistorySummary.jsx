@@ -112,57 +112,59 @@ const OrderHistorySummary = () => {
 
     return (
         <div className="order-history-summary">
-            <div className="filter-by-customer">
-                <select
-                    onChange={(e) => {
-                        genNewSearchParams('company-name', e.target.value)
-                        setSelectedClient(e.target.value)
-                    }}
-                    value={clientFilter}
-                >
-                    {clientData.map((client, index) => (
-                        <option
-                            key={index}
-                            value={client.companyName}
-                        >
-                            {client.companyName}
-                        </option>)
-                    )}
-                </select>
-                <button onClick={() => {
-                    genNewSearchParams('company-name', null)
-                    setSelectedClient(null)
-                }}>Clear</button>
+            <div className="filter-container">
+                <div className="filter-by-customer">
+                    <select
+                        onChange={(e) => {
+                            genNewSearchParams('company-name', e.target.value)
+                            setSelectedClient(e.target.value)
+                        }}
+                        value={clientFilter}
+                    >
+                        {clientData.map((client, index) => (
+                            <option
+                                key={index}
+                                value={client.companyName}
+                            >
+                                {client.companyName}
+                            </option>)
+                        )}
+                    </select>
+                    <button onClick={() => {
+                        genNewSearchParams('company-name', null)
+                        setSelectedClient(null)
+                    }}>Clear</button>
 
-            </div>
-            <div className="filter-by-type">
-                <h4>Type:</h4>
-                <button
-                    className={orderType === null ? "filter-btn-focus" : "filter-btn"}
-                    onClick={() => setOrderType(null)}>
-                    All
-                </button>
-                <button
-                    className={orderType === 'floatOrder' ? "filter-btn-focus" : "filter-btn"}
-                    onClick={() => setOrderType('floatOrder')}>Float Order</button>
-                <button
-                    className={orderType === 'changeOrder' ? "filter-btn-focus" : "filter-btn"}
-                    onClick={() => setOrderType('changeOrder')}>Change Order</button>
+                </div>
+                <div className="filter-by-type">
+                    <h4>Type:</h4>
+                    <button
+                        className={orderType === null ? "filter-btn-focus" : "filter-btn"}
+                        onClick={() => setOrderType(null)}>
+                        All
+                    </button>
+                    <button
+                        className={orderType === 'floatOrder' ? "filter-btn-focus" : "filter-btn"}
+                        onClick={() => setOrderType('floatOrder')}>Float Order</button>
+                    <button
+                        className={orderType === 'changeOrder' ? "filter-btn-focus" : "filter-btn"}
+                        onClick={() => setOrderType('changeOrder')}>Change Order</button>
 
-            </div>
-            <div className="filter-by-status">
-                <h4>Filter by:</h4>
-                <button
-                    className={pendingFilter === null ? "filter-btn-focus" : "filter-btn"}
-                    onClick={() => genNewSearchParams('status', null)}>
-                    All
-                </button>
-                <button
-                    className={pendingFilter === 'completed' ? "filter-btn-focus" : "filter-btn"}
-                    onClick={() => genNewSearchParams('status', 'completed')}>Packed / Received</button>
-                <button
-                    className={pendingFilter === 'pending' ? "filter-btn-focus" : "filter-btn"}
-                    onClick={() => genNewSearchParams('status', 'pending')}>Pending</button>
+                </div>
+                <div className="filter-by-status">
+                    <h4>Filter by:</h4>
+                    <button
+                        className={pendingFilter === null ? "filter-btn-focus" : "filter-btn"}
+                        onClick={() => genNewSearchParams('status', null)}>
+                        All
+                    </button>
+                    <button
+                        className={pendingFilter === 'completed' ? "filter-btn-focus" : "filter-btn"}
+                        onClick={() => genNewSearchParams('status', 'completed')}>Packed / Received</button>
+                    <button
+                        className={pendingFilter === 'pending' ? "filter-btn-focus" : "filter-btn"}
+                        onClick={() => genNewSearchParams('status', 'pending')}>Pending</button>
+                </div>
             </div>
             {orderError && <p>Error fetching orders: {orderError.message}</p>}
             {floatError && <p>Error fetching float orders: {floatError.message}</p>}
