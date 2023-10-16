@@ -335,11 +335,12 @@ a {
 }
 
 .filter-container {
-  /* display: flex; */
+  display: flex;
+  gap: 90px;
 }
 
 .filter-by-status {
-  margin-bottom: 30px;
+  margin-bottom: 70px;
 }
 
 .filter-by-status button {
@@ -361,6 +362,16 @@ a {
   border-radius: 6px;
   margin-left: 15px;
   background-color: var(--secondary-color);
+}
+
+.clear-filters {
+  display: flex;
+  align-items: center;
+}
+
+.filter-by-customer {
+  /* display: flex; */
+  /* flex-direction: column; */
 }
 
 /* Order History */

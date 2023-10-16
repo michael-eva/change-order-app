@@ -21,6 +21,7 @@ const OrderHistorySummary = () => {
     const pendingFilter = searchParams.get("status")
     const clientFilter = searchParams.get('company-name')
 
+
     const getClientId = () => {
         const clientDetails = clientData.filter(client => client.companyName === selectedClient)
         return clientDetails[0]?.id
@@ -108,12 +109,33 @@ const OrderHistorySummary = () => {
         setSearchParams(`?${sp.toString()}`)
     }
 
-    console.log("selected client:", selectedClient);
+    const clearFilters = () => {
+        setSearchParams('')
+        setOrderType(null)
+        setSelectedClient(null)
+    }
+    console.log(selectedClient);
 
+    useEffect(() => {
+        if (selectedClient) {
+            setOrderType('changeOrder')
+        }
+    }, [selectedClient])
     return (
         <div className="order-history-summary">
+            <h3>Filter By:</h3>
             <div className="filter-container">
                 <div className="filter-by-customer">
+                    <h4>Customer:</h4>
+                    <button
+                        className={selectedClient === null ? "filter-btn-focus" : "filter-btn"}
+                        onClick={() => {
+                            setSelectedClient(null)
+                            genNewSearchParams('company-name', null)
+                        }}
+                    >
+                        All
+                    </button>
                     <select
                         onChange={(e) => {
                             genNewSearchParams('company-name', e.target.value)
@@ -130,10 +152,6 @@ const OrderHistorySummary = () => {
                             </option>)
                         )}
                     </select>
-                    <button onClick={() => {
-                        genNewSearchParams('company-name', null)
-                        setSelectedClient(null)
-                    }}>Clear</button>
 
                 </div>
                 <div className="filter-by-type">
@@ -152,7 +170,7 @@ const OrderHistorySummary = () => {
 
                 </div>
                 <div className="filter-by-status">
-                    <h4>Filter by:</h4>
+                    <h4>Status:</h4>
                     <button
                         className={pendingFilter === null ? "filter-btn-focus" : "filter-btn"}
                         onClick={() => genNewSearchParams('status', null)}>
@@ -164,6 +182,9 @@ const OrderHistorySummary = () => {
                     <button
                         className={pendingFilter === 'pending' ? "filter-btn-focus" : "filter-btn"}
                         onClick={() => genNewSearchParams('status', 'pending')}>Pending</button>
+                </div>
+                <div className="clear-filters">
+                    <button onClick={() => clearFilters()}>Clear all filters</button>
                 </div>
             </div>
             {orderError && <p>Error fetching orders: {orderError.message}</p>}
