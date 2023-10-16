@@ -2,8 +2,8 @@
 import { numberToDollar } from "../../utils/hostUtils";
 
 export default function RunningTotal({ changeOrder, floatOrder }) {
-    const RFloatOrder = floatOrder.filter(order => order.status === 'received')
-    const POrder = changeOrder.filter(order => order.status === 'packed')
+    const RFloatOrder = floatOrder.filter(order => order.status === 'completed')
+    const POrder = changeOrder.filter(order => order.status === 'completed')
 
     const sumChangeOrders = (columnName) => {
         return POrder?.reduce((total, item) => {
