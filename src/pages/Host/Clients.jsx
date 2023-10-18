@@ -2,10 +2,11 @@ import { useState, useEffect } from "react"
 import supabase from "../../config/supabaseClient"
 import Toggle from "../../Toggle"
 import { AiOutlinePlusCircle } from 'react-icons/ai';
+import AddClient from "../../components/HostComponents/AddClient";
 
 export default function Clients() {
     const [clients, setClients] = useState()
-    // const [currentUser, setCurrentUser] = useState('')
+    const [searchQuery, setSearchQuery] = useState('')
 
     useEffect(() => {
         fetchData()
@@ -17,21 +18,38 @@ export default function Clients() {
             .select("*")
         setClients(data)
     }
+    const filteredClients = clients?.filter((client) =>
+        client.companyName.toLowerCase().includes(searchQuery.toLowerCase())
+    )
 
+    const handleSearch = (e) => {
+        setSearchQuery(e.target.value)
+    }
     return (
         <div className="clients-container">
             <div className="client-search-bar-nav">
-                <h2>Clients</h2>
-                <div className="search-bar-container">
-                    {/* <div>Search Bar</div> */}
-                    <button><AiOutlinePlusCircle size="20px" />Add Client</button>
+                <div className="client-search-bar">
+                    <h2>Clients</h2>
+                    <input
+                        type="text"
+                        placeholder="Search Clients"
+                        value={searchQuery}
+                        onChange={handleSearch}
+                    />
                 </div>
+                <Toggle>
+                    <Toggle.Button>
+                        <AiOutlinePlusCircle size="20px" />Add Client
+                    </Toggle.Button>
+                    <Toggle.On>
+                        <AddClient />
+                    </Toggle.On>
+                </Toggle>
             </div>
-
-            <table>
+            <table className="clients-list-table">
                 <thead>
                     <tr>
-                        <th>Company Name</th>
+                        <th >Company Name</th>
                         <th>Address</th>
                         <th>Contact Name</th>
                         <th>Contact Phone</th>
@@ -39,8 +57,8 @@ export default function Clients() {
                     </tr>
                 </thead>
                 <tbody>
-                    {clients && clients.map((client, index) => (
-                        <tr key={index}>
+                    {clients && filteredClients.map((client, index) => (
+                        <tr key={index} className="clients-list">
                             <td>{client.companyName}</td>
                             <td>{client.address}</td>
                             <td>{client.contactName}</td>
@@ -52,15 +70,7 @@ export default function Clients() {
             </table>
 
 
-            <Toggle>
 
-                <Toggle.Button>
-                    <Toggle.On>
-
-                    </Toggle.On>
-
-                </Toggle.Button>
-            </Toggle>
 
 
         </div >

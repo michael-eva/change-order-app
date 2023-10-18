@@ -70,11 +70,11 @@ const ClientOrderHistory = ({ session }) => {
                 <button onClick={() => setSearchParams({})}>
                     All
                 </button>
-                <button onClick={() => setSearchParams("?status=packed")}>Packed</button>
+                <button onClick={() => setSearchParams("?status=completed")}>Packed</button>
                 <button onClick={() => setSearchParams({ status: 'pending' })}>Pending</button>
             </div>
             {sortedOrders.length > 0 ? (
-                <table>
+                <table className="client-order-table">
                     <thead>
                         <tr>
                             <th>Date</th>

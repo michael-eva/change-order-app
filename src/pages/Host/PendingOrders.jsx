@@ -137,13 +137,13 @@ export default function PendingOrders({ session }) {
     return (
         <>
             <Toggle>
-                <Toggle.Button><button>Add Float Order</button></Toggle.Button>
+                <Toggle.Button>Add Float Order</Toggle.Button>
                 <Toggle.On>
                     <FloatOrderInput session={session} />
                 </Toggle.On>
             </Toggle>
             <WeekSlider clickHandle={clickHandle} selectedDay={selectedDay} pendingOrders={pendingOrders} pendingFloatOrder={pendingFloatOrder} />
-            <table>
+            <table className="pending-orders-table">
                 <thead>
                     <tr>
                         <th>Name</th>

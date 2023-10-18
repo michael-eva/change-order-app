@@ -190,7 +190,7 @@ const OrderHistorySummary = () => {
             {orderError && <p>Error fetching orders: {orderError.message}</p>}
             {floatError && <p>Error fetching float orders: {floatError.message}</p>}
             {clientError && <p>Error fetching client data: {clientError.message}</p>}
-            <table>
+            <table className="order-history-table">
                 <thead>
                     <tr>
                         <th>Company Name</th>

@@ -174,9 +174,6 @@ a {
 }
 
 
-
-
-
 /* Change order pahe */
 .change-order-page {
   /* display: flex; */
@@ -369,15 +366,21 @@ a {
   align-items: center;
 }
 
-.filter-by-customer {
-  /* display: flex; */
-  /* flex-direction: column; */
+.client-order-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+/* Pending Orders */
+
+.pending-orders-table {
+  width: 100%;
+  border-collapse: collapse;
 }
 
 /* Order History */
-table {
+.order-history-table {
   width: 100%;
-  /* table-layout: fixed; */
   border-collapse: collapse;
 }
 
@@ -693,9 +696,25 @@ th {
   gap: 5px;
   height: 40px;
   align-items: center;
+  justify-content: end;
 }
 
-.search-bar-container button {
+.client-search-bar {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+}
+
+.client-search-bar input {
+  all: unset;
+  height: 38px;
+  border: 2px solid grey;
+  border-radius: 6px;
+  box-shadow: inset 1px 1px 3px rgba(0, 0, 0, 1);
+  padding-left: 10px;
+}
+
+.client-search-bar-nav button {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -708,6 +727,25 @@ th {
   ;
   border-radius: 4px;
   cursor: pointer;
+}
+
+.clients-list-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.clients-list-table th {
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+
+.clients-list td {
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.clients-list {
+  border-top: 1px solid grey;
 }
 
 /* CLIENT SETTINGS */
