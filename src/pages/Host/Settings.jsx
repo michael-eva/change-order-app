@@ -72,126 +72,123 @@ function Settings() {
 
     return (
         <>
-            <Toggle>
-                <Toggle.Button>Set Limit Warning?</Toggle.Button>
-                {/* <Toggle.On> */}
-                <form onSubmit={handleSubmit}>
+            <h3>Warning Limit</h3>
+            <p>Enter your warning limit for each denomination:</p>
+            <form onSubmit={handleSubmit}>
 
-                    <div className="input">
-                        <label className='label'>
-                            $50
-                        </label>
-                        <input
-                            type="number"
-                            value={formData.fifty}
-                            name='fifty'
-                            onChange={handleChange}
-                        />
-                    </div>
-                    <div className="input">
-                        <label className='label'>
-                            $20
-                        </label>
-                        <input
-                            type="number"
-                            value={formData.twenty}
-                            name='twenty'
-                            onChange={handleChange}
-                        />
-                    </div>
-                    <div className="input">
-                        <label className='label'>
-                            $10
-                        </label>
-                        <input
-                            type="number"
-                            value={formData.ten}
-                            name='ten'
-                            onChange={handleChange}
-                        />
-                    </div>
-                    <div className="input">
-                        <label className='label'>
-                            $5
-                        </label>
-                        <input
-                            type="number"
-                            value={formData.five}
-                            name='five'
-                            onChange={handleChange}
-                        />
-                    </div>
-                    <div className="input">
-                        <label className='label'>
-                            $2
-                        </label>
-                        <input
-                            type="number"
-                            value={formData.two}
-                            name='two'
-                            onChange={handleChange}
-                        />
-                    </div>
-                    <div className="input">
-                        <label className='label'>
-                            $1
-                        </label>
-                        <input
-                            type="number"
-                            value={formData.one}
-                            name='one'
-                            onChange={handleChange}
-                        />
-                    </div>
-                    <div className="input">
-                        <label className='label'>
-                            50c
-                        </label>
-                        <input
-                            type="number"
-                            value={formData.fiftyCents}
-                            name='fiftyCents'
-                            onChange={handleChange}
-                        />
-                    </div>
-                    <div className="input">
-                        <label className='label'>
-                            20c
-                        </label>
-                        <input
-                            type="number"
-                            value={formData.twentyCents}
-                            name='twentyCents'
-                            onChange={handleChange}
-                        />
-                    </div>
-                    <div className="input">
-                        <label className='label'>
-                            10c
-                        </label>
-                        <input
-                            type="number"
-                            value={formData.tenCents}
-                            name='tenCents'
-                            onChange={handleChange}
-                        />
-                    </div>
-                    <div className="input">
-                        <label className='label'>
-                            5c
-                        </label>
-                        <input
-                            type="number"
-                            value={formData.fiveCents}
-                            name='fiveCents'
-                            onChange={handleChange}
-                        />
-                    </div>
+                <div className="input">
+                    <label className='label'>
+                        $50
+                    </label>
+                    <input
+                        type="number"
+                        value={formData.fifty}
+                        name='fifty'
+                        onChange={handleChange}
+                    />
+                </div>
+                <div className="input">
+                    <label className='label'>
+                        $20
+                    </label>
+                    <input
+                        type="number"
+                        value={formData.twenty}
+                        name='twenty'
+                        onChange={handleChange}
+                    />
+                </div>
+                <div className="input">
+                    <label className='label'>
+                        $10
+                    </label>
+                    <input
+                        type="number"
+                        value={formData.ten}
+                        name='ten'
+                        onChange={handleChange}
+                    />
+                </div>
+                <div className="input">
+                    <label className='label'>
+                        $5
+                    </label>
+                    <input
+                        type="number"
+                        value={formData.five}
+                        name='five'
+                        onChange={handleChange}
+                    />
+                </div>
+                <div className="input">
+                    <label className='label'>
+                        $2
+                    </label>
+                    <input
+                        type="number"
+                        value={formData.two}
+                        name='two'
+                        onChange={handleChange}
+                    />
+                </div>
+                <div className="input">
+                    <label className='label'>
+                        $1
+                    </label>
+                    <input
+                        type="number"
+                        value={formData.one}
+                        name='one'
+                        onChange={handleChange}
+                    />
+                </div>
+                <div className="input">
+                    <label className='label'>
+                        50c
+                    </label>
+                    <input
+                        type="number"
+                        value={formData.fiftyCents}
+                        name='fiftyCents'
+                        onChange={handleChange}
+                    />
+                </div>
+                <div className="input">
+                    <label className='label'>
+                        20c
+                    </label>
+                    <input
+                        type="number"
+                        value={formData.twentyCents}
+                        name='twentyCents'
+                        onChange={handleChange}
+                    />
+                </div>
+                <div className="input">
+                    <label className='label'>
+                        10c
+                    </label>
+                    <input
+                        type="number"
+                        value={formData.tenCents}
+                        name='tenCents'
+                        onChange={handleChange}
+                    />
+                </div>
+                <div className="input">
+                    <label className='label'>
+                        5c
+                    </label>
+                    <input
+                        type="number"
+                        value={formData.fiveCents}
+                        name='fiveCents'
+                        onChange={handleChange}
+                    />
+                </div>
 
-                    <button className='submit-btn'>Submit</button>
-                </form>
-                {/* </Toggle.On> */}
-            </Toggle>
+                <button className='submit-btn'>Submit</button>
+            </form>
 
         </>
     );
