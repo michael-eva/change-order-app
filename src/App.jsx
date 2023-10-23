@@ -24,6 +24,7 @@ import NotFound from "./pages/NotFound";
 import AuthRequired from "./Auth/AuthRequired";
 import HomePage from "./components/HomePage";
 import AdminRequired from "./Admin/AdminRequired";
+import AddClient from "./pages/Host/AddClient";
 // import Auth from "./Auth/Auth";
 
 export default function App() {
@@ -78,6 +79,7 @@ export default function App() {
                             <Route path="/west-sure" element={<HostLayout />}>
                                 <Route index element={< PendingOrders session={session} />} />
                                 <Route path="clients" element={< Clients />} />
+                                <Route path="add-client" element={< AddClient />} />
                                 <Route path="order-history" element={< OrderHistorySummary />} />
                                 <Route path="float-order" element={< FloatOrder />} />
                                 <Route path="settings" element={< Settings />} />

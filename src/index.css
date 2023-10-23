@@ -691,6 +691,20 @@ th {
 
 }
 
+.invite-client {
+  display: flex;
+  gap: 20px;
+}
+
+.invite-client input {
+  all: unset;
+  height: 38px;
+  border: 2px solid grey;
+  border-radius: 6px;
+  box-shadow: inset 1px 1px 3px rgba(0, 0, 0, 1);
+  padding-left: 10px;
+}
+
 .search-bar-container {
   display: flex;
   gap: 5px;
@@ -799,4 +813,8 @@ th {
   border-left: 2px solid #80dd7e;
   border-bottom: 2px solid #80dd7e;
   border-right: 2px solid #80dd7e;
+}
+
+.testing {
+  background-color: blue;
 }

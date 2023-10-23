@@ -1,8 +1,6 @@
 import { useState, useEffect } from "react"
 import supabase from "../../config/supabaseClient"
-import Toggle from "../../Toggle"
-import { AiOutlinePlusCircle } from 'react-icons/ai';
-import AddClient from "../../components/HostComponents/AddClient";
+import AddClient from "./AddClient";
 
 export default function Clients() {
     const [clients, setClients] = useState()
@@ -25,6 +23,7 @@ export default function Clients() {
     const handleSearch = (e) => {
         setSearchQuery(e.target.value)
     }
+
     return (
         <div className="clients-container">
             <div className="client-search-bar-nav">
@@ -37,14 +36,7 @@ export default function Clients() {
                         onChange={handleSearch}
                     />
                 </div>
-                <Toggle>
-                    <Toggle.Button>
-                        <AiOutlinePlusCircle size="20px" />Add Client
-                    </Toggle.Button>
-                    <Toggle.On>
-                        <AddClient />
-                    </Toggle.On>
-                </Toggle>
+                {/* <AddClient /> */}
             </div>
             <table className="clients-list-table">
                 <thead>
