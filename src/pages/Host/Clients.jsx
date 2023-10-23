@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react"
 import supabase from "../../config/supabaseClient"
-import AddClient from "./AddClient";
+// import AddClient from "./AddClient";
 
 export default function Clients() {
     const [clients, setClients] = useState()
