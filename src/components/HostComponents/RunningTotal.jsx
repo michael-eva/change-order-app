@@ -13,7 +13,7 @@ export default function RunningTotal({ changeOrder, floatOrder }) {
 
     useEffect(() => {
         const fetchLimitWarning = async () => {
-            const { data, error } = await supabase
+            const { data } = await supabase
                 .from('low_limit_warning')
                 .select('*')
                 .single()
@@ -21,7 +21,7 @@ export default function RunningTotal({ changeOrder, floatOrder }) {
             setLowerLimit(data)
         }
         fetchLimitWarning()
-    }, [])
+    }, [userId])
     const sumChangeOrders = (columnName) => {
         return POrder?.reduce((total, item) => {
             const columnValue = parseFloat(item[columnName]) || 0;

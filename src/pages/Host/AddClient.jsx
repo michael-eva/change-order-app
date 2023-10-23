@@ -52,6 +52,7 @@ export default function AddClient() {
                     Invite Client
                 </button>
             </div>
+            <Toaster />
         </form>
     )
 }

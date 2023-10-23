@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import Toggle from '../../Toggle';
 import supabase from '../../config/supabaseClient';
 
 function Settings() {
