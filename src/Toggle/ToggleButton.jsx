@@ -4,9 +4,9 @@ import { ToggleContext } from "./Toggle"
 const ToggleButton = ({ children, className }) => {
     const { toggle } = useContext(ToggleContext)
     return (
-        <button className={className} onClick={toggle}>
+        <div className={className} onClick={toggle}>
             {children}
-        </button>
+        </div>
     )
 }
 
