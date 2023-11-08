@@ -301,7 +301,7 @@ export default function ChangeOrderForm({ session }) {
                             <Toggle.Button>
                                 {clientData[0]?.paymentMethod}*
                             </Toggle.Button>
-                            <Toggle.On><small>Payment method can be updated in client details</small></Toggle.On>
+                            <Toggle.On><small>Payment method can be updated in settings</small></Toggle.On>
                         </Toggle>
                     </span>
                 </div>
