@@ -137,7 +137,7 @@ export default function PendingOrders({ session }) {
     return (
         <>
             <Toggle>
-                <Toggle.Button>Add Float Order</Toggle.Button>
+                <Toggle.Button><button>Add Float Order</button></Toggle.Button>
                 <Toggle.On>
                     <FloatOrderInput session={session} />
                 </Toggle.On>
