@@ -3,7 +3,7 @@ import supabase from "../config/supabaseClient"
 import { Link, useNavigate, useLocation } from "react-router-dom"
 import { fetchClientData } from "../utils/FetchData"
 
-export default function Login({ session }) {
+export default function Login() {
     let navigate = useNavigate()
     const location = useLocation('')
     const [clientData, setClientData] = useState([])

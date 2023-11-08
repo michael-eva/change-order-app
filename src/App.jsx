@@ -25,7 +25,6 @@ import AuthRequired from "./Auth/AuthRequired";
 import HomePage from "./components/HomePage";
 import AdminRequired from "./Admin/AdminRequired";
 import AddClient from "./pages/Host/AddClient";
-// import Auth from "./Auth/Auth";
 
 export default function App() {
     const [session, setSession] = useState(null)
@@ -65,12 +64,12 @@ export default function App() {
                     <Route element={<Layout handleLogout={handleLogout} session={session} />}>
                         <Route path="/" element={<HomePage session={session} />} />
                         <Route path="/signup" element={<Signup />} />
-                        <Route path="/login" element={<Login session={session} />} />
+                        <Route path="/login" element={<Login />} />
                         <Route path="/signup-form" element={<SignUpForm session={session} />} />
-                        <Route element={<AuthRequired session={session} />}>
-                            <Route path="/client-portal" element={<ClientPortalLayout session={session} />} >
+                        <Route element={<AuthRequired />}>
+                            <Route path="/client-portal" element={<ClientPortalLayout />} >
                                 <Route index element={<ClientOrderHistory session={session} />} />
-                                <Route path="client-details" element={<ClientDetails session={session} />} />
+                                <Route path="client-details" element={<ClientDetails />} />
                                 <Route path="update-client-details" element={<UpdateClientDetails session={session} />} />
                                 <Route path="place-order" element={<ChangeOrderForm session={session} />} />
                                 <Route path="settings" element={<ClientSettings session={session} />} />
